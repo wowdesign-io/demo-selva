@@ -8,24 +8,11 @@
 @import './typography.css';
 @import './animations.css';
 
-/* ── Custom scrollbar — minimal 2px line ─── */
+/* ── Hide native scrollbar (replaced by ScrollProgress component) ─── */
 html {
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-primary) transparent;
+  scrollbar-width: none;
 }
 
 ::-webkit-scrollbar {
-  width: 2px;
-}
-
-::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--color-primary);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--color-primary-hover);
+  display: none;
 }

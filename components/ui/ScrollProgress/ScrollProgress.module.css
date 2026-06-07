@@ -1,0 +1,31 @@
+/* ============================================
+   ScrollProgress — custom 2px progress bar
+   Hidden on load, fades in on scroll, fades out after idle
+   ============================================ */
+
+.wrap {
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 2px;
+  height: 100vh;
+  z-index: var(--z-top);
+  opacity: 0;
+  transition: opacity 0.5s var(--ease-out);
+  pointer-events: none;
+}
+
+.track {
+  position: absolute;
+  inset: 0;
+  background: var(--color-border);
+}
+
+.bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: var(--color-primary);
+}
