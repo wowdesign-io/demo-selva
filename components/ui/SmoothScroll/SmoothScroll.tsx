@@ -6,7 +6,8 @@ import Lenis from 'lenis';
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const lenis = new Lenis({ autoRaf: true });
-    return () => lenis.destroy();
+    (window as any).__lenis = lenis;
+    return () => { lenis.destroy(); delete (window as any).__lenis; };
   }, []);
 
   return <>{children}</>;

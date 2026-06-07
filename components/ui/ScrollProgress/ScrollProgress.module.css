@@ -1,7 +1,6 @@
 /* ============================================
-   ScrollProgress — custom scrollbar thumb
-   Mimics native scrollbar: proportional thumb moves down track
-   Hidden on load, fades in on scroll, fades out after idle
+   ScrollProgress — Bay Harbor scroller pattern
+   Frosted glass container, 40vh track, up/down arrows
    ============================================ */
 
 .wrap {
@@ -9,19 +8,113 @@
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  width: 2px;
-  height: 50vh;
   z-index: var(--z-top);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 10px;
+  padding: 12px 8px;
+  border-radius: 30px;
+  pointer-events: none;
   opacity: 0;
-  transition: opacity 0.6s var(--ease-out);
+  transition: opacity 0.4s var(--ease-out);
+}
+
+/* Frosted glass background — appears on hover */
+.wrap::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  border-radius: inherit;
+  background-color: rgba(250, 250, 247, 0.75);
+  backdrop-filter: blur(20px);
+  filter: drop-shadow(0 20px 13px rgba(0,0,0,0.03)) drop-shadow(0 8px 5px rgba(0,0,0,0.08));
+  opacity: 0;
+  transition: opacity 0.4s var(--ease-out), width 0.4s var(--ease-out), height 0.4s var(--ease-out);
+  z-index: 0;
+}
+
+/* Show on scroll */
+.visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Full frosted glass + arrows on hover */
+.wrap:hover::before,
+.wrap:focus-within::before {
+  opacity: 1;
+  width: 100%;
+  height: 100%;
+}
+
+.wrap:hover .arrow,
+.wrap:focus-within .arrow {
+  opacity: 1;
+}
+
+/* ── Arrow buttons ────────────────────────── */
+.arrow {
+  position: relative;
+  z-index: 1;
+  width: 22px;
+  height: 22px;
+  border-radius: 100%;
+  background: transparent url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath stroke='%231A2820' d='m1 5 4-4 4 4'/%3E%3C/svg%3E") no-repeat 50% / 10px 6px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  outline: none;
+  opacity: 0;
+  flex-shrink: 0;
+  transition: opacity 0.4s var(--ease-out), border-color 0.2s var(--ease-out);
+}
+
+.arrow:hover {
+  border-color: rgba(26, 40, 32, 0.15);
+}
+
+.arrowDown {
+  transform: scaleY(-1);
+}
+
+.arrowDisabled {
+  opacity: 0.2 !important;
   pointer-events: none;
 }
 
-.thumb {
+/* ── Track ───────────────────────────────── */
+.track {
+  position: relative;
+  z-index: 1;
+  width: 6px;
+  height: 40vh;
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 3px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ── Indicator (thumb) ───────────────────── */
+.indicator {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  background: var(--color-text-strong);
-  will-change: transform;
+  min-height: 6px;
+  background-color: var(--color-text-strong);
+  border-radius: 3px;
+  cursor: grab;
+  transition: top 0.3s ease-out, height 0.3s ease-out;
+}
+
+.indicator:active {
+  cursor: grabbing;
+}
+
+.noTransition {
+  transition: none;
 }
