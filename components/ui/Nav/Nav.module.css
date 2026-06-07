@@ -1,0 +1,281 @@
+/* ============================================
+   Nav — fixed header with burger, logo, CTA
+   Bay Harbor pattern: burger+temp left | logo center | phone+cta right
+   Announcement bar hides on scroll; nav shifts to top:0
+   ============================================ */
+
+/* ── Announcement bar ────────────────────────── */
+.bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: var(--z-top);
+  height: 32px;
+  background: var(--color-primary);
+  color: rgba(250, 250, 247, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.barHidden {
+  transform: translateY(-100%);
+}
+
+/* ── Main nav ────────────────────────────────── */
+.nav {
+  position: fixed;
+  top: 32px;
+  left: 0;
+  right: 0;
+  z-index: var(--z-top); /* must be above overlay so burger/X stays visible */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-3) var(--space-10);
+  background: var(--color-bg);
+  box-shadow: 0 1px 0 var(--color-border);
+  transition: top var(--duration-base) var(--ease-out);
+}
+
+/* Once bar is hidden, nav slides to top edge */
+.navScrolled {
+  top: 0;
+}
+
+/* ── Left ────────────────────────────────────── */
+.left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  flex: 1;
+}
+
+/* Burger button (3 lines) */
+.burger {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-2);
+  flex-shrink: 0;
+}
+
+.burger span {
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--color-text-strong);
+}
+
+/* Burger → X close state */
+.burgerClose {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-2);
+  flex-shrink: 0;
+}
+
+.closeA,
+.closeB {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--color-text-strong);
+}
+
+.closeA {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.closeB {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Temperature */
+.temp {
+  font-family: var(--font-label);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-muted);
+}
+
+/* ── Center ──────────────────────────────────── */
+.center {
+  flex-shrink: 0;
+}
+
+.wordmark {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-light);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-text-strong);
+  text-decoration: none;
+  display: block;
+}
+
+/* ── Right ───────────────────────────────────── */
+.right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.phone {
+  font-family: var(--font-label);
+  font-size: var(--text-sm);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+.phone:hover {
+  color: var(--color-text-body);
+}
+
+/* CTA pill */
+.cta {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: var(--space-3) var(--space-6);
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  transition: background var(--transition-base), color var(--transition-base);
+}
+
+.cta:hover {
+  background: var(--color-primary);
+  color: var(--color-cta-text);
+}
+
+/* ── Overlay menu ────────────────────────────── */
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: calc(var(--z-top) - 1); /* just below nav so burger stays on top */
+  background: var(--color-primary);
+  display: flex;
+  flex-direction: column;
+  padding: calc(32px + 60px) var(--space-10) var(--space-10);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--duration-slow) var(--ease-out);
+}
+
+.overlayOpen {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Nav links — editorial large type */
+.overlayNav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  flex: 1;
+  gap: var(--space-1);
+  padding-left: var(--space-2);
+}
+
+.overlayLink {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 7vw, 7rem);
+  font-weight: var(--font-weight-light);
+  letter-spacing: var(--tracking-tight);
+  color: rgba(250, 250, 247, 0.6);
+  text-decoration: none;
+  line-height: 1.1;
+  opacity: 0;
+  transform: translateY(12px);
+  transition:
+    color var(--duration-fast) var(--ease-out),
+    opacity var(--duration-base) var(--ease-out),
+    transform var(--duration-base) var(--ease-out);
+}
+
+.overlayOpen .overlayLink {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.overlayLink:hover {
+  color: rgba(250, 250, 247, 1);
+}
+
+/* Overlay footer */
+.overlayFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-8);
+  border-top: 1px solid rgba(250, 250, 247, 0.15);
+}
+
+.overlayMark {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-light);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(250, 250, 247, 0.4);
+}
+
+.overlayCta {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(250, 250, 247, 0.75);
+  border-bottom: 1px solid rgba(250, 250, 247, 0.3);
+  padding-bottom: var(--space-1);
+  transition: color var(--transition-base), border-color var(--transition-base);
+}
+
+.overlayCta:hover {
+  color: rgba(250, 250, 247, 1);
+  border-color: rgba(250, 250, 247, 0.7);
+}
+
+/* ── Responsive ──────────────────────────────── */
+@media (max-width: 768px) {
+  .phone {
+    display: none;
+  }
+
+  .nav {
+    padding: var(--space-3) var(--space-6);
+  }
+
+  .overlayLink {
+    font-size: clamp(2rem, 10vw, 4rem);
+  }
+}

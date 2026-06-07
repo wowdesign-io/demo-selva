@@ -1,0 +1,164 @@
+/* ============================================
+   HeroSection — Bay Harbor 50/50 → full-width scroll animation
+   Wrapper is 200vh tall; inner sticky panel plays the entry animation
+   ============================================ */
+
+/* Scroll runway */
+.wrapper {
+  height: 200vh;
+  position: relative;
+}
+
+/* Sticky hero — stays in view while scrolling through wrapper */
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  overflow: hidden;
+}
+
+/* ── Image panel (left) ──────────────────── */
+.imagePanel {
+  height: 100%;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  will-change: width;
+}
+
+
+/* ── Text panel (right) ──────────────────── */
+.textPanel {
+  height: 100%;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--color-bg);
+  will-change: width, opacity;
+}
+
+.textInner {
+  width: 100%;
+  height: 100%;
+  min-width: 380px; /* prevents text wrapping during collapse */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-20) var(--space-16);
+  position: relative;
+}
+
+/* ── Scroll cue (top of panel) ───────────── */
+.scrollCue {
+  position: absolute;
+  top: calc(32px + 80px); /* below announcement bar + nav */
+  right: var(--space-10);
+}
+
+.scrollLabel {
+  font-family: var(--font-label);
+  font-size: 9px;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  writing-mode: vertical-rl;
+}
+
+/* ── Center logo block ───────────────────── */
+.logoBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-5);
+  text-align: center;
+}
+
+.preLabel {
+  font-family: var(--font-label);
+  font-size: 9px;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.heroWordmark {
+  font-family: var(--font-heading);
+  font-size: clamp(4rem, 8vw, 7rem);
+  font-weight: var(--font-weight-light);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--color-text-strong);
+  line-height: 1;
+  margin: 0;
+}
+
+.rule {
+  width: 1px;
+  height: 48px;
+  background: var(--color-border-strong);
+  margin: var(--space-2) 0;
+}
+
+.tagline {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-light);
+  font-style: italic;
+  color: var(--color-text-body);
+  letter-spacing: 0.01em;
+  text-align: center;
+  max-width: 280px;
+}
+
+/* ── Bottom delivery note ────────────────── */
+.deliveryNote {
+  position: absolute;
+  bottom: var(--space-10);
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-label);
+  font-size: 9px;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 900px) {
+  /* On small screens: stack vertically, skip animation */
+  .wrapper {
+    height: auto;
+  }
+
+  .sticky {
+    position: relative;
+    height: auto;
+    flex-direction: column;
+  }
+
+  .imagePanel {
+    width: 100% !important; /* override Framer Motion style */
+    height: 60vh;
+    flex-shrink: 1;
+  }
+
+  .textPanel {
+    width: 100% !important;
+    opacity: 1 !important;
+    height: auto;
+  }
+
+  .textInner {
+    min-width: 0;
+    padding: var(--space-16) var(--space-8);
+  }
+
+  .scrollCue {
+    display: none;
+  }
+}
