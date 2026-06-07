@@ -1,30 +1,32 @@
 /* ============================================
-   DEMO PRESALES — Design Tokens
+   SELVA RESIDENCES — Design Tokens
    wowdesign presales-site-template v1
+   40 units / 3 floors / Miami / Delivery mid-2027
    Replace all values per project. Never hardcode.
-   Brand values filled in after imagery analysis.
    ============================================ */
 
 :root {
 
-  /* --- Colors (placeholders — swap after brand derivation) --- */
-  --color-bg:              #0C0B08;
-  --color-surface:         #16140F;
-  --color-surface-2:       #1E1B13;
-  --color-border:          rgba(255, 230, 180, 0.08);
-  --color-border-strong:   rgba(255, 230, 180, 0.18);
-  --color-primary:         #C4A76B;
-  --color-primary-hover:   #D4BA82;
-  --color-text-strong:     #F0EAD6;
-  --color-text-body:       #A89E88;
-  --color-text-muted:      #6B6254;
-  --color-cta-bg:          #C4A76B;
-  --color-cta-text:        #0C0B08;
-  --color-overlay:         rgba(12, 11, 8, 0.72);
-  --color-success:         #4CAF7D;
-  --color-error:           #E05252;
+  /* --- Colors --- */
+  --color-bg:              #FAFAF7;   /* warm white */
+  --color-surface:         #F5F3EE;   /* warm cream — cards, panels */
+  --color-surface-2:       #EDE8DF;   /* deeper cream — hover states, inputs */
+  --color-border:          rgba(45, 78, 45, 0.10);
+  --color-border-strong:   rgba(45, 78, 45, 0.22);
+  --color-primary:         #2D4E2D;   /* deep forest green — main accent */
+  --color-primary-hover:   #3D6B3D;
+  --color-accent:          #C9975A;   /* warm amber — from floor plan branding */
+  --color-water:           #5B9BA8;   /* teal/aqua — pools + ocean */
+  --color-text-strong:     #1A2820;   /* near-black, green undertone */
+  --color-text-body:       #4A5E4A;   /* dark olive */
+  --color-text-muted:      #8A9E8A;   /* sage */
+  --color-cta-bg:          #2D4E2D;   /* forest green CTA */
+  --color-cta-text:        #FAFAF7;
+  --color-overlay:         rgba(26, 40, 32, 0.65); /* dark green image overlay */
+  --color-success:         #4A8C5C;
+  --color-error:           #C0392B;
 
-  /* --- Typography (placeholders — swap after brand derivation) --- */
+  /* --- Typography --- */
   --font-heading:          'Cormorant Garamond', serif;
   --font-body:             'DM Sans', sans-serif;
   --font-label:            'Barlow', sans-serif;
@@ -86,10 +88,10 @@
   --border:        1px solid var(--color-border);
   --border-strong: 1px solid var(--color-border-strong);
 
-  /* --- Shadows & Glow --- */
-  --shadow-card:  0 4px 24px rgba(0, 0, 0, 0.4);
-  --shadow-modal: 0 8px 48px rgba(0, 0, 0, 0.6);
-  --glow-primary: 0 0 40px rgba(196, 167, 107, 0.12);
+  /* --- Shadows --- */
+  --shadow-card:  0 2px 16px rgba(26, 40, 32, 0.08);
+  --shadow-modal: 0 8px 48px rgba(26, 40, 32, 0.16);
+  --glow-green:   0 0 48px rgba(45, 78, 45, 0.08);
 
   /* --- Motion --- */
   --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);

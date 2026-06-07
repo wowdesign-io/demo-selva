@@ -24,8 +24,13 @@ const barlow = Barlow({
 });
 
 export const metadata: Metadata = {
-  title: "Demo Presales Site",
-  description: "wowdesign — Demo Presales Site",
+  title: "SELVA Residences",
+  description: "40 residences. Botanical luxury. A place where nature defines every detail.",
+  openGraph: {
+    title: "SELVA Residences",
+    description: "40 residences. Botanical luxury. A place where nature defines every detail.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
