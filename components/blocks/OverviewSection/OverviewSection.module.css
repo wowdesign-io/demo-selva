@@ -1,0 +1,103 @@
+/* ============================================
+   OverviewSection — 42 Pine pattern
+   Centered italic intro + 3 full-bleed nav panels
+   Scroll-driven image zoom + label scale on hover
+   ============================================ */
+
+.section {
+  padding-top: var(--space-24);
+  background: var(--color-bg);
+}
+
+/* ── Intro text ──────────────────────────── */
+.intro {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 var(--space-10) var(--space-20);
+  text-align: center;
+}
+
+.introText {
+  font-family: var(--font-heading);
+  font-size: clamp(1.15rem, 1.8vw, 1.55rem);
+  font-style: italic;
+  font-weight: var(--font-weight-light);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-body);
+  letter-spacing: 0.01em;
+}
+
+/* ── Panels grid ─────────────────────────── */
+.panels {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: clamp(420px, 64vh, 720px);
+}
+
+.panel {
+  position: relative;
+  overflow: hidden;
+  display: block;
+  text-decoration: none;
+}
+
+/* Image wrapper — extends past panel edges so scale never shows empty corners */
+.imageWrap {
+  position: absolute;
+  inset: -7%;
+  will-change: transform;
+}
+
+/* Bottom gradient for label readability */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 35%,
+    rgba(10, 20, 14, 0.62) 100%
+  );
+  z-index: 1;
+  transition: opacity 0.5s var(--ease-out);
+}
+
+.panel:hover .overlay {
+  opacity: 0.85;
+}
+
+/* Section label */
+.label {
+  position: absolute;
+  bottom: var(--space-10);
+  left: var(--space-10);
+  z-index: 2;
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 3.5vw, 3.8rem);
+  font-weight: var(--font-weight-light);
+  letter-spacing: 0.02em;
+  color: var(--color-on-primary-strong);
+  line-height: 1;
+  transform-origin: left bottom;
+  transition: transform 0.5s var(--ease-out);
+}
+
+.panel:hover .label {
+  transform: scale(1.08);
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 768px) {
+  .panels {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .panel {
+    height: 55vw;
+    min-height: 260px;
+  }
+
+  .intro {
+    padding: 0 var(--space-6) var(--space-16);
+  }
+}
