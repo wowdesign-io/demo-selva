@@ -1,0 +1,143 @@
+/* ============================================
+   ResidencesSection
+   Left intro → uneven 2-image grid → CTA button
+   Pattern: 2200 Brickell adapted for SELVA
+   ============================================ */
+
+.section {
+  background: var(--color-bg);
+  padding: var(--space-32) 0;
+}
+
+.container {
+  max-width: var(--container-wide);
+  margin: 0 auto;
+  padding: 0 var(--space-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+/* ── Intro ───────────────────────────────── */
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+  max-width: 600px;
+}
+
+.label {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2.6rem, 4.5vw, 5rem);
+  font-weight: var(--font-weight-light);
+  font-style: italic;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--color-text-strong);
+  margin: 0;
+}
+
+.sub {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-body);
+  max-width: 480px;
+  margin: 0;
+}
+
+/* ── Two images — uneven grid ────────────── */
+.images {
+  display: grid;
+  grid-template-columns: 58fr 40fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+.imageLarge {
+  position: relative;
+  height: clamp(380px, 62vh, 680px);
+  overflow: hidden;
+}
+
+/* Smaller image offset downward for editorial feel */
+.imageSmall {
+  position: relative;
+  height: clamp(280px, 48vh, 520px);
+  margin-top: var(--space-20);
+  overflow: hidden;
+}
+
+/* ── CTA button ──────────────────────────── */
+.ctaWrap {
+  display: flex;
+}
+
+.cta {
+  display: inline-flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 3rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--space-10);
+  font-family: var(--font-label);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-cta-text);
+  background: var(--color-cta-bg);
+  transition: background-color var(--transition-base);
+}
+
+/* Slide-up duplicate text on hover (2200 Brickell pattern) */
+.cta span {
+  display: block;
+  transition: transform 0.35s var(--ease-out);
+  line-height: 3rem;
+}
+
+.cta span + span {
+  margin-top: -3rem;
+}
+
+.cta:hover span {
+  transform: translateY(-100%);
+}
+
+.cta:hover {
+  background: var(--color-primary-hover);
+}
+
+/* ── Responsive ──────────────────────────── */
+@media (max-width: 768px) {
+  .images {
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  .imageSmall {
+    margin-top: 0;
+    height: clamp(240px, 55vw, 380px);
+  }
+
+  .imageLarge {
+    height: clamp(300px, 65vw, 480px);
+  }
+
+  .container {
+    padding: 0 var(--space-6);
+    gap: var(--space-12);
+  }
+}
