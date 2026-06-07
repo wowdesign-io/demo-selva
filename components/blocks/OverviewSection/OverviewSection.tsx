@@ -6,6 +6,25 @@ import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import styles from './OverviewSection.module.css';
 
+const INTRO_LINES = [
+  "Nestled where Miami’s botanical soul meets the open sky,",
+  "SELVA presents forty private residences — a rare collection",
+  "where verdant canopy, bespoke interiors, and the city converge.",
+];
+
+const introContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.14 } },
+};
+
+const introLine = {
+  hidden: { y: '110%' },
+  visible: {
+    y: '0%',
+    transition: { duration: 1.05, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
 const PANELS = [
   {
     label: 'Residences',
@@ -59,13 +78,23 @@ function OverviewPanel({ panel }: { panel: typeof PANELS[number] }) {
 export default function OverviewSection() {
   return (
     <section className={styles.section}>
-      <div className={styles.intro}>
+      <motion.div
+        className={styles.intro}
+        variants={introContainer}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: '-80px' }}
+      >
         <p className={styles.introText}>
-          Nestled where Miami&apos;s botanical soul meets the open sky, SELVA presents forty private residences —
-          a rare collection where verdant canopy, bespoke interiors,
-          and the rhythm of the city converge.
+          {INTRO_LINES.map((line, i) => (
+            <span key={i} className={styles.lineWrap}>
+              <motion.span className={styles.line} variants={introLine}>
+                {line}
+              </motion.span>
+            </span>
+          ))}
         </p>
-      </div>
+      </motion.div>
 
       <div className={styles.panels}>
         {PANELS.map((panel) => (

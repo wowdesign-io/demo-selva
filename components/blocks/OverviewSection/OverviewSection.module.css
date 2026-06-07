@@ -27,6 +27,17 @@
   letter-spacing: 0.01em;
 }
 
+/* Line mask reveal */
+.lineWrap {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.1em; /* prevent descender clip */
+}
+
+.line {
+  display: block;
+}
+
 /* ── Panels grid ─────────────────────────── */
 .panels {
   display: grid;
