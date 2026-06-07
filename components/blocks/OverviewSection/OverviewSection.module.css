@@ -11,7 +11,7 @@
 
 /* ── Intro text ──────────────────────────── */
 .intro {
-  max-width: 860px;
+  max-width: 940px;
   margin: 0 auto;
   padding: 0 var(--space-10) var(--space-20);
   text-align: center;
@@ -19,10 +19,10 @@
 
 .introText {
   font-family: var(--font-heading);
-  font-size: clamp(1.1rem, 1.55vw, 1.4rem);
+  font-size: clamp(1.25rem, 1.75vw, 1.6rem);
   font-style: italic;
   font-weight: var(--font-weight-regular);
-  line-height: 1.45;
+  line-height: 1.38;
   color: var(--color-text-body);
   letter-spacing: 0.01em;
 }
