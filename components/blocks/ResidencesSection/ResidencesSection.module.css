@@ -58,23 +58,29 @@
 /* ── Three-element image composition ────── */
 .images {
   display: grid;
-  grid-template-columns: 46fr 16fr 36fr;
-  gap: var(--space-10);
+  grid-template-columns: 44fr 20fr 36fr;
+  gap: 0;              /* gaps handled via padding so center can bleed behind */
   align-items: start;
 }
 
-/* Left render — largest */
+/* Left render — front, half the top offset of right */
 .imageLarge {
   position: relative;
   height: clamp(280px, 44vh, 500px);
+  margin-top: var(--space-8);  /* half of right image's space-16 */
+  padding-right: var(--space-5);
   overflow: hidden;
+  z-index: 1;
 }
 
-/* Center botanical placeholder — taller, sits in its own column */
+/* Center botanical — bleeds behind both side images via negative margins */
 .imageCenter {
   position: relative;
   height: clamp(340px, 54vh, 600px);
+  margin-left: calc(var(--space-5) * -1);
+  margin-right: calc(var(--space-5) * -1);
   overflow: hidden;
+  z-index: 0;
 }
 
 /* Placeholder: leaves-bg as stand-in until real plant asset arrives */
@@ -86,12 +92,14 @@
   background-position: center;
 }
 
-/* Right render — shorter, offset downward */
+/* Right render — shorter, offset downward, front */
 .imageSmall {
   position: relative;
   height: clamp(220px, 36vh, 400px);
   margin-top: var(--space-16);
+  padding-left: var(--space-5);
   overflow: hidden;
+  z-index: 1;
 }
 
 /* ── CTA button ──────────────────────────── */
@@ -118,15 +126,12 @@
   transition: background-color var(--transition-base);
 }
 
-/* Slide-up duplicate text on hover (2200 Brickell pattern) */
+/* Slide-up duplicate text on hover — span 2 hides below, slides up on hover */
 .cta span {
   display: block;
-  transition: transform 0.35s var(--ease-out);
+  flex-shrink: 0;
   line-height: 3rem;
-}
-
-.cta span + span {
-  margin-top: -3rem;
+  transition: transform 0.35s var(--ease-out);
 }
 
 .cta:hover span {
