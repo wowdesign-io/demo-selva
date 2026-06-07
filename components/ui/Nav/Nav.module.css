@@ -124,9 +124,10 @@
 
 .wordmark {
   font-family: var(--font-heading);
-  font-size: var(--text-2xl);
+  font-size: calc(var(--text-2xl) * 1.25);
   font-weight: var(--font-weight-light);
   letter-spacing: 0.22em;
+  line-height: 1;
   text-transform: uppercase;
   color: var(--color-text-strong);
   text-decoration: none;
