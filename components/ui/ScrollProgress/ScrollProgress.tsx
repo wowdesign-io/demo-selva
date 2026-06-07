@@ -5,20 +5,28 @@ import styles from './ScrollProgress.module.css';
 
 export default function ScrollProgress() {
   const wrapRef = useRef<HTMLDivElement>(null);
-  const barRef = useRef<HTMLDivElement>(null);
+  const thumbRef = useRef<HTMLDivElement>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const wrap = wrapRef.current;
-    const bar = barRef.current;
-    if (!wrap || !bar) return;
+    const thumb = thumbRef.current;
+    if (!wrap || !thumb) return;
 
-    const onScroll = () => {
-      const scrolled = window.scrollY;
-      const total = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = total > 0 ? (scrolled / total) * 100 : 0;
+    const update = () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight;
+      const winHeight = window.innerHeight;
+      const scrollable = docHeight - winHeight;
 
-      bar.style.height = `${pct}%`;
+      // Thumb height = viewport/document ratio, min 40px
+      const thumbH = Math.max(40, (winHeight / docHeight) * winHeight);
+      const maxTravel = winHeight - thumbH;
+      const thumbTop = scrollable > 0 ? (scrollTop / scrollable) * maxTravel : 0;
+
+      thumb.style.height = `${thumbH}px`;
+      thumb.style.transform = `translateY(${thumbTop}px)`;
+
       wrap.style.opacity = '1';
 
       if (timerRef.current) clearTimeout(timerRef.current);
@@ -27,17 +35,19 @@ export default function ScrollProgress() {
       }, 1200);
     };
 
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+
     return () => {
-      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('scroll', update);
+      window.removeEventListener('resize', update);
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, []);
 
   return (
     <div ref={wrapRef} className={styles.wrap}>
-      <div className={styles.track} />
-      <div ref={barRef} className={styles.bar} />
+      <div ref={thumbRef} className={styles.thumb} />
     </div>
   );
 }
