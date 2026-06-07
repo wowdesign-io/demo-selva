@@ -13,12 +13,12 @@ export default function HeroSection() {
     offset: ['start start', 'end start'],
   });
 
-  // Image expands from 50% → 100% as scroll progresses
+  // Image expands from 50% → 100%, sliding over the text panel
   const imageWidth = useTransform(scrollYProgress, [0, 0.75], ['50%', '100%']);
 
-  // Text panel: fade out first, then collapse width
-  const textOpacity = useTransform(scrollYProgress, [0, 0.45], [1, 0]);
-  const textWidth = useTransform(scrollYProgress, [0, 0.75], ['50%', '0%']);
+  // Text panel stays fixed — only content fades + shrinks
+  const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const textScale = useTransform(scrollYProgress, [0, 0.6], [1, 0.88]);
 
   // Subtle upward parallax on the "scroll to explore" cue
   const cueY = useTransform(scrollYProgress, [0, 0.3], [0, -12]);
@@ -29,7 +29,7 @@ export default function HeroSection() {
     <div ref={wrapperRef} className={styles.wrapper}>
       <div className={styles.sticky}>
 
-        {/* Left — image panel, expands to full width on scroll */}
+        {/* Left — image panel, expands over text panel on scroll */}
         <motion.div className={styles.imagePanel} style={{ width: imageWidth }}>
           <Image
             src="/images/hero/360-front.jpg"
@@ -41,12 +41,9 @@ export default function HeroSection() {
           />
         </motion.div>
 
-        {/* Right — text panel, collapses on scroll */}
-        <motion.div
-          className={styles.textPanel}
-          style={{ width: textWidth, opacity: textOpacity }}
-        >
-          <div className={styles.textInner}>
+        {/* Right — text panel stays fixed; content fades + shrinks */}
+        <div className={styles.textPanel}>
+          <motion.div className={styles.textInner} style={{ opacity: textOpacity, scale: textScale }}>
 
             {/* Top: scroll cue */}
             <motion.div
@@ -69,8 +66,8 @@ export default function HeroSection() {
             {/* Bottom: delivery note */}
             <p className={styles.deliveryNote}>Delivery Mid-2027</p>
 
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
 
       </div>
     </div>
