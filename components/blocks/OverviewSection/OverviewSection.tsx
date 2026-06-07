@@ -21,7 +21,7 @@ const introLine = {
   hidden: { y: '110%' },
   visible: {
     y: '0%',
-    transition: { duration: 1.05, ease: [0.16, 1, 0.3, 1] },
+    transition: { duration: 1.05, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
   },
 };
 
