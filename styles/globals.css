@@ -1,0 +1,9 @@
+/* ============================================
+   Globals — imports all style sheets
+   Load this once in app/layout.tsx
+   ============================================ */
+
+@import './tokens.css';
+@import './reset.css';
+@import './typography.css';
+@import './animations.css';
