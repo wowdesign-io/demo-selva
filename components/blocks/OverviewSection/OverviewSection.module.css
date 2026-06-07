@@ -19,7 +19,7 @@
 
 .introText {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-size: clamp(1.6rem, 2.3vw, 2.6rem);
   font-style: italic;
   font-weight: var(--font-weight-regular);
   line-height: 1.18;
