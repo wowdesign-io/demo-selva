@@ -77,8 +77,8 @@
 .imageCenter {
   position: relative;
   height: clamp(340px, 54vh, 600px);
-  margin-left: -30px;
-  margin-right: -30px;
+  margin-left: -70px;
+  margin-right: -70px;
   z-index: 1;
   overflow: hidden;
 }
