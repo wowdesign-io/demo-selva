@@ -1,0 +1,13 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Overshots the wrap so scale never reveals edges */
+.inner {
+  position: absolute;
+  inset: -6%;
+  will-change: transform;
+}
