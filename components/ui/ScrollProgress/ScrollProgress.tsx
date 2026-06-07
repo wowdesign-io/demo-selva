@@ -19,9 +19,10 @@ export default function ScrollProgress() {
       const winHeight = window.innerHeight;
       const scrollable = docHeight - winHeight;
 
-      // Thumb height = viewport/document ratio, min 40px
-      const thumbH = Math.max(40, (winHeight / docHeight) * winHeight);
-      const maxTravel = winHeight - thumbH;
+      // Track is 50vh; thumb height proportional to viewport/doc ratio, min 24px
+      const trackH = winHeight * 0.5;
+      const thumbH = Math.max(24, (winHeight / docHeight) * trackH);
+      const maxTravel = trackH - thumbH;
       const thumbTop = scrollable > 0 ? (scrollTop / scrollable) * maxTravel : 0;
 
       thumb.style.height = `${thumbH}px`;
