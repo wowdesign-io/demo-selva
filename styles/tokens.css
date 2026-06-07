@@ -26,6 +26,12 @@
   --color-success:         #4A8C5C;
   --color-error:           #C0392B;
 
+  /* Text on --color-primary (forest green) surfaces — overlay menu, bar, green panels */
+  --color-on-primary:        rgba(250, 250, 247, 0.88); /* readable body text */
+  --color-on-primary-strong: rgba(250, 250, 247, 1);    /* hover / emphasis */
+  --color-on-primary-muted:  rgba(250, 250, 247, 0.45); /* decorative / labels */
+  --color-on-primary-border: rgba(250, 250, 247, 0.18); /* dividers / pill borders */
+
   /* --- Typography --- */
   --font-heading:          'Cormorant Garamond', serif;
   --font-body:             'DM Sans', sans-serif;
