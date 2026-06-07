@@ -14,11 +14,11 @@ export default function HeroSection() {
   });
 
   // Image expands from 50% → 100%, sliding over the text panel
-  const imageWidth = useTransform(scrollYProgress, [0, 0.52], ['50%', '100%']);
+  const imageWidth = useTransform(scrollYProgress, [0, 0.38], ['50%', '100%']);
 
   // Text panel stays fixed — only content fades + shrinks
-  const textOpacity = useTransform(scrollYProgress, [0, 0.35], [1, 0]);
-  const textScale = useTransform(scrollYProgress, [0, 0.4], [1, 0.88]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
+  const textScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.88]);
 
   // Subtle upward parallax on the "scroll to explore" cue
   const cueY = useTransform(scrollYProgress, [0, 0.3], [0, -12]);
