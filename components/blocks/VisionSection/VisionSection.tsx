@@ -25,10 +25,10 @@ export default function VisionSection() {
   return (
     <section className={styles.section}>
 
-      {/* Subtle botanical grain texture — no rendering */}
-      <div className={styles.texture} aria-hidden />
-
       <div className={styles.inner}>
+        {/* Leaves background — only behind the copy area */}
+        <div className={styles.leavesBg} aria-hidden />
+        <div className={styles.leavesOverlay} aria-hidden />
 
         {/* ── Left: display heading ── */}
         <div className={styles.headingCol}>
