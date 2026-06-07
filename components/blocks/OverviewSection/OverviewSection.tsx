@@ -46,7 +46,8 @@ function OverviewPanel({ panel }: { panel: typeof PANELS[number] }) {
           alt={panel.alt}
           fill
           style={{ objectFit: 'cover', objectPosition: 'center' }}
-          sizes="33vw"
+          sizes="40vw"
+          quality={90}
         />
       </motion.div>
       <div className={styles.overlay} />
