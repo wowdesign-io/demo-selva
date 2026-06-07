@@ -25,10 +25,12 @@ export default function VisionSection() {
   return (
     <section className={styles.section}>
 
-      <div className={styles.inner}>
-        {/* Leaves background — only behind the copy area */}
+      {/* Full-width band — leaves bg stretches edge to edge */}
+      <div className={styles.copyBand}>
         <div className={styles.leavesBg} aria-hidden />
         <div className={styles.leavesOverlay} aria-hidden />
+
+      <div className={styles.inner}>
 
         {/* ── Left: display heading ── */}
         <div className={styles.headingCol}>
@@ -75,7 +77,8 @@ export default function VisionSection() {
           </AnimateIn>
         </div>
 
-      </div>
+      </div>{/* .inner */}
+      </div>{/* .copyBand */}
 
       {/* ── Full-width render image below ── */}
       <div className={styles.imageWrap}>

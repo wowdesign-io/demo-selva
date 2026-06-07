@@ -10,20 +10,13 @@
   overflow: hidden;
 }
 
-/* ── Content row — leaves bg lives here ─── */
-.inner {
+/* ── Full-width band — bg stretches edge to edge ── */
+.copyBand {
   position: relative;
   isolation: isolate;
-  display: grid;
-  grid-template-columns: 52fr 48fr;
-  gap: var(--space-16);
-  align-items: end;
-  max-width: var(--container-wide);
-  margin: 0 auto;
-  padding: var(--space-24) var(--space-16) var(--space-16);
 }
 
-/* Leaves photo layer */
+/* Leaves photo — full width */
 .leavesBg {
   position: absolute;
   inset: 0;
@@ -33,12 +26,23 @@
   background-position: center;
 }
 
-/* Light sage-green overlay at 80% — derived from brand primary */
+/* Light sage-green overlay at 82% */
 .leavesOverlay {
   position: absolute;
   inset: 0;
   z-index: -1;
   background-color: rgba(224, 237, 218, 0.82);
+}
+
+/* ── Content grid — centered, max-width ─── */
+.inner {
+  display: grid;
+  grid-template-columns: 52fr 48fr;
+  gap: var(--space-16);
+  align-items: end;
+  max-width: var(--container-wide);
+  margin: 0 auto;
+  padding: var(--space-24) var(--space-16) var(--space-16);
 }
 
 /* ── Left: label + heading ───────────────── */
@@ -158,6 +162,7 @@
   .inner {
     padding: var(--space-16) var(--space-6) var(--space-10);
   }
+
 
   .imageWrap {
     height: 55vw;

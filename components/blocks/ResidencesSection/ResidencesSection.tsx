@@ -28,24 +28,34 @@ export default function ResidencesSection() {
           </AnimateIn>
         </div>
 
-        {/* ── Two images — uneven grid ── */}
+        {/* ── Three-element image composition ── */}
         <AnimateIn delay={0.1} className={styles.images}>
+
+          {/* Left render — largest, front */}
           <div className={styles.imageLarge}>
             <ZoomImage
               src="/images/renders/interior-03.jpg"
               alt="SELVA — living area with botanical views"
-              sizes="(max-width: 768px) 100vw, 60vw"
+              sizes="(max-width: 768px) 100vw, 48vw"
               quality={90}
             />
           </div>
+
+          {/* Center — botanical placeholder, sits behind */}
+          <div className={styles.imageCenter}>
+            <div className={styles.plantPlaceholder} aria-hidden />
+          </div>
+
+          {/* Right render — smaller, offset down, front */}
           <div className={styles.imageSmall}>
             <ZoomImage
               src="/images/renders/interior-04.jpg"
               alt="SELVA — master bedroom suite"
-              sizes="(max-width: 768px) 100vw, 38vw"
+              sizes="(max-width: 768px) 100vw, 30vw"
               quality={90}
             />
           </div>
+
         </AnimateIn>
 
         {/* ── CTA ── */}
