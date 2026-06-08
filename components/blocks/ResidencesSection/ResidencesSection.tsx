@@ -26,20 +26,31 @@ export default function ResidencesSection() {
               for a life of botanical luxury and urban ease.
             </p>
           </AnimateIn>
+          <AnimateIn delay={0.3}>
+            <Link href="/residences" className={styles.cta}>
+              <span>View Residences</span>
+              <span aria-hidden>View Residences</span>
+            </Link>
+          </AnimateIn>
         </div>
 
         {/* ── Three-element image composition ── */}
         <AnimateIn delay={0.1} className={styles.images}>
 
           {/* Left render — largest, front */}
-          <div className={styles.imageLarge}>
-            <ZoomImage
-              src="/images/renders/interior-03.jpg"
-              alt="SELVA — living area with botanical views"
-              sizes="(max-width: 768px) 100vw, 48vw"
-              quality={90}
-            />
-          </div>
+          <Link href="/residences" className={styles.imageLink}>
+            <div className={styles.imageLarge}>
+              <ZoomImage
+                src="/images/renders/interior-03.jpg"
+                alt="SELVA — living area with botanical views"
+                sizes="(max-width: 768px) 100vw, 48vw"
+                quality={90}
+              />
+              <div className={styles.imageOverlay} aria-hidden>
+                <span className={styles.overlayLabel}>View Residences</span>
+              </div>
+            </div>
+          </Link>
 
           {/* Center — botanical placeholder, sits behind */}
           <div className={styles.imageCenter}>
@@ -47,23 +58,20 @@ export default function ResidencesSection() {
           </div>
 
           {/* Right render — smaller, offset down, front */}
-          <div className={styles.imageSmall}>
-            <ZoomImage
-              src="/images/renders/interior-04.jpg"
-              alt="SELVA — master bedroom suite"
-              sizes="(max-width: 768px) 100vw, 30vw"
-              quality={90}
-            />
-          </div>
-
-        </AnimateIn>
-
-        {/* ── CTA ── */}
-        <AnimateIn delay={0.15} className={styles.ctaWrap}>
-          <Link href="/residences" className={styles.cta}>
-            <span>View Residences</span>
-            <span aria-hidden>View Residences</span>
+          <Link href="/residences" className={styles.imageLink}>
+            <div className={styles.imageSmall}>
+              <ZoomImage
+                src="/images/renders/interior-04.jpg"
+                alt="SELVA — master bedroom suite"
+                sizes="(max-width: 768px) 100vw, 30vw"
+                quality={90}
+              />
+              <div className={styles.imageOverlay} aria-hidden>
+                <span className={styles.overlayLabel}>View Residences</span>
+              </div>
+            </div>
           </Link>
+
         </AnimateIn>
 
       </div>
