@@ -1,10 +1,12 @@
-/* ============================================
+/* ============================================================
    AmenitiesSection
-   Layout: right-aligned intro → flex strip [dark panel | swiper]
-   Mechanism: swiper overflow:visible, panel z-index buries loop clone
-   ============================================ */
+   Height strategy: fixed px values — no percentage chain.
+   Active slide: 556px. Inactive: 412px. Rise: 144px.
+   Swiper sits absolute at the bottom of stripOuter (556px).
+   Active slide grows upward past the swiper container.
+   ============================================================ */
 
-/* ── Section ─────────────────────────────── */
+/* ── Section ────────────────────────────────────────────── */
 .section {
   position: relative;
   isolation: isolate;
@@ -28,7 +30,7 @@
   background-color: rgba(224, 237, 218, 0.82);
 }
 
-/* ── Intro — right-aligned ───────────────── */
+/* ── Intro ─────────────────────────────────────────────── */
 .introWrap {
   position: relative;
   z-index: 2;
@@ -88,166 +90,102 @@
   margin: 0;
 }
 
-/* ── Carousel strip ──────────────────────── */
-/* No overflow:hidden — section handles clipping.
-   flex-end anchors slides at the bottom; active slide grows upward. */
-.strip {
-  display: flex;
-  align-items: flex-end;
-  height: clamp(420px, 55vh, 560px);
-}
+/* ── Carousel ──────────────────────────────────────────── */
 
-/* ── Dark panel — left flex child ───────── */
-.darkPanel {
+/* Outer wrapper: exactly as tall as the active slide (556px).
+   overflow:hidden clips the left/right loop-clone overflow.
+   No vertical clipping — active fits exactly in 556px. */
+.stripOuter {
   position: relative;
-  flex-shrink: 0;
-  width: clamp(240px, 26vw, 360px);
-  height: 100%;
-  z-index: var(--z-raised);
-  isolation: isolate;
+  height: 556px;
   overflow: hidden;
 }
 
-.panelBg {
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-  background-image: url('/images/backgrounds/leaves-bg.jpg');
-  background-size: cover;
-  background-position: center;
-}
-
-.panelOverlay {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-color: rgba(15, 35, 20, 0.92);
-}
-
-/* Nav buttons: absolute, right edge of panel (closest to slides) */
-.navBtn {
-  position: absolute;
-  right: var(--space-8);
-  appearance: none;
-  -webkit-appearance: none;
-  background: none;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: var(--space-3);
-  color: rgba(250, 250, 247, 0.55);
-  line-height: 0;
-  transition: color var(--transition-base);
-  z-index: 1;
-}
-
-.navBtn:hover {
-  color: rgba(250, 250, 247, 1);
-}
-
-.counter {
-  position: absolute;
-  right: var(--space-8);
-  top: 50%;
-  transform: translateY(-50%);
-  font-family: var(--font-label);
-  font-size: 11px;
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--tracking-widest);
-  color: rgba(250, 250, 247, 0.45);
-  white-space: nowrap;
-  z-index: 1;
-}
-
-/* ── Swiper — right flex child ───────────── */
-.swiperWrap {
-  flex: 1;
-  min-width: 0;
-  height: 100%;
-}
-
-/* overflow: visible mirrors 2200 Brickell's implementation — loop clone spills left into panel, panel z-index hides it */
+/* Swiper: absolute at the bottom of stripOuter.
+   Height = inactive slide height (412px).
+   Active slides grow upward into the 144px gap above. */
 .swiper {
-  width: 100%;
-  height: 100%;
+  position: absolute !important;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 412px !important;
   overflow: visible !important;
 }
 
-/* flex-end anchors slides at the bottom so active slide grows upward */
+/* Bottom-align slides so active slide rises upward */
 .swiper :global(.swiper-wrapper) {
   align-items: flex-end;
 }
 
-/* ── Slides ──────────────────────────────── */
+/* ── Slides ─────────────────────────────────────────────── */
 .slide {
-  width: 320px !important;
-  height: 100% !important;
-  transition:
-    width 0.5s var(--ease-out),
-    height 0.5s var(--ease-out),
-    margin-top 0.5s var(--ease-out);
+  width: 380px !important;
+  height: 412px !important;
+  transition: width 0.55s var(--ease-out), height 0.55s var(--ease-out);
 }
 
-/* Active slide: taller + wider. Bottom stays anchored (flex-end),
-   top rises 30% above the strip for the floating-above effect. */
+/* Active: 144px taller → rises into the gap above the swiper */
 .slide:global(.swiper-slide-active) {
-  width: 460px !important;
-  height: 130% !important;
-  z-index: 10;
+  width: 520px !important;
+  height: 556px !important;
+  z-index: 2;
 }
 
 .slideInner {
-  display: block;
   position: relative;
   width: 100%;
   height: 100%;
   overflow: hidden;
-  text-decoration: none;
 }
 
-/* Image zoom on hover */
-.slideInner:hover img {
-  transform: scale(1.04);
-}
-
+/* Subtle image zoom on hover */
 .slideInner img {
   transition: transform 0.65s var(--ease-out);
 }
 
-/* Hover overlay */
-.slideOverlay {
-  position: absolute;
-  inset: 0;
+.slide:hover .slideInner img {
+  transform: scale(1.04);
+}
+
+/* ── Controls row ──────────────────────────────────────── */
+.controlsRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5) var(--space-16);
+}
+
+.navBtn {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(15, 28, 20, 0);
-  opacity: 0;
-  transition: opacity 0.4s var(--ease-out), background 0.4s var(--ease-out);
-  pointer-events: none;
+  width: 40px;
+  height: 40px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: 1px solid rgba(45, 78, 45, 0.25);
+  outline: none;
+  cursor: pointer;
+  color: var(--color-text-body);
+  transition: border-color var(--transition-base), color var(--transition-base);
 }
 
-.slideInner:hover .slideOverlay {
-  opacity: 1;
-  background: rgba(15, 28, 20, 0.38);
+.navBtn:hover {
+  border-color: var(--color-text-strong);
+  color: var(--color-text-strong);
 }
 
-.overlayLabel {
+.counter {
   font-family: var(--font-label);
-  font-size: var(--text-xs);
+  font-size: 11px;
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
-  color: #fff;
-  transform: translateY(6px);
-  transition: transform 0.4s var(--ease-out);
+  color: var(--color-text-muted);
 }
 
-.slideInner:hover .overlayLabel {
-  transform: translateY(0);
-}
-
-/* ── CTA ─────────────────────────────────── */
+/* ── CTA ───────────────────────────────────────────────── */
 .ctaRow {
   display: flex;
   justify-content: center;
@@ -289,7 +227,7 @@
 .cta:hover span:last-child  { transform: translateY(0); }
 .cta:hover                  { background: var(--color-primary-hover); }
 
-/* ── Mobile ──────────────────────────────── */
+/* ── Mobile ─────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .introWrap {
     justify-content: flex-start;
@@ -301,25 +239,12 @@
     text-align: left;
   }
 
-  .strip {
-    height: clamp(300px, 65vw, 420px);
-  }
+  /* Scale heights proportionally on mobile */
+  .stripOuter { height: 380px; }
+  .swiper     { height: 280px !important; }
+  .slide      { width: 260px !important; height: 280px !important; }
+  .slide:global(.swiper-slide-active) { width: 340px !important; height: 380px !important; }
 
-  .darkPanel {
-    width: clamp(120px, 22vw, 180px);
-  }
-
-  .slide {
-    width: 220px !important;
-  }
-
-  .slide:global(.swiper-slide-active) {
-    width: 300px !important;
-    height: 130% !important;
-  }
-
-  .ctaRow {
-    justify-content: flex-start;
-    padding: var(--space-8) var(--space-6);
-  }
+  .controlsRow { padding: var(--space-4) var(--space-6); }
+  .ctaRow      { justify-content: flex-start; padding: var(--space-8) var(--space-6); }
 }

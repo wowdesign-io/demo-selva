@@ -18,24 +18,16 @@ const SLIDES = [
   { src: '/images/renders/interior-04.jpg', alt: 'SELVA — private garden' },
 ];
 
-// Swiper 12 loop requires ≥8 slides with slidesPerView: auto
+// Swiper 12 loop requires ≥8 slides with slidesPerView:auto
 const LOOP_SLIDES = [...SLIDES, ...SLIDES];
 const total = SLIDES.length;
 const pad = (n: number) => String(n).padStart(2, '0');
 
 const HEADLINE = ['A Life', 'Lived Beautifully'];
-
-const headlineContainer = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.13 } },
-};
-
+const headlineContainer = { hidden: {}, visible: { transition: { staggerChildren: 0.13 } } };
 const headlineLine = {
   hidden: { y: '108%' },
-  visible: {
-    y: '0%',
-    transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] },
-  },
+  visible: { y: '0%', transition: { duration: 1.1, ease: [0.16, 1, 0.3, 1] as [number, number, number, number] } },
 };
 
 export default function AmenitiesSection() {
@@ -62,9 +54,7 @@ export default function AmenitiesSection() {
           >
             {HEADLINE.map((line, i) => (
               <span key={i} className={styles.lineWrap}>
-                <motion.span className={styles.line} variants={headlineLine}>
-                  {line}
-                </motion.span>
+                <motion.span className={styles.line} variants={headlineLine}>{line}</motion.span>
               </span>
             ))}
           </motion.h2>
@@ -78,71 +68,60 @@ export default function AmenitiesSection() {
         </div>
       </div>
 
-      {/* Carousel strip */}
-      <div className={styles.strip}>
+      {/* Carousel — outer wrapper sets visible height, clips sides */}
+      <div className={styles.stripOuter}>
+        {/* Swiper is absolute at the bottom so active slide can grow upward */}
+        <Swiper
+          modules={[A11y]}
+          slidesPerView="auto"
+          spaceBetween={12}
+          loop
+          grabCursor
+          speed={600}
+          onSwiper={(s) => { swiperRef.current = s; }}
+          onRealIndexChange={(s) => setCurrent((s.realIndex % total) + 1)}
+          className={styles.swiper}
+        >
+          {LOOP_SLIDES.map((slide, i) => (
+            <SwiperSlide key={i} className={styles.slide}>
+              <div className={styles.slideInner}>
+                <Image
+                  src={slide.src}
+                  alt={slide.alt}
+                  fill
+                  sizes="(max-width: 768px) 80vw, 520px"
+                  quality={85}
+                  style={{ objectFit: 'cover' }}
+                />
+              </div>
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
 
-        {/* Dark panel — left flex child. High z-index covers the loop clone. */}
-        <div className={styles.darkPanel}>
-          <div className={styles.panelBg} aria-hidden />
-          <div className={styles.panelOverlay} aria-hidden />
-          <button
-            className={styles.navBtn}
-            style={{ bottom: '80px' }}
-            onClick={() => swiperRef.current?.slideNext()}
-            aria-label="Next slide"
-          >
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-              <path d="M3 13 L9 7 L15 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-          <span className={styles.counter} aria-live="polite" aria-atomic>
-            {pad(current)}&thinsp;/&thinsp;{pad(total)}
-          </span>
-          <button
-            className={styles.navBtn}
-            style={{ top: '80px' }}
-            onClick={() => swiperRef.current?.slidePrev()}
-            aria-label="Previous slide"
-          >
-            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden>
-              <path d="M3 5 L9 11 L15 5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-        </div>
-
-        {/* Swiper — right flex child. overflow: visible lets loop clone spill left; panel z-index buries it. */}
-        <div className={styles.swiperWrap}>
-          <Swiper
-            modules={[A11y]}
-            slidesPerView="auto"
-            spaceBetween={12}
-            loop
-            grabCursor
-            speed={500}
-            onSwiper={(s) => { swiperRef.current = s; }}
-            onRealIndexChange={(s) => setCurrent((s.realIndex % total) + 1)}
-            className={styles.swiper}
-          >
-            {LOOP_SLIDES.map((slide, i) => (
-              <SwiperSlide key={i} className={styles.slide}>
-                <Link href="/amenities" className={styles.slideInner}>
-                  <Image
-                    src={slide.src}
-                    alt={slide.alt}
-                    fill
-                    sizes="(max-width: 768px) 280px, 460px"
-                    quality={85}
-                    style={{ objectFit: 'cover' }}
-                  />
-                  <div className={styles.slideOverlay} aria-hidden>
-                    <span className={styles.overlayLabel}>Explore</span>
-                  </div>
-                </Link>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-
+      {/* Nav row */}
+      <div className={styles.controlsRow}>
+        <button
+          className={styles.navBtn}
+          onClick={() => swiperRef.current?.slidePrev()}
+          aria-label="Previous slide"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
+            <path d="M13 4L7 10L13 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
+        <span className={styles.counter} aria-live="polite" aria-atomic>
+          {pad(current)}&thinsp;/&thinsp;{pad(total)}
+        </span>
+        <button
+          className={styles.navBtn}
+          onClick={() => swiperRef.current?.slideNext()}
+          aria-label="Next slide"
+        >
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden>
+            <path d="M7 4L13 10L7 16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </button>
       </div>
 
       {/* CTA */}
