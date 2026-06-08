@@ -4,8 +4,9 @@ Fictive luxury presales project. Full decisions, sitemap, and brand brief: `refe
 
 **Live:** demo.wowdesign.io  
 **Local:** `npm run dev` → http://localhost:3000  
-**Stack:** Next.js 15 (App Router) · CSS Modules · Framer Motion · Swiper · Vercel  
-**GitHub:** https://github.com/wowdesign-io/demo-selva
+**Stack:** Next.js 16.2 (App Router) · CSS Modules · Framer Motion 12 · Lenis · Vercel  
+**GitHub:** https://github.com/wowdesign-io/demo-selva  
+**Note:** Swiper removed 2026-06-13 — replaced by custom carousel in AmenitiesSection.
 
 ---
 
@@ -51,12 +52,30 @@ Inquiry              ← footer only, no separate page
 | 3 | OverviewSection | ✅ Done | Intro mask reveal + 3-panel scroll-zoom (1.14→1.0) + hover labels |
 | 4 | VisionSection | ✅ Done | Right render + left text, leaves-bg + sage overlay |
 | 5 | ResidencesSection | ✅ Done | 3-image grid, CTA below copy, hover overlays on renders |
-| 6 | AmenitiesSection | ⬜ Next | — |
-| 7 | Footer | ⬜ Planned | Dark green #1A2820, 3-col: info / nav links / inquiry form |
-| — | Highlights strip | ⬜ Planned | 3–4 key stats |
-| — | Neighborhood teaser | ⬜ Planned | — |
-| — | Gallery teaser | ⬜ Planned | Lightbox entry |
-| — | Planpoint CTA | ⬜ Planned | Home teaser → /residences#planpoint |
+| 6 | AmenitiesSection | ✅ Done | Custom carousel — grow-into-slot mechanic, green nav panel, infinite loop, keyboard + swipe |
+| 7 | NeighborhoodSection | ✅ Done | Full-bleed break image + green proximity strip + centered statement |
+| 8 | Footer | ✅ Done | Light/airy — action tiles + SELVA wordmark + bottom bar with wowdesign credit |
+
+**Home page is complete.** All sections from the `design_handoff_selva_home` bundle are integrated.
+
+### Remaining — Inner Pages
+
+| Page | Status | Notes |
+|---|---|---|
+| /residences | ⬜ Planned | Residences detail + Planpoint embed at #planpoint |
+| /amenities | ⬜ Planned | Full amenities page |
+| /neighborhood | ⬜ Planned | Full neighborhood page |
+| /gallery | ⬜ Planned | Lightbox gallery |
+| /vision | ⬜ Planned | Vision/story page |
+| /press | ⬜ Planned | Press mentions |
+| /team | ⬜ Planned | Sales team |
+
+### Future Polish
+
+- **Real amenity renders** — `amenity-0{1,2,3}-sharp.jpg` are 2× upscales of low-res placeholders. Swap in real high-res renders at the same filenames.
+- **Storyblok wiring** — `SLIDES` in AmenitiesSection + stats/copy in NeighborhoodSection + footer fields are all hardcoded arrays. Per the handoff spec, these map 1:1 to Storyblok repeatable bloks when CMS wiring begins.
+- **Brochure + Private Tour links** — Footer action tiles point to `#`. Wire to actual form/booking flow.
+- **Instagram link** — Footer social button points to `#`. Wire to SELVA Instagram when live.
 
 ---
 
@@ -95,11 +114,15 @@ components/
 │   ├── HeroSection/
 │   ├── OverviewSection/
 │   ├── VisionSection/
-│   └── ResidencesSection/
+│   ├── ResidencesSection/
+│   ├── AmenitiesSection/    ← custom carousel (grow-into-slot, tripled slides, CSS var geometry)
+│   └── NeighborhoodSection/ ← break image + proximity strip + centered statement
 └── ui/
     ├── Nav/
-    ├── AnimateIn/        ← Framer Motion scroll-reveal wrapper
-    ├── ZoomImage/        ← useScroll parallax zoom (1.14→1.0)
+    ├── Footer/              ← global, mounted in layout.tsx (light/airy, 3 bands)
+    ├── AnimateIn/           ← Framer Motion scroll-reveal wrapper
+    ├── ZoomImage/           ← useScroll parallax zoom (fromScale→1.0)
+    ├── ScrollProgress/
     └── SmoothScroll/
 ```
 
@@ -109,11 +132,14 @@ components/
 
 ```
 backgrounds/
-  leaves-bg.jpg           ← Full-section bg (VisionSection)
-  leaves-closeup.jpg      ← Close-up texture (Residences center placeholder)
+  leaves-bg.jpg              ← Full-section bg (VisionSection + AmenitiesSection texture)
+  leaves-closeup.jpg         ← Close-up texture (Residences center + Amenities green panel)
+hero/
+  hero-back.jpg              ← NeighborhoodSection full-bleed break image (~5000px source)
+  360-front.jpg              ← Hero/other use
 renders/
-  exterior-01.jpg         ← Hero left panel
-  interior-01/02/03.jpg   ← OverviewSection panels + ResidencesSection large
-  interior-04.jpg         ← ResidencesSection small
-  amenity-01/02/03.jpg    ← available for AmenitiesSection (not yet built)
+  exterior-01.jpg            ← Hero left panel
+  interior-01/02/03/04.jpg   ← OverviewSection panels + ResidencesSection + Amenities carousel slides 4–7
+  amenity-01/02/03.jpg       ← OverviewSection panel (amenity-03) + low-res originals
+  amenity-01/02/03-sharp.jpg ← AmenitiesSection carousel slides 1–3 (2× upscales — swap for real renders)
 ```
