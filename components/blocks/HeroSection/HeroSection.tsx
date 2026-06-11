@@ -1,12 +1,21 @@
 'use client';
 
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import styles from './HeroSection.module.css';
 
 export default function HeroSection() {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 900px)');
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    setIsMobile(mq.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
 
   const { scrollYProgress } = useScroll({
     target: wrapperRef,
@@ -30,7 +39,7 @@ export default function HeroSection() {
       <div className={styles.sticky}>
 
         {/* Left — image panel, expands over text panel on scroll */}
-        <motion.div className={styles.imagePanel} style={{ width: imageWidth }}>
+        <motion.div className={styles.imagePanel} style={{ width: isMobile ? undefined : imageWidth }}>
           <Image
             src="/images/hero/360-front.jpg"
             alt="SELVA Residences — botanical luxury, Miami"
@@ -43,12 +52,12 @@ export default function HeroSection() {
 
         {/* Right — text panel stays fixed; content fades + shrinks */}
         <div className={styles.textPanel}>
-          <motion.div className={styles.textInner} style={{ opacity: textOpacity, scale: textScale }}>
+          <motion.div className={styles.textInner} style={isMobile ? undefined : { opacity: textOpacity, scale: textScale }}>
 
             {/* Top: scroll cue */}
             <motion.div
               className={styles.scrollCue}
-              style={{ y: cueY, opacity: cueOpacity }}
+              style={isMobile ? undefined : { y: cueY, opacity: cueOpacity }}
             >
               <span className={styles.scrollLabel}>Scroll to explore</span>
             </motion.div>

@@ -161,13 +161,20 @@
 .cta:hover { background: var(--color-primary-hover); }
 
 /* ── Responsive ── */
+@media (max-width: 900px) {
+  .image { height: clamp(360px, 60vw, 600px); }
+}
+
 @media (max-width: 700px) {
   .stripInner { grid-template-columns: repeat(2, 1fr); }
 
   .stat:nth-child(odd)    { border-left: none; }
   .stat:nth-child(n + 3) { border-top: 1px solid var(--color-on-primary-border); }
+
+  .body { padding: var(--space-16) var(--space-6) var(--space-20); gap: var(--space-6); }
 }
 
-@media (max-width: 600px) {
-  .body { padding: var(--space-20) var(--space-6); gap: var(--space-6); }
+@media (max-width: 480px) {
+  .image { height: 70vw; min-height: 260px; }
+  .body  { padding: var(--space-12) var(--space-5) var(--space-16); }
 }

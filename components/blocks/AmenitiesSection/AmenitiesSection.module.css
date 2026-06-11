@@ -135,6 +135,7 @@
   width: 100%;
   height: var(--amen-stage-h);
   overflow: hidden;
+  touch-action: pan-y;
 }
 
 /* Track — flex row, vertically centres slides */
@@ -333,12 +334,31 @@
     --amen-stage-h:  360px;
     --amen-green-w:  132px;
     --amen-green-h:  264px;
+    padding: var(--space-16) 0 var(--space-10);
   }
 
   .intro      { justify-content: flex-start; padding: 0 var(--space-6); }
   .introInner { align-items: flex-start; text-align: left; }
+  .ctaRow     { padding: var(--space-8) var(--space-6) 0; }
   .nav        { gap: var(--space-3); }
   .arrow      { width: 40px; height: 40px; }
   .chev       { width: 12px; height: 12px; border-width: 1.5px; }
   .counter    { font-size: 12px; }
+}
+
+@media (max-width: 480px) {
+  .section {
+    --amen-base-w:   100px;
+    --amen-base-h:   145px;
+    --amen-active-w: 185px;
+    --amen-active-h: 260px;
+    --amen-gap:      8px;
+    --amen-stage-h:  280px;
+    --amen-green-w:  90px;
+    --amen-green-h:  206px;
+    padding: var(--space-12) 0 var(--space-8);
+  }
+
+  .intro { margin-bottom: var(--space-8); }
+  .arrow { width: 36px; height: 36px; }
 }

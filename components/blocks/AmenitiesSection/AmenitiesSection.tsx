@@ -228,12 +228,14 @@ export default function AmenitiesSection() {
               and the quiet pleasures of a life well-lived.
             </p>
           </AnimateIn>
-          <AnimateIn delay={0.25}>
-            <Link href="/amenities" className={styles.cta}>
-              <span>View Amenities</span>
-              <span aria-hidden>View Amenities</span>
-            </Link>
-          </AnimateIn>
+          <div className={styles.ctaRow}>
+            <AnimateIn delay={0.25}>
+              <Link href="/amenities" className={styles.cta}>
+                <span>View Amenities</span>
+                <span aria-hidden>View Amenities</span>
+              </Link>
+            </AnimateIn>
+          </div>
         </div>
       </div>
 

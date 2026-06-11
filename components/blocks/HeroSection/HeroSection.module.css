@@ -141,12 +141,16 @@
   .sticky {
     position: relative;
     height: auto;
+    display: flex;
+    flex-direction: column;
   }
 
   .imagePanel {
     position: relative;
     width: 100% !important;
-    height: 60vh;
+    height: 60vw;
+    min-height: 320px;
+    max-height: 560px;
     z-index: 0;
   }
 
@@ -160,12 +164,26 @@
 
   .textInner {
     min-width: 0;
-    padding: var(--space-16) var(--space-8);
+    padding: var(--space-16) var(--space-8) var(--space-12);
     opacity: 1 !important;
     scale: 1 !important;
+  }
+
+  .tagline {
+    white-space: normal;
+  }
+
+  .deliveryNote {
+    display: none;
   }
 
   .scrollCue {
     display: none;
   }
+}
+
+@media (max-width: 600px) {
+  .imagePanel   { height: 72vw; }
+  .heroWordmark { font-size: clamp(3rem, 16vw, 5rem); }
+  .textInner    { padding: var(--space-12) var(--space-6) var(--space-10); }
 }
