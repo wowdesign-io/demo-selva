@@ -82,7 +82,9 @@ export default function Nav() {
 
         <div className={styles.right}>
           <a href="tel:+13059000000" className={styles.phone}>305.900.0000</a>
-          <Link href="/residences" className={styles.cta}>Explore Floorplans</Link>
+          <Link href="/residences" className={styles.cta}>
+            <span className={styles.ctaExplore}>Explore </span>Floorplans
+          </Link>
         </div>
       </nav>
 

@@ -276,6 +276,10 @@
     padding: var(--space-3) var(--space-6);
   }
 
+  .ctaExplore {
+    display: none;
+  }
+
   .overlayLink {
     font-size: clamp(2rem, 10vw, 4rem);
   }

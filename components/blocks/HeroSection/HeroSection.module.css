@@ -136,6 +136,7 @@
   /* On small screens: stack vertically, skip animation */
   .wrapper {
     height: auto;
+    padding-top: 88px; /* clear fixed nav (32px bar + ~56px nav) */
   }
 
   .sticky {
