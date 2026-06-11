@@ -280,6 +280,10 @@
     display: none;
   }
 
+  .cta {
+    padding-inline: var(--space-3);
+  }
+
   .overlayLink {
     font-size: clamp(2rem, 10vw, 4rem);
   }
