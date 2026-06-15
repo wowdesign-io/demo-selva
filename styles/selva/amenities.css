@@ -72,10 +72,9 @@ body { animation: selvaPageIn 0.6s var(--ease-out) both; }
   .amen-motion { height: 56vh; min-height: 320px; }
   /* keep "A Day at SELVA" pinned + scroll-driven on mobile too */
   .amen-sticky__head { padding: var(--space-10) var(--space-6) var(--space-5); }
-  /* cards shorter + centered on mobile so heading + scroll hint stay visible
-     and they fit once browser chrome eats the viewport */
-  .amen-sticky__track { align-items: center; }
-  .amen-sticky__card { width: 72vw; height: 60%; }
+  /* cards 20% shorter and top-aligned (flush under the header) so the spare
+     room sits at the bottom — behind the browser chrome — not as a gap on top */
+  .amen-sticky__card { width: 72vw; height: 80%; }
 }
 
 /* ---- Responsive ---------------------------------------- */
