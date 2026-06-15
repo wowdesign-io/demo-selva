@@ -1,145 +1,124 @@
 # SELVA Residences — wowdesign Demo Site
 
-Fictive luxury presales project. Full decisions, sitemap, and brand brief: `references/demo-selva-inspiration.md` (pinned on dashboard). This file covers the technical build only.
+Fictive luxury presales project — the reference build for wowdesign's presales product. Full brand brief: `references/demo-selva-inspiration.md`.
 
-**Live:** demo.wowdesign.io  
-**Local:** `npm run dev` → http://localhost:3000  
-**Stack:** Next.js 16.2 (App Router) · CSS Modules · Framer Motion 12 · Lenis · Vercel  
-**GitHub:** https://github.com/wowdesign-io/demo-selva  
-**Note:** Swiper removed 2026-06-13 — replaced by custom carousel in AmenitiesSection.
+**Live:** https://demo.wowdesign.io
+**Local:** `npm run dev` → http://localhost:3000
+**Stack:** Next.js 16.2 (App Router, Turbopack) · TypeScript · Lenis (smooth scroll) · Vercel
+**GitHub:** https://github.com/wowdesign-io/demo-selva (org `wowdesign-io`)
 
----
-
-## Brand (quick ref — full brief in demo-selva-inspiration.md)
-
-- **Name:** SELVA Residences — "Where the forest meets the sky"
-- **Units:** 40 total · 3 floors · Models B / C / D · Miami (fictive) · Mid-2027
-- **Price range:** $300k – $950k
-- **Palette:** Warm white `#FAFAF7` · Forest green `#2D4E2D` · Amber `#C9975A`
-- **Fonts:** Cormorant Garamond (headings, light italic) · DM Sans (body) · Barlow (labels)
+> ⚠️ **Read this whole file before touching the project.** The build method is specific and was hard-won. Deviating from it (e.g. writing CSS from scratch) caused a full rebuild once already.
 
 ---
 
-## Agreed Sitemap
+## THE METHOD — how to build a page (do not deviate)
 
-```
-/ (Home)
-/vision
-/residences          ← content + Planpoint embed on ONE page (scroll to #planpoint)
-/amenities
-/neighborhood
-/gallery
-/press
-/team
-Inquiry              ← footer only, no separate page
-```
+The handoff is a complete, validated static HTML prototype. **We port it verbatim — we do not redesign.**
 
-**Nav:**
-```
-[SELVA wordmark]   Vision  Residences  Amenities  Neighborhood  Gallery  Press  Team   [Explore Floorplans →]
-```
-- "Explore Floorplans" = green pill CTA → `/residences#planpoint`
-- Transparent over hero → solid warm white on scroll
+**Handoff source (read-only canonical):** `C:\Users\info\Downloads\wowdesign Demo\`
+- `SELVA <Page>.html` — the exact HTML for each page
+- `selva/selva.css` — tokens/reset/typography/reveal system
+- `selva/components/*.css` + `selva/pages/*.css` — all styles
+- `selva/*.js` — interaction logic (home.js, residences.js, amenities.js, loader.js)
+
+### Steps for each new inner page
+
+1. **Read the handoff HTML first** — `C:\Users\info\Downloads\wowdesign Demo\SELVA <Page>.html`. Note the `<head>` `<link>` tags — they tell you exactly which CSS files the page needs.
+2. **Copy any missing CSS** from `…\selva\components\` and `…\selva\pages\` into `styles/selva/`, then add an `@import` line in `styles/globals.css`. (Component CSS imports go with the components group; page CSS with the pages group.)
+3. **Copy + optimize any new images** — see *Image optimization* below. Renders are huge PNGs; convert to WebP.
+4. **Build the page** at `app/<route>/page.tsx`:
+   - Use the **exact handoff class names and DOM structure**. No CSS Modules for sections.
+   - Convert `public/images/...` → `/images/...` and `.png`/`.jpg` → `.webp` where converted.
+   - Convert `SELVA X.html` links → app routes (`/vision`, `/residences#planpoint`, etc.).
+   - `data-lines` attribute: write `data-lines=""`. Keep `.reveal` and `data-delay="…"` as-is.
+   - Hero image: `decoding="async" fetchPriority="high"`. All other images: `loading="lazy" decoding="async"`.
+   - Page is a **server component**; drop `<HomeScript />` at the end of `<main>` to drive reveals / hero animation / zoom. Interactive bits (carousels, embeds) become small `'use client'` components.
+5. **Nav/Footer/ScrollProgress/Loader/SmoothScroll are global** (in `app/layout.tsx`) — never re-add them per page.
+6. **Build → commit → push → deploy** (see *Deploy* below). Zero TS errors required.
+7. **Stop and get Andy's approval before starting the next page.** One page at a time.
 
 ---
 
-## Home Page — Build Status
+## Architecture
 
-| # | Section | Status | Notes |
+- **Styles:** all handoff CSS lives in `styles/selva/` and is imported once via `styles/globals.css`. Global class names used directly in JSX — **no CSS Modules for page sections.** (Old `*.module.css` files may linger unused; ignore them.)
+- **Shared chrome (global, in `layout.tsx`):** `Loader`, `Nav`, `Footer`, `ScrollProgress`, `SmoothScroll`.
+- **`components/ui/HomeScript/`** — ports `home.js`: `.reveal` IntersectionObserver, `[data-lines]` stagger, hero scroll animation (image width 50→100%, text fade/scale), `.zoom-panel`/`.zoom-img` scroll zoom, Miami temperature fetch. Include on **every page that has a hero**.
+- **Hero entrance stagger** — pure CSS in `styles/selva/hero.css` (`heroRise` keyframes). Replays on every client-side navigation because the hero remounts. Global to all heroes.
+- **Loader** — `components/ui/Loader/`. Shows once per session (sessionStorage `selvaLoaded`). An inline script in `layout.tsx` adds `.selva-loaded` to `<html>` pre-paint so it never flashes on repeat visits. Lenis init is deferred ~2.3s on first visit so it doesn't stutter the loader animation.
+
+---
+
+## Page status
+
+| Route | Status | Handoff source | Notes |
 |---|---|---|---|
-| 1 | Nav | ✅ Done | Transparent → solid on scroll, announcement bar hides on scroll |
-| 2 | HeroSection | ✅ Done | 50/50 — full-bleed render left, copy + pill CTAs right |
-| 3 | OverviewSection | ✅ Done | Intro mask reveal + 3-panel scroll-zoom (1.14→1.0) + hover labels |
-| 4 | VisionSection | ✅ Done | Right render + left text, leaves-bg + sage overlay |
-| 5 | ResidencesSection | ✅ Done | 3-image grid, CTA below copy, hover overlays on renders |
-| 6 | AmenitiesSection | ✅ Done | Custom carousel — grow-into-slot mechanic, green nav panel, infinite loop, keyboard + swipe |
-| 7 | NeighborhoodSection | ✅ Done | Full-bleed break image + green proximity strip + centered statement |
-| 8 | Footer | ✅ Done | Light/airy — action tiles + SELVA wordmark + bottom bar with wowdesign credit |
-
-**Home page is complete.** All sections from the `design_handoff_selva_home` bundle are integrated.
-
-### Remaining — Inner Pages
-
-| Page | Status | Notes |
-|---|---|---|
-| /residences | ⬜ Planned | Residences detail + Planpoint embed at #planpoint |
-| /amenities | ⬜ Planned | Full amenities page |
-| /neighborhood | ⬜ Planned | Full neighborhood page |
-| /gallery | ⬜ Planned | Lightbox gallery |
-| /vision | ⬜ Planned | Vision/story page |
-| /press | ⬜ Planned | Press mentions |
-| /team | ⬜ Planned | Sales team |
-
-### Future Polish
-
-- **Real amenity renders** — `amenity-0{1,2,3}-sharp.jpg` are 2× upscales of low-res placeholders. Swap in real high-res renders at the same filenames.
-- **Storyblok wiring** — `SLIDES` in AmenitiesSection + stats/copy in NeighborhoodSection + footer fields are all hardcoded arrays. Per the handoff spec, these map 1:1 to Storyblok repeatable bloks when CMS wiring begins.
-- **Brochure + Private Tour links** — Footer action tiles point to `#`. Wire to actual form/booking flow.
-- **Instagram link** — Footer social button points to `#`. Wire to SELVA Instagram when live.
+| `/` | ✅ Done · approved | `SELVA Home.html` | loader, hero, overview, vision, residences teaser, sticky hscroll slider, amenities carousel, neighborhood |
+| `/vision` | ✅ Done · approved | `SELVA Vision.html` | hero, stat-strip, vision band, 3 pillars (icon-grid), 2 feature rows, manifesto, page-cta |
+| `/residences` | ✅ Done · awaiting review | `SELVA Residences.html` | hero, light stat-strip, inline models slider (cursor-nav + `goToUnit`), **Planpoint embed**, 8 features, page-cta |
+| `/amenities` | ⬜ Next | `SELVA Amenities.html` | full amenities page |
+| `/neighborhood` | ⬜ Planned | `SELVA Neighborhood.html` | |
+| `/gallery` | ⬜ Planned | `SELVA Gallery.html` | no lightbox (per prototype) |
+| `/team` | ⬜ Planned | `SELVA Team.html` | feature rows |
+| `/press` | ⬜ Planned | `SELVA Press.html` | + `/press/[slug]` articles |
+| `/downloads` | ⬜ Planned | `SELVA Downloads.html` | |
+| `/inquiry` | ⬜ Planned | `SELVA Inquiry.html` | |
+| `/legal` | ⬜ Planned | `SELVA Legal.html` | |
+| `/privacy` | ⬜ Planned | `SELVA Privacy.html` | |
 
 ---
 
-## CSS Architecture
+## Key interactive components (already built — reuse)
 
-CSS Modules + CSS Custom Properties only. No Tailwind. No CSS-in-JS.
-- One `Component.module.css` per component, co-located
-- All values via `var(--token-name)` from `styles/tokens.css`
-- Never hardcode colors, spacing, or type sizes
+- **`components/blocks/PlanpointEmbed/`** — the digital-twin iframe (`app.planpoint.io/miami-wowdesign/laurent`) + full controller (deep-link `f`/`u` params, resize polling, fullscreen, click/scroll forwarding). Used on `/residences`.
+- **`components/blocks/ResModelsSlider/`** — inline horizontal models track with the floating arrow cursor-nav and `goToUnit(unit, floor)` deep-linking into the embed.
+- **`components/blocks/AmenitiesSection/`** — the home carousel (tripled-DOM grow-into-slot mechanic, geometry from live DOM, keyboard + swipe).
 
-### Key Patterns
+---
 
-**Full-width background band** (VisionSection):
-```css
-.section { position: relative; isolation: isolate; overflow: hidden; }
-.bg      { position: absolute; inset: 0; z-index: -2; background-image: url('...'); }
-.overlay { position: absolute; inset: 0; z-index: -1; background-color: rgba(224, 237, 218, 0.82); }
+## Image optimization (mandatory)
+
+Handoff renders are 8–13 MB PNGs. **Never ship them raw** — a page of them hangs the tab for seconds.
+
+`scripts/optimize-images.js` converts the handoff render/amenity/neighborhood PNGs → WebP (q80, max 2400px), reading from the lossless handoff source to avoid double compression:
+
+```bash
+node scripts/optimize-images.js
 ```
 
-**CTA button — slide-up hover:**
-```css
-.cta { position: relative; overflow: hidden; height: 3rem; line-height: 3rem; }
-.cta span:first-child { transition: transform 0.35s var(--ease-out); }
-.cta span:last-child  { position: absolute; inset: 0; transform: translateY(100%); }
-.cta:hover span:first-child { transform: translateY(-100%); }
-.cta:hover span:last-child  { transform: translateY(0); }
+Then update references in code to `.webp`. Rule of thumb: **photographic renders → WebP**; keep the hero image eager, everything else `loading="lazy" decoding="async"`. (110 MB → ~9 MB on the home page this way.)
+
+Favicon: `app/icon.png` (SELVA green/gold "S"). Do **not** let a default `app/favicon.ico` exist — it overrides the icon.
+
+---
+
+## Deploy (every change)
+
+GitHub auto-deploy from Vercel has been unreliable since a rollback, so deploy manually:
+
+```bash
+cd projects/demo-presales
+npm run build                          # must be zero errors
+git add -A && git commit -m "…"
+gh auth switch --user wowdesign-andy   # uixandy lacks access to wowdesign-io org
+git push origin main
+vercel --prod --yes                    # manual prod deploy (MCP token lacks team scope)
 ```
 
 ---
 
-## Component Map
+## Brand quick-ref
 
-```
-components/
-├── blocks/
-│   ├── HeroSection/
-│   ├── OverviewSection/
-│   ├── VisionSection/
-│   ├── ResidencesSection/
-│   ├── AmenitiesSection/    ← custom carousel (grow-into-slot, tripled slides, CSS var geometry)
-│   └── NeighborhoodSection/ ← break image + proximity strip + centered statement
-└── ui/
-    ├── Nav/
-    ├── Footer/              ← global, mounted in layout.tsx (light/airy, 3 bands)
-    ├── AnimateIn/           ← Framer Motion scroll-reveal wrapper
-    ├── ZoomImage/           ← useScroll parallax zoom (fromScale→1.0)
-    ├── ScrollProgress/
-    └── SmoothScroll/
-```
+- **SELVA Residences** — "Where the forest meets the sky" · 40 units · 3 floors · Models B/C/D · Miami (fictive) · Mid-2027
+- Warm white `#FAFAF7` · Forest green `#2D4E2D` · Amber `#C9975A`
+- Cormorant Garamond (headings, light italic) · DM Sans (body) · Barlow (labels)
+- Pre-sales from $300K · 575–800 SF
 
 ---
 
-## Image Assets (`public/images/`)
+## Known follow-ups (not blockers)
 
-```
-backgrounds/
-  leaves-bg.jpg              ← Full-section bg (VisionSection + AmenitiesSection texture)
-  leaves-closeup.jpg         ← Close-up texture (Residences center + Amenities green panel)
-hero/
-  hero-back.jpg              ← NeighborhoodSection full-bleed break image (~5000px source)
-  360-front.jpg              ← Hero/other use
-renders/
-  exterior-01.jpg            ← Hero left panel
-  interior-01/02/03/04.jpg   ← OverviewSection panels + ResidencesSection + Amenities carousel slides 4–7
-  amenity-01/02/03.jpg       ← OverviewSection panel (amenity-03) + low-res originals
-  amenity-01/02/03-sharp.jpg ← AmenitiesSection carousel slides 1–3 (2× upscales — swap for real renders)
-```
+- **Spark CRM test account** for the Planpoint embed — pending from Laurent.
+- **Storyblok wiring** — content is currently hardcoded in page files; maps to bloks once design is locked across all pages (do not start until every page is approved).
+- Footer Brochure / Private Tour / Instagram links point to real routes or `#` — wire when those flows exist.
+- Stale unused `*.module.css` files from the pre-rebuild era can be deleted in a cleanup pass.
