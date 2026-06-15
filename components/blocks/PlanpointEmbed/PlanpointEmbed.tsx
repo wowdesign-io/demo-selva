@@ -5,14 +5,12 @@ import { useEffect, useRef } from 'react';
 const PROJECT_URL = 'https://app.planpoint.io/miami-wowdesign/laurent?lang=English';
 
 /* Planpoint embed controller.
-   We KEEP the size handshake (get_size -> embed reports content height -> we
-   match the iframe height) — without it the floor-overlay polygons are laid out
-   for a different height than the iframe, so hover highlights the wrong floor
-   and the top floor falls off-screen.
-   We REMOVE the parent->iframe scroll + click forwarding from the handoff
-   boilerplate: that is for inline/document-flow embeds, and with Lenis
-   smooth-scroll the forwarded vertical offset oscillates every frame, breaking
-   the embed's mouse hit-testing (flicker) and resetting deep-links to overview. */
+   Keeps: size handshake (get_size -> embed reports height -> match iframe),
+   UTM passing, and fullscreen. Drops the handoff's parent->iframe scroll/click
+   forwarding (the official postMessage API documents no incoming messages).
+   NOTE: a "floor hover highlights wrong floor / flickers" symptom is almost
+   always Brave Shields blocking the cross-origin iframe (test in Chrome or with
+   Shields off) — NOT this controller. See references/sops/planpoint-embed.md. */
 export default function PlanpointEmbed() {
   const containerRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLIFrameElement>(null);

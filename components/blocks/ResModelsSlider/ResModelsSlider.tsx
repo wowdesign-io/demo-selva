@@ -91,7 +91,7 @@ export default function ResModelsSlider() {
     <section className="res-hscroll res-hscroll--inline" data-screen-label="Models Slider">
       <div className="res-inline-header">
         <p className="res-hscroll__label">Three Models &middot; 40 Residences</p>
-        <a href="#planpoint" className="res-hscroll__cta-link" onClick={(e) => { e.preventDefault(); goToUnit('102', '1'); }}>Explore in Digital Twin &rarr;</a>
+        <a href="#planpoint" className="res-hscroll__cta-link" onClick={(e) => { e.preventDefault(); goToUnit('102', 'Floor 1'); }}>Explore in Digital Twin &rarr;</a>
       </div>
 
       <div ref={wrapRef} className="res-inline-track-wrap">
@@ -103,7 +103,7 @@ export default function ResModelsSlider() {
               <p className="res-hscroll__intro-overline">SELVA &middot; Miami &middot; Pre-Sales</p>
               <h2 className="res-hscroll__intro-heading">Three Models,<br />One Address.</h2>
               <p className="res-hscroll__intro-body">Three signature layouts &mdash; Models B, C and D &mdash; across forty residences and three floors, each opening to the green canopy.</p>
-              <a href="#planpoint" onClick={(e) => { e.preventDefault(); goToUnit('102', '1'); }} className="res-hscroll__card-cta">
+              <a href="#planpoint" onClick={(e) => { e.preventDefault(); goToUnit('102', 'Floor 1'); }} className="res-hscroll__card-cta">
                 Explore All Floorplans
                 <svg width="14" height="7" viewBox="0 0 14 7" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="0" y1="3.5" x2="12" y2="3.5"></line><polyline points="9,1 12,3.5 9,6"></polyline></svg>
               </a>
@@ -124,7 +124,7 @@ export default function ResModelsSlider() {
                 <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">1</span><span className="res-hscroll__spec-key">Bedroom</span></div>
                 <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">Patio</span><span className="res-hscroll__spec-key">Outdoor</span></div>
               </div>
-              <a href="#planpoint" onClick={(e) => { e.preventDefault(); goToUnit('110', '1'); }} className="res-hscroll__card-cta">View Floorplan &rarr;</a>
+              <a href="#planpoint" onClick={(e) => { e.preventDefault(); goToUnit('110', 'Floor 1'); }} className="res-hscroll__card-cta">View Floorplan &rarr;</a>
             </div>
           </div>
 
@@ -142,7 +142,7 @@ export default function ResModelsSlider() {
                 <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">1 + Den</span><span className="res-hscroll__spec-key">Layout</span></div>
                 <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">Balcony</span><span className="res-hscroll__spec-key">Outdoor</span></div>
               </div>
-              <a href="#planpoint" onClick={(e) => { e.preventDefault(); goToUnit('201', '2'); }} className="res-hscroll__card-cta">View Floorplan &rarr;</a>
+              <a href="#planpoint" onClick={(e) => { e.preventDefault(); goToUnit('201', 'Floor 2'); }} className="res-hscroll__card-cta">View Floorplan &rarr;</a>
             </div>
           </div>
 
@@ -160,7 +160,7 @@ export default function ResModelsSlider() {
                 <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">2</span><span className="res-hscroll__spec-key">Bedrooms</span></div>
                 <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">Terrace</span><span className="res-hscroll__spec-key">Outdoor</span></div>
               </div>
-              <a href="#planpoint" onClick={(e) => { e.preventDefault(); goToUnit('112', '1'); }} className="res-hscroll__card-cta">View Floorplan &rarr;</a>
+              <a href="#planpoint" onClick={(e) => { e.preventDefault(); goToUnit('112', 'Floor 1'); }} className="res-hscroll__card-cta">View Floorplan &rarr;</a>
             </div>
           </div>
 
