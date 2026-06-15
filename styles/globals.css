@@ -18,6 +18,8 @@
 @import './selva/vision.css';
 @import './selva/amenities.css';
 @import './selva/neighborhood.css';
+@import './selva/gallery.css';
+@import './selva/team.css';
 @import './selva/footer.css';
 
 body.is-loading {
