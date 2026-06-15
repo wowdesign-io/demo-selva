@@ -68,6 +68,50 @@
   white-space: nowrap;
 }
 
+/* ── Entrance stagger (plays on load + every client-side navigation) ──
+   Each text element rises + fades in sequence; the rule draws down.
+   fill-mode: backwards keeps elements hidden through their delay, then
+   hands control back to the scroll-driven fade/parallax in HomeScript. */
+@keyframes heroRise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes heroRiseCentered {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+@keyframes heroRuleDraw {
+  from { opacity: 0; transform: scaleY(0); }
+  to   { opacity: 1; transform: scaleY(1); }
+}
+
+.hero__preLabel,
+.hero__wordmark,
+.hero__pageTitle,
+.hero__tagline {
+  animation: heroRise 0.9s var(--ease-out) backwards;
+}
+.hero__preLabel  { animation-delay: 0.15s; }
+.hero__wordmark,
+.hero__pageTitle { animation-delay: 0.30s; }
+.hero__rule {
+  transform-origin: top center;
+  animation: heroRuleDraw 0.7s var(--ease-out) 0.46s backwards;
+}
+.hero__tagline      { animation-delay: 0.58s; }
+.hero__deliveryNote { animation: heroRiseCentered 0.9s var(--ease-out) 0.78s backwards; }
+.hero__scrollCue    { animation: heroRise 0.9s var(--ease-out) 0.92s backwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__preLabel,
+  .hero__wordmark,
+  .hero__pageTitle,
+  .hero__rule,
+  .hero__tagline,
+  .hero__deliveryNote,
+  .hero__scrollCue { animation: none; }
+}
+
 @media (max-width: 900px) {
   .hero { height: auto; }
   .hero__sticky { position: relative; height: auto; display: flex; flex-direction: column; }
