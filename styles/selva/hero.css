@@ -1,0 +1,85 @@
+/* ============================================================
+   COMPONENT — Hero (50/50 sticky panel; image animates wide on
+   scroll, text scales out). Same markup every page; only image +
+   label/title/tagline change. Home uses .hero__wordmark; inner
+   pages swap in .hero__pageTitle (italic title).
+   → React <Hero image label title tagline note> · blok `hero`
+   ============================================================ */
+
+.hero { height: 200vh; position: relative; }
+.hero__sticky { position: sticky; top: 0; height: 100vh; overflow: hidden; }
+
+.hero__imagePanel {
+  position: absolute; top: 0; left: 0; height: 100%;
+  width: 50%; z-index: 1; overflow: hidden; will-change: width;
+}
+.hero__imagePanel img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+
+.hero__textPanel {
+  position: absolute; top: 0; right: 0; width: 50%; height: 100%;
+  background: var(--color-bg); z-index: 0;
+}
+.hero__textInner {
+  width: 100%; height: 100%; min-width: 380px;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  padding: var(--space-20) var(--space-16); position: relative;
+  will-change: opacity, transform;
+}
+
+.hero__scrollCue { position: absolute; top: calc(32px + 80px); right: var(--space-10); }
+.hero__scrollLabel {
+  font-family: var(--font-label); font-size: 9px; font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest); text-transform: uppercase;
+  color: var(--color-text-muted); writing-mode: vertical-rl;
+}
+
+.hero__logoBlock { display: flex; flex-direction: column; align-items: center; gap: var(--space-5); text-align: center; }
+.hero__preLabel {
+  font-family: var(--font-label); font-size: clamp(11px, 0.7vw, 17px); font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--color-text-muted);
+}
+.hero__wordmark {
+  font-family: var(--font-heading); font-size: clamp(4rem, 8vw, 11rem);
+  font-weight: var(--font-weight-light); letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--color-text-strong); line-height: 1; margin: 0;
+}
+/* Inner-page hero swaps the uppercase wordmark for an italic page title */
+.hero__pageTitle {
+  font-family: var(--font-heading);
+  font-size: clamp(2.6rem, 5vw, 5.5rem);
+  font-weight: var(--font-weight-light);
+  font-style: italic;
+  letter-spacing: -0.01em;
+  line-height: 1.06;
+  color: var(--color-text-strong);
+  margin: 0;
+  text-align: center;
+}
+.hero__rule { width: 1px; height: clamp(40px, 3vh, 80px); background: var(--color-border-strong); margin: var(--space-2) 0; }
+.hero__tagline {
+  font-family: var(--font-heading); font-size: clamp(1.125rem, 1.65vw, 2.4rem);
+  font-weight: var(--font-weight-light); font-style: italic; color: var(--color-text-body);
+  letter-spacing: 0.01em; text-align: center; max-width: clamp(480px, 42%, 900px); white-space: nowrap;
+}
+.hero__deliveryNote {
+  position: absolute; bottom: var(--space-10); left: 50%; transform: translateX(-50%);
+  font-family: var(--font-label); font-size: clamp(11px, 0.7vw, 17px); font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .hero { height: auto; }
+  .hero__sticky { position: relative; height: auto; display: flex; flex-direction: column; }
+  .hero__imagePanel { position: relative; width: 100% !important; height: 60vw; min-height: 320px; max-height: 560px; z-index: 0; }
+  .hero__textPanel { position: relative; width: 100% !important; right: auto; height: auto; }
+  .hero__textInner { min-width: 0; padding: var(--space-16) var(--space-8) var(--space-12); opacity: 1 !important; transform: none !important; }
+  .hero__tagline { white-space: normal; }
+  .hero__deliveryNote { display: none; }
+  .hero__scrollCue { display: none; }
+}
+@media (max-width: 600px) {
+  .hero__imagePanel { height: 72vw; }
+  .hero__wordmark { font-size: clamp(3rem, 16vw, 5rem); }
+  .hero__textInner { padding: var(--space-12) var(--space-6) var(--space-10); }
+}

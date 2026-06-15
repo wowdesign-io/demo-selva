@@ -1,0 +1,26 @@
+/* ============================================================
+   COMPONENT — Button (.btnSlide, slide-up label)
+   Variant: --amber (lifted amber bg + dark text, for dark/green bgs)
+   → React <Button variant="solid|amber" href>
+   ============================================================ */
+
+.btnSlide {
+  position: relative; display: inline-block; overflow: hidden;
+  height: 3rem; line-height: 3rem; padding: 0 var(--space-10);
+  font-family: var(--font-label); font-size: var(--text-sm); font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest); text-transform: uppercase; text-decoration: none;
+  color: var(--color-cta-text); background: var(--color-cta-bg);
+  transition: background-color var(--transition-base);
+}
+.btnSlide span:first-child { display: block; transition: transform 0.35s var(--ease-out); }
+.btnSlide span:last-child {
+  position: absolute; inset: 0; padding: 0 var(--space-10);
+  transform: translateY(100%); transition: transform 0.35s var(--ease-out);
+}
+.btnSlide:hover span:first-child { transform: translateY(-100%); }
+.btnSlide:hover span:last-child { transform: translateY(0); }
+.btnSlide:hover { background: var(--color-primary-hover); }
+
+/* Amber variant — for .btnSlide placed on dark/green backgrounds */
+.btnSlide--amber { background: #DDB075; color: var(--color-text-strong); }
+.btnSlide--amber:hover { background: #E7C490; }

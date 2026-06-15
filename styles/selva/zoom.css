@@ -1,0 +1,7 @@
+/* ============================================================
+   COMPONENT — ZoomImage helper (scroll-scale media wrapper)
+   ============================================================ */
+
+.zoom { position: relative; width: 100%; height: 100%; overflow: hidden; }
+.zoom__inner { position: absolute; inset: -6%; will-change: transform; }
+.zoom__inner img { width: 100%; height: 100%; object-fit: cover; object-position: center; }

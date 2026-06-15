@@ -1,34 +1,19 @@
-'use client';
-
-import Link from 'next/link';
-import AnimateIn from '../../ui/AnimateIn/AnimateIn';
-import styles from './ResidencesSection.module.css';
-
 export default function ResidencesSection() {
   return (
-    <section className={styles.section}>
-      <div className={styles.container}>
-        <div className={styles.intro}>
-          <AnimateIn>
-            <span className={styles.label}>Residences</span>
-          </AnimateIn>
-          <AnimateIn delay={0.1}>
-            <h2 className={styles.heading}>
-              Curated for<br />Private Living
-            </h2>
-          </AnimateIn>
-          <AnimateIn delay={0.2}>
-            <p className={styles.sub}>
-              Forty bespoke one- and two-bedroom residences — several with private dens —
-              each thoughtfully proportioned for a life of botanical luxury and urban ease.
-            </p>
-          </AnimateIn>
-          <AnimateIn delay={0.3}>
-            <Link href="/residences" className={styles.cta}>
-              <span>View Residences</span>
-              <span aria-hidden>View Residences</span>
-            </Link>
-          </AnimateIn>
+    <section className="residences" data-screen-label="Residences">
+      <div className="residences__container">
+        <div className="residences__intro">
+          <span className="residences__label reveal">Residences</span>
+          <h2 className="residences__heading reveal" data-delay="100">
+            Curated for<br />Private Living
+          </h2>
+          <p className="residences__sub reveal" data-delay="200">
+            Forty bespoke one- and two-bedroom residences &mdash; several with private dens &mdash; each thoughtfully proportioned
+            for a life of botanical luxury and urban ease.
+          </p>
+          <a href="/residences" className="btnSlide residences__cta reveal" data-delay="300">
+            <span>View Residences</span><span aria-hidden="true">View Residences</span>
+          </a>
         </div>
       </div>
     </section>

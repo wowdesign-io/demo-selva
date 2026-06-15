@@ -1,19 +1,22 @@
-/* ============================================
-   Globals — imports all style sheets
-   Load this once in app/layout.tsx
-   ============================================ */
+/* Handoff CSS — import all selva stylesheets directly */
+@import './selva/selva.css';
+@import './selva/nav.css';
+@import './selva/loader.css';
+@import './selva/hero.css';
+@import './selva/button.css';
+@import './selva/overview.css';
+@import './selva/zoom.css';
+@import './selva/prose-band.css';
+@import './selva/stat-strip.css';
+@import './selva/carousel.css';
+@import './selva/home.css';
+@import './selva/residences.css';
+@import './selva/footer.css';
 
-@import './tokens.css';
-@import './reset.css';
-@import './typography.css';
-@import './animations.css';
-
-/* ── Loader: prevent scroll while curtain is up ─── */
 body.is-loading {
   overflow: hidden;
 }
 
-/* ── Hide native scrollbar (replaced by ScrollProgress component) ─── */
 html {
   scrollbar-width: none;
 }

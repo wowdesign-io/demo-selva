@@ -1,0 +1,77 @@
+/* ============================================================
+   COMPONENT — ProseBand (eyebrow + headline + body intro)
+   Shared by Home + Vision as the `.vision__copyBand` band.
+   (Neighborhood's `.nbhd-intro` is a sibling implementation kept
+   page-side for now — its visual merge is deferred pending an
+   art-director review; see COMPONENTS.md §4.)
+   Also home: `.vision__imageWrap` teaser image + the `.vision__cta`
+   funnel arrow link (also reused in the Amenities intro).
+   → React <ProseBand label heading body cta> · blok `prose_band`
+   ============================================================ */
+
+.vision { background: var(--color-bg); overflow: hidden; }
+.vision__copyBand { position: relative; isolation: isolate; }
+.vision__leavesBg {
+  position: absolute; inset: 0; z-index: -2;
+  background-image: url('../../public/images/backgrounds/leaves-bg.jpg');
+  background-size: cover; background-position: center;
+}
+.vision__leavesOverlay { position: absolute; inset: 0; z-index: -1; background-color: rgba(224, 237, 218, 0.82); }
+.vision__inner {
+  display: grid; grid-template-columns: 52fr 48fr; gap: var(--space-16); align-items: end;
+  max-width: var(--container-wide); margin: 0 auto;
+  padding: var(--space-24) var(--space-16) var(--space-16);
+}
+.vision__headingCol { display: flex; flex-direction: column; gap: var(--space-6); }
+.vision__label {
+  font-family: var(--font-label); font-size: var(--text-xs); font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--color-text-muted);
+}
+.vision__headline {
+  font-family: var(--font-heading); font-size: clamp(2.1rem, 4.5vw, 5.25rem);
+  font-weight: var(--font-weight-light); font-style: italic; line-height: 1.05;
+  letter-spacing: -0.01em; color: var(--color-text-strong); margin: 0;
+}
+.vision__headline .lineWrap { padding-bottom: 0.06em; }
+.vision__bodyCol {
+  display: grid; grid-template-columns: 1fr 1fr; column-gap: var(--space-8); row-gap: var(--space-8);
+  padding-bottom: var(--space-2);
+}
+.vision__bodyCol > :last-child { grid-column: 1 / -1; }
+.vision__bodyText {
+  font-family: var(--font-body); font-size: var(--text-body);
+  line-height: var(--leading-relaxed); color: var(--color-text-body); margin: 0;
+}
+
+/* Funnel arrow link (Home vision teaser, Vision page, Amenities intro) */
+.vision__cta {
+  display: inline-flex; align-items: center; gap: var(--space-2);
+  font-family: var(--font-label); font-size: var(--text-sm); font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-wide); text-transform: uppercase;
+  color: var(--color-text-strong); text-decoration: none;
+  border-bottom: 1px solid var(--color-border-strong); padding-bottom: 2px;
+  transition: border-color var(--transition-base), color var(--transition-base);
+  justify-self: start;
+  max-width: max-content;
+}
+.vision__cta:hover { color: var(--color-primary); border-color: var(--color-primary); }
+.vision__arrow { transition: transform var(--transition-base); }
+.vision__cta:hover .vision__arrow { transform: translateX(4px); }
+/* light + amber arrow variants for dark/green sections */
+.vision__cta--light { color: var(--color-on-primary-strong); border-bottom-color: var(--color-on-primary-border); }
+.vision__cta--light:hover { color: var(--color-on-primary-strong); border-bottom-color: var(--color-on-primary-strong); }
+.vision__cta--amber { color: #DDB075; border-bottom-color: rgba(221, 176, 117, 0.45); }
+.vision__cta--amber:hover { color: #E7C490; border-bottom-color: #DDB075; }
+
+/* Home teaser image */
+.vision__imageWrap { position: relative; height: clamp(400px, 65vh, 720px); overflow: hidden; }
+
+@media (max-width: 900px) {
+  .vision__inner { grid-template-columns: 1fr; align-items: start; gap: var(--space-10); padding-bottom: var(--space-12); }
+  .vision__bodyCol { grid-template-columns: 1fr; }
+  .vision__bodyCol > :last-child { grid-column: 1; }
+}
+@media (max-width: 600px) {
+  .vision__inner { padding: var(--space-16) var(--space-6) var(--space-10); }
+  .vision__imageWrap { height: 55vw; min-height: 260px; }
+}

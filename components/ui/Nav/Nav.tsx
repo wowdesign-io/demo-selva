@@ -1,39 +1,23 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import styles from './Nav.module.css';
-
-const NAV_LINKS = [
-  { label: 'Vision',        href: '/vision' },
-  { label: 'Residences',   href: '/residences' },
-  { label: 'Amenities',    href: '/amenities' },
-  { label: 'Neighborhood', href: '/neighborhood' },
-  { label: 'Gallery',      href: '/gallery' },
-  { label: 'Press',        href: '/press' },
-  { label: 'Team',         href: '/team' },
-];
 
 export default function Nav() {
-  const pathname = usePathname();
-  const [scrolled, setScrolled]   = useState(false);
-  const [menuOpen, setMenuOpen]   = useState(false);
-  const [temp,     setTemp]       = useState<string | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 30);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    const bar = document.getElementById('bar');
+    const nav = document.getElementById('nav');
 
-  useEffect(() => {
-    fetch(
-      'https://api.open-meteo.com/v1/forecast?latitude=25.7617&longitude=-80.1918&current=temperature_2m&temperature_unit=fahrenheit'
-    )
-      .then((r) => r.json())
-      .then((d) => setTemp(Math.round(d.current.temperature_2m) + '°F'))
-      .catch(() => {});
+    function onScroll() {
+      const s = window.scrollY > 30;
+      bar?.classList.toggle('is-hidden', s);
+      nav?.classList.toggle('is-scrolled', s);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   useEffect(() => {
@@ -41,65 +25,58 @@ export default function Nav() {
     return () => { document.body.style.overflow = ''; };
   }, [menuOpen]);
 
+  function closeMenu() {
+    setMenuOpen(false);
+  }
+
   return (
     <>
-      {/* Announcement bar */}
-      <div className={scrolled ? `${styles.bar} ${styles.barHidden}` : styles.bar}>
+      <div className="bar" id="bar">
         <span>Pre-Sales Now Open</span>
-        <span className={styles.barDot}>·</span>
+        <span className="bar__dot">·</span>
         <span>40 Residences</span>
-        <span className={`${styles.barDot} ${styles.barDeskOnly}`}>·</span>
-        <span className={styles.barDeskOnly}>Miami</span>
-        <span className={`${styles.barDot} ${styles.barDeskOnly}`}>·</span>
-        <span className={styles.barDeskOnly}>Delivery Mid-2027</span>
+        <span className="bar__dot bar__deskonly">·</span>
+        <span className="bar__deskonly">Miami</span>
+        <span className="bar__dot bar__deskonly">·</span>
+        <span className="bar__deskonly">Delivery Mid-2027</span>
       </div>
 
-      {/* Main nav */}
-      <nav className={scrolled ? `${styles.nav} ${styles.navScrolled}` : styles.nav}>
-        <div className={styles.left}>
+      <nav className="nav" id="nav">
+        <div className="nav__left">
           <button
-            className={menuOpen ? `${styles.burger} ${styles.burgerOpen}` : styles.burger}
-            onClick={() => setMenuOpen(!menuOpen)}
+            className={`burger${menuOpen ? ' is-open' : ''}`}
+            id="burger"
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+            onClick={() => setMenuOpen(v => !v)}
           >
-            <span />
-            <span />
-            <span />
+            <span></span><span></span><span></span>
           </button>
-          {temp && <span className={styles.temp}>{temp}</span>}
+          <span className="nav__temp" id="temp"></span>
         </div>
-
-        <div className={styles.center}>
-          <Link href="/" className={styles.wordmark}>SELVA</Link>
+        <div className="nav__center">
+          <Link href="/" className="wordmark">SELVA</Link>
         </div>
-
-        <div className={styles.right}>
-          <a href="tel:+13055550100" className={styles.phone}>305.555.0100</a>
-          <Link href="/residences#planpoint" className={styles.cta}>
-            <span className={styles.ctaExplore}>Explore </span>Floorplans
+        <div className="nav__right">
+          <a href="tel:+13055550100" className="nav__phone">305.555.0100</a>
+          <Link href="/residences#planpoint" className="nav__cta">
+            <span className="nav__cta-word">Explore </span>Floorplans
           </Link>
         </div>
       </nav>
 
-      {/* Full-screen overlay menu */}
-      <div className={menuOpen ? `${styles.overlay} ${styles.overlayOpen}` : styles.overlay}>
-        <nav className={styles.overlayNav}>
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={styles.overlayLink}
-              aria-current={pathname === link.href ? 'page' : undefined}
-              onClick={() => setMenuOpen(false)}
-            >
-              {link.label}
-            </Link>
-          ))}
+      <div className={`overlay${menuOpen ? ' is-open' : ''}`} id="overlay">
+        <nav className="overlay__nav">
+          <Link href="/vision"        className="overlay__link" onClick={closeMenu}>Vision</Link>
+          <Link href="/residences"    className="overlay__link" onClick={closeMenu}>Residences</Link>
+          <Link href="/amenities"     className="overlay__link" onClick={closeMenu}>Amenities</Link>
+          <Link href="/neighborhood"  className="overlay__link" onClick={closeMenu}>Neighborhood</Link>
+          <Link href="/gallery"       className="overlay__link" onClick={closeMenu}>Gallery</Link>
+          <Link href="/team"          className="overlay__link" onClick={closeMenu}>Team</Link>
+          <Link href="/press"         className="overlay__link" onClick={closeMenu}>Press</Link>
         </nav>
-
-        <div className={styles.overlayFooter}>
-          <span className={styles.overlayMark}>SELVA</span>
-          <Link href="/residences#planpoint" className={styles.overlayCta} onClick={() => setMenuOpen(false)}>
+        <div className="overlay__footer">
+          <span className="overlay__mark">SELVA</span>
+          <Link href="/residences#planpoint" className="overlay__cta" onClick={closeMenu}>
             Explore Floorplans →
           </Link>
         </div>

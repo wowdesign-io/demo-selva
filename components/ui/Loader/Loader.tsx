@@ -1,9 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import styles from './Loader.module.css';
 
-const LETTERS = ['S', 'E', 'L', 'V', 'A'];
 const MIN_SHOW = 2000;
 
 export default function Loader() {
@@ -22,7 +20,7 @@ export default function Loader() {
       sessionStorage.setItem('selvaLoaded', '1');
       document.body.classList.remove('is-loading');
       setPhase('lifting');
-      setTimeout(() => setPhase('gone'), 700);
+      setTimeout(() => setPhase('gone'), 1100);
     }
 
     function onLoad() {
@@ -43,13 +41,18 @@ export default function Loader() {
   if (phase === 'gone') return null;
 
   return (
-    <div className={`${styles.loader}${phase === 'lifting' ? ` ${styles.isDone}` : ''}`}>
-      <div className={styles.inner}>
-        <div className={styles.mark}>
-          {LETTERS.map((l) => <span key={l}>{l}</span>)}
+    <div
+      className={`loader${phase === 'lifting' ? ' is-done' : ''}`}
+      id="loader"
+      role="presentation"
+      aria-hidden="true"
+    >
+      <div className="loader__inner">
+        <div className="loader__mark">
+          <span>S</span><span>E</span><span>L</span><span>V</span><span>A</span>
         </div>
-        <div className={styles.rule} />
-        <p className={styles.tag}>Where the forest meets the sky</p>
+        <div className="loader__rule"></div>
+        <p className="loader__tag">Where the forest meets the sky</p>
       </div>
     </div>
   );

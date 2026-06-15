@@ -1,0 +1,40 @@
+/* ============================================================
+   COMPONENT — Overview (Home 3-panel hover gallery + intro)
+   → React <Overview> · blok `overview`
+   ============================================================ */
+
+.overview { padding-top: var(--space-24); background: var(--color-bg); }
+.overview__intro { max-width: 1100px; margin: 0 auto; padding: 0 var(--space-10) var(--space-20); text-align: center; }
+.overview__introText {
+  font-family: var(--font-heading); font-size: clamp(1.6rem, 2.3vw, 2.6rem);
+  font-style: italic; font-weight: var(--font-weight-regular); line-height: 1.18;
+  color: var(--color-text-body); letter-spacing: 0.01em;
+}
+.overview__panels { display: grid; grid-template-columns: repeat(3, 1fr); height: clamp(420px, 64vh, 720px); }
+.overview__panel { position: relative; overflow: hidden; display: block; text-decoration: none; }
+.overview__imageWrap { position: absolute; inset: -7%; will-change: transform; }
+.overview__imageWrap img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.overview__overlay {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to bottom, transparent 35%, rgba(10, 20, 14, 0.62) 100%);
+  transition: opacity 0.5s var(--ease-out);
+}
+.overview__panel:hover .overview__overlay { opacity: 0.85; }
+.overview__label {
+  position: absolute; bottom: var(--space-10); left: var(--space-10); z-index: 2;
+  font-family: var(--font-heading); font-size: clamp(2.2rem, 3.5vw, 3.8rem);
+  font-weight: var(--font-weight-light); letter-spacing: 0.02em;
+  color: var(--color-on-primary-strong); line-height: 1;
+  transform-origin: left bottom; transition: transform 0.5s var(--ease-out);
+}
+.overview__panel:hover .overview__label { transform: scale(1.08); }
+
+@media (max-width: 1024px) {
+  .overview { padding-top: var(--space-20); }
+}
+@media (max-width: 768px) {
+  .overview { padding-top: var(--space-16); }
+  .overview__panels { grid-template-columns: 1fr; height: auto; }
+  .overview__panel { height: 60vw; min-height: 240px; }
+  .overview__intro { padding: 0 var(--space-6) var(--space-12); }
+}
