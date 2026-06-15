@@ -1,0 +1,79 @@
+/* ============================================================
+   SELVA Amenities page — grid section below the carousel
+   ============================================================ */
+
+/* Inner-page load fade-in + longer-tagline wrap (was in inner-page.css) */
+body { animation: selvaPageIn 0.6s var(--ease-out) both; }
+@keyframes selvaPageIn { from { opacity: 0; } to { opacity: 1; } }
+.hero__tagline { white-space: normal; max-width: 34ch; }
+
+/* ---- Amenities grid ------------------------------------- */
+.amen-grid {
+  background: var(--color-bg);
+  padding: clamp(var(--space-16), 7vw, var(--space-32))
+           clamp(var(--space-8), 6vw, var(--space-24));
+}
+.amen-grid__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: clamp(var(--space-10), 4vw, var(--space-16));
+  padding-bottom: var(--space-6);
+  border-bottom: var(--border-strong);
+}
+.amen-grid__label {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.amen-grid__count {
+  font-family: var(--font-heading);
+  font-size: var(--text-lg);
+  font-style: italic;
+  font-weight: var(--font-weight-light);
+  color: var(--color-text-body);
+}
+/* Icon grid chrome + showcase look moved to components/icon-grid.css
+   (.icon-grid--showcase --cols-3). The .amen-grid section wrapper/header stay here. */
+
+/* ---- Page-level CTA: shared .page-cta lives in inner-page.css ---- */
+
+/* ---- Cinematic motion band (ambient Ken-Burns; swap for a <video> when ready) ---- */
+.amen-motion { position: relative; height: clamp(440px, 82vh, 860px); overflow: hidden; isolation: isolate; }
+.amen-motion__media { position: absolute; inset: 0; z-index: -2; }
+.amen-motion__media img { width: 100%; height: 100%; object-fit: cover; transform-origin: 60% 40%; animation: amenKenBurns 26s ease-in-out infinite alternate; }
+.amen-motion__scrim { position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgba(10,20,14,0.86) 0%, rgba(10,20,14,0.48) 28%, rgba(10,20,14,0.12) 60%, rgba(10,20,14,0.34) 100%); }
+.amen-motion__content { position: absolute; left: clamp(var(--space-8), 6vw, var(--space-24)); right: clamp(var(--space-8), 6vw, var(--space-24)); bottom: clamp(var(--space-12), 7vh, var(--space-24)); color: var(--color-on-primary-strong); }
+.amen-motion__label { display: block; font-family: var(--font-label); font-size: 11px; font-weight: var(--font-weight-medium); letter-spacing: var(--tracking-widest); text-transform: uppercase; color: rgba(250,250,247,0.82); margin-bottom: var(--space-4); text-shadow: 0 1px 16px rgba(10,20,14,0.7); }
+.amen-motion__heading { font-family: var(--font-heading); font-size: clamp(2.4rem, 5vw, 5.5rem); font-weight: var(--font-weight-light); font-style: italic; line-height: 1.05; letter-spacing: -0.01em; margin: 0; max-width: 18ch; color: #FAFAF7; text-shadow: 0 2px 30px rgba(10,20,14,0.7); }
+@keyframes amenKenBurns { from { transform: scale(1.06); } to { transform: scale(1.2) translate3d(-2.5%, -2%, 0); } }
+@media (prefers-reduced-motion: reduce) { .amen-motion__media img { animation: none; transform: scale(1.06); } }
+
+/* ---- Sticky horizontal slider ("A Day at SELVA") ---- */
+.amen-sticky { position: relative; height: 360vh; background: var(--color-surface); }
+.amen-sticky__pin { position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+.amen-sticky__head { display: flex; justify-content: space-between; align-items: flex-end; gap: var(--space-6); padding: clamp(var(--space-12), 5vw, var(--space-24)) clamp(var(--space-8), 6vw, var(--space-24)) var(--space-6); }
+.amen-sticky__label { display: block; font-family: var(--font-label); font-size: 10px; font-weight: var(--font-weight-medium); letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--color-text-muted); margin-bottom: var(--space-3); }
+.amen-sticky__title { font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 4rem); font-weight: var(--font-weight-light); font-style: italic; line-height: 1; color: var(--color-text-strong); margin: 0; }
+.amen-sticky__hint { font-family: var(--font-label); font-size: 10px; letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--color-text-muted); white-space: nowrap; }
+.amen-sticky__viewport { flex: 1 1 auto; overflow: hidden; }
+.amen-sticky__track { display: flex; gap: clamp(var(--space-5), 2vw, var(--space-10)); height: 100%; padding: 0 clamp(var(--space-8), 6vw, var(--space-24)) clamp(var(--space-12), 5vw, var(--space-24)); will-change: transform; }
+.amen-sticky__card { position: relative; flex: 0 0 auto; width: clamp(280px, 34vw, 520px); height: 100%; overflow: hidden; margin: 0; }
+.amen-sticky__card img { width: 100%; height: 100%; object-fit: cover; }
+.amen-sticky__cardOverlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,20,14,0.90) 0%, rgba(10,20,14,0.42) 42%, rgba(10,20,14,0.04) 100%); }
+.amen-sticky__cardBody { position: absolute; left: var(--space-6); right: var(--space-6); bottom: var(--space-6); color: var(--color-on-primary-strong); }
+.amen-sticky__cardTime { display: block; font-family: var(--font-label); font-size: 10px; letter-spacing: var(--tracking-widest); text-transform: uppercase; color: #DDB075; margin-bottom: var(--space-2); text-shadow: 0 1px 12px rgba(10,20,14,0.72); }
+.amen-sticky__cardName { font-family: var(--font-heading); font-size: clamp(1.4rem, 2vw, 2.2rem); font-weight: var(--font-weight-light); line-height: 1.05; margin: 0; color: #FAFAF7; text-shadow: 0 2px 20px rgba(10,20,14,0.72); }
+@media (max-width: 768px) {
+  /* motion band: cap height on mobile (~56vh, was up to 82vh) */
+  .amen-motion { height: 56vh; min-height: 320px; }
+  /* keep "A Day at SELVA" pinned + scroll-driven on mobile too */
+  .amen-sticky__head { padding: var(--space-10) var(--space-6) var(--space-5); }
+  .amen-sticky__card { width: 72vw; }
+}
+
+/* ---- Responsive ---------------------------------------- */
+/* Grid column counts (3→2→1) now come from components/icon-grid.css defaults. */

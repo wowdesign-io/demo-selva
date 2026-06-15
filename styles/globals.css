@@ -15,6 +15,7 @@
 @import './selva/home.css';
 @import './selva/residences.css';
 @import './selva/vision.css';
+@import './selva/amenities.css';
 @import './selva/footer.css';
 
 body.is-loading {
