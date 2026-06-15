@@ -70,7 +70,7 @@ The handoff is a complete, validated static HTML prototype. **We port it verbati
 
 ## Key interactive components (already built — reuse)
 
-- **`components/blocks/PlanpointEmbed/`** — the digital-twin iframe (`app.planpoint.io/miami-wowdesign/laurent`) + full controller (deep-link `f`/`u` params, resize polling, fullscreen, click/scroll forwarding). Used on `/residences`.
+- **`components/blocks/PlanpointEmbed/`** — the digital-twin iframe (`app.planpoint.io/miami-wowdesign/laurent`). Fixed 100vh immersive embed: deep-link `f`/`u` params, UTM, fullscreen only. **Do NOT add parent scroll/click forwarding or auto-resize** — that broke floor-hover hit-testing (flicker) with Lenis. Full Planpoint embed spec, deep-link format, postMessage events, and this gotcha: `references/sops/planpoint-embed.md` (in the wowdesign OS repo). Used on `/residences`.
 - **`components/blocks/ResModelsSlider/`** — inline horizontal models track with the floating arrow cursor-nav and `goToUnit(unit, floor)` deep-linking into the embed.
 - **`components/blocks/AmenitiesSection/`** — the home carousel (tripled-DOM grow-into-slot mechanic, geometry from live DOM, keyboard + swipe).
 
