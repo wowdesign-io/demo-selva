@@ -636,7 +636,7 @@
   .res-inline-header { padding: 0 var(--space-6) var(--space-5); }
   .res-inline-track { padding: 0 var(--space-6); }
   .res-inline-card { width: 82vw; height: 58vw; min-height: 340px; }
-  .res-inline-card--intro { width: 74vw; }
+  .res-inline-card--intro { width: 82vw; }
 }
 .res-inline-slider {
   /* break out of the container padding */
@@ -754,7 +754,7 @@
   .res-hero__heading { font-size: clamp(2.4rem, 12vw, 3.2rem); }
   .res-stats__inner { grid-template-columns: repeat(2, 1fr); }
   .res-inline-card { width: 88vw; height: 64vw; min-height: 400px; }
-  .res-inline-card--intro { width: 80vw; min-height: 400px; }
+  .res-inline-card--intro { width: 88vw; min-height: 400px; }
   .res-feat__grid { grid-template-columns: repeat(2, 1fr); }
   .res-feat__grid .icon-grid__item { padding: var(--space-5); }
   .res-planpoint__header { padding: var(--space-8) var(--space-4) var(--space-5); }
