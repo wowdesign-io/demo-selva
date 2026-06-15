@@ -115,7 +115,7 @@
 @media (max-width: 900px) {
   /* Stacked layout: image is at the very top, so offset it below the fixed
      bar (32px) + nav, otherwise the nav clips the top of the hero image. */
-  .hero { height: auto; padding-top: 6rem; }
+  .hero { height: auto; padding-top: calc(6rem - 5px); }
   .hero__sticky { position: relative; height: auto; display: flex; flex-direction: column; }
   .hero__imagePanel { position: relative; width: 100% !important; height: 60vw; min-height: 320px; max-height: 560px; z-index: 0; }
   .hero__textPanel { position: relative; width: 100% !important; right: auto; height: auto; }
