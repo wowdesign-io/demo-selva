@@ -27,7 +27,7 @@ export default function GalleryPage() {
                 </div>
                 <div className="hero__logoBlock">
                   <p className="hero__preLabel">Miami &middot; Gallery</p>
-                  <h1 className="hero__pageTitle">A closer<br />look</h1>
+                  <h1 className="hero__pageTitle">A closer look</h1>
                   <div className="hero__rule"></div>
                   <p className="hero__tagline">Architecture, interiors and the life around SELVA &mdash; frame by frame.</p>
                 </div>
