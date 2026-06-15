@@ -4,14 +4,15 @@ import { useEffect, useRef } from 'react';
 
 const PROJECT_URL = 'https://app.planpoint.io/miami-wowdesign/laurent?lang=English';
 
-/* Immersive (fixed 100vh) Planpoint embed.
-   IMPORTANT: this is NOT the inline/document-flow embed. The full boilerplate
-   forwards parent scroll + clicks into the iframe and auto-resizes its height —
-   that is meant for an embed that scrolls WITH the page. For a fixed-viewport
-   360 twin it breaks the embed's own mouse hit-testing: with Lenis smooth-scroll
-   running, the forwarded vertical offset oscillates every frame, so floor-hover
-   highlights the wrong floor and flickers, and it resets deep-links to overview.
-   So we deliberately keep ONLY: deep-link params, UTM, and fullscreen. */
+/* Planpoint embed controller.
+   We KEEP the size handshake (get_size -> embed reports content height -> we
+   match the iframe height) — without it the floor-overlay polygons are laid out
+   for a different height than the iframe, so hover highlights the wrong floor
+   and the top floor falls off-screen.
+   We REMOVE the parent->iframe scroll + click forwarding from the handoff
+   boilerplate: that is for inline/document-flow embeds, and with Lenis
+   smooth-scroll the forwarded vertical offset oscillates every frame, breaking
+   the embed's mouse hit-testing (flicker) and resetting deep-links to overview. */
 export default function PlanpointEmbed() {
   const containerRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLIFrameElement>(null);
@@ -23,6 +24,7 @@ export default function PlanpointEmbed() {
 
     let onFullscreen = false;
     let savedScrollY = 0;
+    let enableResize = true;
 
     const urlParams = new URLSearchParams(window.location.search);
     const p = {
@@ -55,10 +57,14 @@ export default function PlanpointEmbed() {
 
     iframe.src = iframeSrc;
 
-    // Pass UTM/attribution context to the embed (does not affect navigation/hover).
-    const utmPoll = window.setInterval(() => {
+    // Size handshake (ask the embed for its content height) + UTM attribution.
+    // Stable, not scroll-dependent — safe with Lenis.
+    const poll = window.setInterval(() => {
+      if (iframe.contentWindow && enableResize) {
+        iframe.contentWindow.postMessage('get_size', '*');
+      }
       iframe.contentWindow?.postMessage({ type: 'utm', data: utmParams }, '*');
-    }, 2000);
+    }, 1000);
 
     /* ── Fullscreen (the embed's own fullscreen button posts a message) ── */
     function openFullscreen() {
@@ -99,6 +105,7 @@ export default function PlanpointEmbed() {
           container!.style.left = 'auto';
           container!.style.zIndex = 'auto';
           window.scrollTo({ top: savedScrollY, behavior: 'instant' as ScrollBehavior });
+          enableResize = true;
         }, 500);
       } else {
         document.documentElement.scrollTop = 0;
@@ -111,6 +118,7 @@ export default function PlanpointEmbed() {
         container!.style.zIndex = '999999999';
         iframe!.style.height = '100vh';
         iframe!.style.width = '100%';
+        enableResize = false;
       }
     }
 
@@ -126,6 +134,15 @@ export default function PlanpointEmbed() {
       } else if (data && data.type === 'scroll-to-top') {
         const top = container!.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({ top, behavior: 'smooth' });
+      } else if (data && data.type === 'resize') {
+        iframe!.style.height = data.h + 'px';
+        container!.style.height = data.h + 'px';
+      } else if (typeof data === 'string') {
+        const h = parseInt(data.split('x')[0], 10);
+        if (!isNaN(h)) {
+          iframe!.style.height = h + 'px';
+          container!.style.height = h + 'px';
+        }
       }
     }
 
@@ -136,7 +153,7 @@ export default function PlanpointEmbed() {
     document.addEventListener('MSFullscreenChange', fullscreenHandler);
 
     return () => {
-      clearInterval(utmPoll);
+      clearInterval(poll);
       window.removeEventListener('message', onMessage);
       document.removeEventListener('fullscreenchange', fullscreenHandler);
       document.removeEventListener('webkitfullscreenchange', fullscreenHandler);
