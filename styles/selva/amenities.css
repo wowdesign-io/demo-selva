@@ -77,5 +77,11 @@ body { animation: selvaPageIn 0.6s var(--ease-out) both; }
   .amen-sticky__card { width: 72vw; height: 80%; }
 }
 
+/* Foldables / tall portrait screens above 768px (e.g. Pixel Fold unfolded):
+   full-height cards are too tall — apply the same 20% trim (height only). */
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: portrait) {
+  .amen-sticky__card { height: 80%; }
+}
+
 /* ---- Responsive ---------------------------------------- */
 /* Grid column counts (3→2→1) now come from components/icon-grid.css defaults. */
