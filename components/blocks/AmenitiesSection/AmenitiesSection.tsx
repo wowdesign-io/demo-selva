@@ -3,13 +3,13 @@
 import { useRef, useEffect } from 'react';
 
 const SLIDES = [
-  { src: '/images/amenities/pool-deck.png',         label: 'Pool Terrace' },
-  { src: '/images/amenities/spa-room.png',          label: 'Wellness Spa' },
-  { src: '/images/amenities/sky-terrace.png',       label: 'Sky Terrace' },
-  { src: '/images/amenities/lounge.png',            label: "Residents' Lounge" },
-  { src: '/images/amenities/fitness.png',           label: 'Fitness Studio' },
-  { src: '/images/amenities/coworking-library.png', label: 'Library & Co-Work' },
-  { src: '/images/amenities/garden-courtyard.png',  label: 'Garden Courtyard' },
+  { src: '/images/amenities/pool-deck.webp',         label: 'Pool Terrace' },
+  { src: '/images/amenities/spa-room.webp',          label: 'Wellness Spa' },
+  { src: '/images/amenities/sky-terrace.webp',       label: 'Sky Terrace' },
+  { src: '/images/amenities/lounge.webp',            label: "Residents' Lounge" },
+  { src: '/images/amenities/fitness.webp',           label: 'Fitness Studio' },
+  { src: '/images/amenities/coworking-library.webp', label: 'Library & Co-Work' },
+  { src: '/images/amenities/garden-courtyard.webp',  label: 'Garden Courtyard' },
 ];
 
 export default function AmenitiesSection() {

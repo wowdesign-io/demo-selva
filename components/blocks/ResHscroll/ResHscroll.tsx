@@ -82,7 +82,7 @@ export default function ResHscroll() {
             <div className="res-hscroll__card">
               <div className="res-hscroll__card-img">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/renders/terrace.png" alt="Model C — Patio 1BR Suite" />
+                <img src="/images/renders/terrace.webp" alt="Model C — Patio 1BR Suite" />
               </div>
               <div className="res-hscroll__card-overlay"></div>
               <div className="res-hscroll__card-body">
@@ -100,7 +100,7 @@ export default function ResHscroll() {
             <div className="res-hscroll__card">
               <div className="res-hscroll__card-img">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/renders/balcony.png" alt="Model D — 1BR + Den Suite" />
+                <img src="/images/renders/balcony.webp" alt="Model D — 1BR + Den Suite" />
               </div>
               <div className="res-hscroll__card-overlay"></div>
               <div className="res-hscroll__card-body">
@@ -118,7 +118,7 @@ export default function ResHscroll() {
             <div className="res-hscroll__card">
               <div className="res-hscroll__card-img">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/renders/kitchen-wide.png" alt="Model B — 2BR Suite" />
+                <img src="/images/renders/kitchen-wide.webp" alt="Model B — 2BR Suite" />
               </div>
               <div className="res-hscroll__card-overlay"></div>
               <div className="res-hscroll__card-body">

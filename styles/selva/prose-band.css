@@ -1,19 +1,19 @@
-/* ============================================================
-   COMPONENT — ProseBand (eyebrow + headline + body intro)
+﻿/* ============================================================
+   COMPONENT â€” ProseBand (eyebrow + headline + body intro)
    Shared by Home + Vision as the `.vision__copyBand` band.
    (Neighborhood's `.nbhd-intro` is a sibling implementation kept
-   page-side for now — its visual merge is deferred pending an
-   art-director review; see COMPONENTS.md §4.)
+   page-side for now â€” its visual merge is deferred pending an
+   art-director review; see COMPONENTS.md Â§4.)
    Also home: `.vision__imageWrap` teaser image + the `.vision__cta`
    funnel arrow link (also reused in the Amenities intro).
-   → React <ProseBand label heading body cta> · blok `prose_band`
+   â†’ React <ProseBand label heading body cta> Â· blok `prose_band`
    ============================================================ */
 
 .vision { background: var(--color-bg); overflow: hidden; }
 .vision__copyBand { position: relative; isolation: isolate; }
 .vision__leavesBg {
   position: absolute; inset: 0; z-index: -2;
-  background-image: url('../../public/images/backgrounds/leaves-bg.jpg');
+  background-image: url('../../public/images/backgrounds/leaves-bg.webp');
   background-size: cover; background-position: center;
 }
 .vision__leavesOverlay { position: absolute; inset: 0; z-index: -1; background-color: rgba(224, 237, 218, 0.82); }

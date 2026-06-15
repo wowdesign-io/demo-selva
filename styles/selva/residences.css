@@ -1,5 +1,5 @@
-/* ============================================================
-   SELVA Residences — Residences subpage styles
+﻿/* ============================================================
+   SELVA Residences â€” Residences subpage styles
    ============================================================ */
 
 /* ============ PAGE HERO ============ */
@@ -159,9 +159,9 @@
   align-self: center;
 }
 
-/* ============ BOTTOM CTA — shared .page-cta lives in sections.css ============ */
+/* ============ BOTTOM CTA â€” shared .page-cta lives in sections.css ============ */
 
-/* ============ STATS BRIDGE — uses shared .stat-strip--light component ============ */
+/* ============ STATS BRIDGE â€” uses shared .stat-strip--light component ============ */
 
 /* ============ PLANPOINT SECTION ============ */
 .res-planpoint {
@@ -341,7 +341,7 @@
 .res-hscroll__intro-leaves {
   position: absolute;
   inset: 0;
-  background-image: url('../../public/images/backgrounds/leaves-bg.jpg');
+  background-image: url('../../public/images/backgrounds/leaves-bg.webp');
   background-size: cover;
   background-position: center;
   opacity: 0.12;
@@ -591,7 +591,7 @@
 /* Residences intro sits flush above the slider, shares its background */
 .residences { padding-bottom: var(--space-6); background: var(--color-surface); }
 
-/* ── Floating cursor for inline slider ── */
+/* â”€â”€ Floating cursor for inline slider â”€â”€ */
 .res-cursor {
   position: fixed;
   width: 52px;
@@ -617,7 +617,7 @@
 .res-cursor.is-left  .res-cursor__inner--left  { display: flex; }
 .res-cursor.is-right .res-cursor__inner--right { display: flex; }
 
-/* ── Inline header layout ── */
+/* â”€â”€ Inline header layout â”€â”€ */
 .res-inline-header {
   max-width: var(--container-wide);
   margin: 0 auto;
@@ -724,7 +724,7 @@
   /* Features */
   .res-feat { padding: var(--space-16) 0; }
   .res-feat__inner { padding: 0 var(--space-6); gap: var(--space-10); }
-  /* Horizontal scroll — keep sticky slider on mobile, compact sizing */
+  /* Horizontal scroll â€” keep sticky slider on mobile, compact sizing */
   .res-hscroll__sticky { height: 100vh; height: 100dvh; padding: var(--space-6) 0 var(--space-4); }
   .res-hscroll__header { padding: 0 var(--space-5) var(--space-2); }
   .res-hscroll__track { padding: 0 var(--space-5); gap: var(--space-3); }
@@ -738,13 +738,13 @@
   .res-feat__inner { padding: 0 var(--space-5); }
 }
 
-/* ── Touch: hide custom cursor ── */
+/* â”€â”€ Touch: hide custom cursor â”€â”€ */
 @media (hover: none) {
   .res-cursor { display: none !important; }
   .res-inline-track-wrap { cursor: default; }
 }
 
-/* ── 480px: small mobile ── */
+/* â”€â”€ 480px: small mobile â”€â”€ */
 @media (max-width: 480px) {
   .res-hero { height: 85vh; }
   .res-hero__heading { font-size: clamp(2.4rem, 12vw, 3.2rem); }

@@ -1,5 +1,5 @@
-/* ============================================================
-   AMENITIES — featured carousel (SELVA rebuild of the
+﻿/* ============================================================
+   AMENITIES â€” featured carousel (SELVA rebuild of the
    2200 Brickell "grow-into-featured" gallery)
    Mechanic: active slide enlarges; green panel masks the slide
    to its left and holds the nav. Loops, no autoplay.
@@ -13,10 +13,10 @@
   background: #E8EFE2; /* light sage field */
   padding: var(--space-32) 0 var(--space-24);
 
-  /* ── Carousel geometry (tuned per breakpoint below) ── */
+  /* â”€â”€ Carousel geometry (tuned per breakpoint below) â”€â”€ */
   /* Widths: vw-based so the carousel fills the screen proportionally.
      Heights: vh-based so slides always fit in the stage.
-     JS reads actual DOM dimensions — not these vars — so clamp/vw is safe. */
+     JS reads actual DOM dimensions â€” not these vars â€” so clamp/vw is safe. */
   --amen-base-w:   clamp(220px, 21vw, 610px);
   --amen-base-h:   clamp(300px, 40vh, 640px);
   --amen-active-w: clamp(320px, 46vw, 1340px);
@@ -28,19 +28,19 @@
 }
 
 /* Light sage background with the botanical image faintly behind it
-   (same family as the Vision band, lighter) — fills the left zone */
+   (same family as the Vision band, lighter) â€” fills the left zone */
 .amen__texture {
   position: absolute;
   inset: 0;
   z-index: -1;
-  background-image: url('../../public/images/backgrounds/leaves-bg.jpg');
+  background-image: url('../../public/images/backgrounds/leaves-bg.webp');
   background-size: cover;
   background-position: center;
   opacity: 0.2;
   pointer-events: none;
 }
 
-/* ── Intro (top-right) ── */
+/* â”€â”€ Intro (top-right) â”€â”€ */
 .amen__intro {
   max-width: var(--container-wide);
   margin: 0 auto var(--space-16);
@@ -85,7 +85,7 @@
 }
 .amen__cta { margin-top: var(--space-3); }
 
-/* ── Stage (full-bleed) ── */
+/* â”€â”€ Stage (full-bleed) â”€â”€ */
 .amen__stage {
   position: relative;
   width: 100%;
@@ -93,7 +93,7 @@
   overflow: hidden;
 }
 
-/* Track — flex row, bottom-of-nothing; vertically centered slides */
+/* Track â€” flex row, bottom-of-nothing; vertically centered slides */
 .amen__track {
   position: absolute;
   top: 0;
@@ -136,7 +136,7 @@
 /* Scroll-zoom inner (matches Residences ZoomImage) */
 .amen__slide .zoom__inner { z-index: 0; }
 
-/* Hover overlay — same as Residences images */
+/* Hover overlay â€” same as Residences images */
 .amen__overlay {
   position: absolute;
   inset: 0;
@@ -165,7 +165,7 @@
 }
 .amen__slide:hover .amen__overlayLabel { transform: translateY(0); }
 
-/* ── Green nav panel (left, masks the slide behind it) ── */
+/* â”€â”€ Green nav panel (left, masks the slide behind it) â”€â”€ */
 .amen__green {
   position: absolute;
   left: 0;
@@ -182,7 +182,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background-image: url('../../public/images/backgrounds/leaves-closeup.jpg');
+  background-image: url('../../public/images/backgrounds/leaves-closeup.webp');
   background-size: cover;
   background-position: center;
   opacity: 0.10;
@@ -239,14 +239,14 @@
 }
 .amen__counter b { font-weight: var(--font-weight-semibold); color: var(--color-on-primary-strong); }
 
-/* ── CTA row ── */
+/* â”€â”€ CTA row â”€â”€ */
 .amen__ctaRow {
   display: flex;
   justify-content: center;
   padding: var(--space-16) var(--space-16) 0;
 }
 
-/* ── Responsive ── */
+/* â”€â”€ Responsive â”€â”€ */
 @media (max-width: 1100px) {
   .amen {
     --amen-base-w:   240px;

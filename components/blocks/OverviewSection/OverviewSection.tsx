@@ -21,7 +21,7 @@ export default function OverviewSection() {
         <a href="/amenities" className="overview__panel">
           <div className="overview__imageWrap zoom-panel">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/amenities/pool-deck.png" alt="SELVA Amenities — botanical setting" />
+            <img src="/images/amenities/pool-deck.webp" alt="SELVA Amenities — botanical setting" />
           </div>
           <div className="overview__overlay"></div>
           <span className="overview__label">Amenities</span>
@@ -29,7 +29,7 @@ export default function OverviewSection() {
         <a href="/neighborhood" className="overview__panel">
           <div className="overview__imageWrap zoom-panel">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/neighborhood/sidewalk-storefronts.png" alt="SELVA — Miami neighborhood" />
+            <img src="/images/neighborhood/sidewalk-storefronts.webp" alt="SELVA — Miami neighborhood" />
           </div>
           <div className="overview__overlay"></div>
           <span className="overview__label">Neighborhood</span>
