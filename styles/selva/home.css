@@ -84,8 +84,7 @@
 
 /* Centered copy block — reuses the Overview-intro statement style */
 .hood__body {
-  max-width: 960px;
-  margin: 0 auto;
+  background: var(--color-surface);
   padding: var(--space-16) var(--space-8) var(--space-32);
   display: flex;
   flex-direction: column;
