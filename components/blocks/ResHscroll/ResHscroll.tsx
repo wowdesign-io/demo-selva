@@ -93,7 +93,7 @@ export default function ResHscroll() {
                   <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">1</span><span className="res-hscroll__spec-key">Bedroom</span></div>
                   <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">Patio</span><span className="res-hscroll__spec-key">Outdoor</span></div>
                 </div>
-                <a href="/residences?f=1&u=102#planpoint" className="res-hscroll__card-cta">View Floorplan &rarr;</a>
+                <a href="/residences?f=Floor%201&u=110#planpoint" className="res-hscroll__card-cta">View Floorplan &rarr;</a>
               </div>
             </div>
 
@@ -111,7 +111,7 @@ export default function ResHscroll() {
                   <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">1 + Den</span><span className="res-hscroll__spec-key">Layout</span></div>
                   <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">Balcony</span><span className="res-hscroll__spec-key">Outdoor</span></div>
                 </div>
-                <a href="/residences?f=2&u=201#planpoint" className="res-hscroll__card-cta">View Floorplan &rarr;</a>
+                <a href="/residences?f=Floor%201&u=113#planpoint" className="res-hscroll__card-cta">View Floorplan &rarr;</a>
               </div>
             </div>
 
@@ -129,7 +129,7 @@ export default function ResHscroll() {
                   <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">2</span><span className="res-hscroll__spec-key">Bedrooms</span></div>
                   <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">Terrace</span><span className="res-hscroll__spec-key">Outdoor</span></div>
                 </div>
-                <a href="/residences?f=2&u=214#planpoint" className="res-hscroll__card-cta">View Floorplan &rarr;</a>
+                <a href="/residences?f=Floor%201&u=112#planpoint" className="res-hscroll__card-cta">View Floorplan &rarr;</a>
               </div>
             </div>
 

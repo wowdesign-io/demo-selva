@@ -142,7 +142,7 @@ export default function ResModelsSlider() {
                 <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">1 + Den</span><span className="res-hscroll__spec-key">Layout</span></div>
                 <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">Balcony</span><span className="res-hscroll__spec-key">Outdoor</span></div>
               </div>
-              <a href="#planpoint" onClick={(e) => { e.preventDefault(); goToUnit('201', 'Floor 2'); }} className="res-hscroll__card-cta">View Floorplan &rarr;</a>
+              <a href="#planpoint" onClick={(e) => { e.preventDefault(); goToUnit('113', 'Floor 1'); }} className="res-hscroll__card-cta">View Floorplan &rarr;</a>
             </div>
           </div>
 
