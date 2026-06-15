@@ -5,7 +5,7 @@ export default function NeighborhoodSection() {
         <div className="zoom">
           <div className="zoom__inner zoom-img">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/neighborhood/bayfront-marina.webp" alt="SELVA — waterfront promenade and botanical residences" />
+            <img src="/images/neighborhood/bayfront-marina.webp" alt="SELVA — waterfront promenade and botanical residences" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>

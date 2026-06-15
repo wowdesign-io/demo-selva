@@ -51,6 +51,8 @@ export default function AmenitiesSection() {
         img.src = s.src;
         img.alt = 'SELVA — ' + s.label;
         img.draggable = false;
+        img.loading = 'lazy';
+        img.decoding = 'async';
         inner.appendChild(img);
         slide.appendChild(inner);
 

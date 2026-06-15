@@ -4,7 +4,7 @@ export default function HeroSection() {
       <div className="hero__sticky">
         <div className="hero__imagePanel" id="heroImage">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/images/hero/360-front.jpg" alt="SELVA Residences — botanical luxury, Miami" />
+          <img src="/images/hero/360-front.jpg" alt="SELVA Residences — botanical luxury, Miami" decoding="async" fetchPriority="high" />
         </div>
         <div className="hero__textPanel">
           <div className="hero__textInner" id="heroText">

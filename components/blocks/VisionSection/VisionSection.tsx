@@ -35,7 +35,7 @@ export default function VisionSection() {
         <div className="zoom">
           <div className="zoom__inner zoom-img">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/renders/exterior-03.webp" alt="SELVA — where living and nature converge" />
+            <img src="/images/renders/exterior-03.webp" alt="SELVA — where living and nature converge" loading="lazy" decoding="async" />
           </div>
         </div>
       </div>

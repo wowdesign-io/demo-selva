@@ -13,7 +13,7 @@ export default function OverviewSection() {
         <a href="/residences" className="overview__panel">
           <div className="overview__imageWrap zoom-panel">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/renders/interior-01.jpg" alt="SELVA Residences — curated interiors" />
+            <img src="/images/renders/interior-01.jpg" alt="SELVA Residences — curated interiors" loading="lazy" decoding="async" />
           </div>
           <div className="overview__overlay"></div>
           <span className="overview__label">Residences</span>
@@ -21,7 +21,7 @@ export default function OverviewSection() {
         <a href="/amenities" className="overview__panel">
           <div className="overview__imageWrap zoom-panel">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/amenities/pool-deck.webp" alt="SELVA Amenities — botanical setting" />
+            <img src="/images/amenities/pool-deck.webp" alt="SELVA Amenities — botanical setting" loading="lazy" decoding="async" />
           </div>
           <div className="overview__overlay"></div>
           <span className="overview__label">Amenities</span>
@@ -29,7 +29,7 @@ export default function OverviewSection() {
         <a href="/neighborhood" className="overview__panel">
           <div className="overview__imageWrap zoom-panel">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/neighborhood/sidewalk-storefronts.webp" alt="SELVA — Miami neighborhood" />
+            <img src="/images/neighborhood/sidewalk-storefronts.webp" alt="SELVA — Miami neighborhood" loading="lazy" decoding="async" />
           </div>
           <div className="overview__overlay"></div>
           <span className="overview__label">Neighborhood</span>
