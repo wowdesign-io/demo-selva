@@ -25,6 +25,7 @@ The handoff is a complete, validated static HTML prototype. **We port it verbati
 
 1. **Read the handoff HTML first** — `C:\Users\info\Downloads\wowdesign Demo\SELVA <Page>.html`. Note the `<head>` `<link>` tags — they tell you exactly which CSS files the page needs.
 2. **Copy any missing CSS** from `…\selva\components\` and `…\selva\pages\` into `styles/selva/`, then add an `@import` line in `styles/globals.css`. (Component CSS imports go with the components group; page CSS with the pages group.)
+   - ⚠️ **Strip the UTF-8 BOM after copying.** The handoff CSS files carry a BOM; when bundled it gets prepended to the file's FIRST selector (e.g. `﻿ .amen`), silently invalidating that rule — symptom: missing background + collapsed layout on desktop only (media-query variants still work, so mobile looks fine). Fix: `node -e 'const fs=require("fs");const f="styles/selva/<file>.css";let s=fs.readFileSync(f,"utf8");if(s.charCodeAt(0)===0xFEFF)fs.writeFileSync(f,s.slice(1))'`. Detect BOMs: `head -c3 file.css | od -An -tx1` → `ef bb bf` means BOM. (carousel.css, prose-band.css, residences.css were hit on 2026-06-16.)
 3. **Copy + optimize any new images** — see *Image optimization* below. Renders are huge PNGs; convert to WebP.
 4. **Build the page** at `app/<route>/page.tsx`:
    - Use the **exact handoff class names and DOM structure**. No CSS Modules for sections.
