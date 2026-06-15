@@ -4,8 +4,14 @@ import { useEffect, useRef } from 'react';
 
 const PROJECT_URL = 'https://app.planpoint.io/miami-wowdesign/laurent?lang=English';
 
-/* Ports the handoff Planpoint embed controller: deep-link params, resize
-   polling, fullscreen, and click/scroll context forwarding to the iframe. */
+/* Immersive (fixed 100vh) Planpoint embed.
+   IMPORTANT: this is NOT the inline/document-flow embed. The full boilerplate
+   forwards parent scroll + clicks into the iframe and auto-resizes its height —
+   that is meant for an embed that scrolls WITH the page. For a fixed-viewport
+   360 twin it breaks the embed's own mouse hit-testing: with Lenis smooth-scroll
+   running, the forwarded vertical offset oscillates every frame, so floor-hover
+   highlights the wrong floor and flickers, and it resets deep-links to overview.
+   So we deliberately keep ONLY: deep-link params, UTM, and fullscreen. */
 export default function PlanpointEmbed() {
   const containerRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLIFrameElement>(null);
@@ -15,7 +21,6 @@ export default function PlanpointEmbed() {
     const container = containerRef.current;
     if (!iframe || !container) return;
 
-    let enableResize = true;
     let onFullscreen = false;
     let savedScrollY = 0;
 
@@ -50,15 +55,12 @@ export default function PlanpointEmbed() {
 
     iframe.src = iframeSrc;
 
-    const poll = window.setInterval(() => {
-      if (iframe.contentWindow && enableResize) {
-        iframe.contentWindow.postMessage('get_size', '*');
-      }
-      if (iframe.contentWindow) {
-        iframe.contentWindow.postMessage({ type: 'utm', data: utmParams }, '*');
-      }
-    }, 1000);
+    // Pass UTM/attribution context to the embed (does not affect navigation/hover).
+    const utmPoll = window.setInterval(() => {
+      iframe.contentWindow?.postMessage({ type: 'utm', data: utmParams }, '*');
+    }, 2000);
 
+    /* ── Fullscreen (the embed's own fullscreen button posts a message) ── */
     function openFullscreen() {
       const el = container as HTMLElement & {
         mozRequestFullScreen?: () => void;
@@ -86,7 +88,6 @@ export default function PlanpointEmbed() {
         else if (d.msExitFullscreen) d.msExitFullscreen();
       }
     }
-
     function fullscreenHandler() {
       onFullscreen = !onFullscreen;
       if (!onFullscreen) {
@@ -98,7 +99,6 @@ export default function PlanpointEmbed() {
           container!.style.left = 'auto';
           container!.style.zIndex = 'auto';
           window.scrollTo({ top: savedScrollY, behavior: 'instant' as ScrollBehavior });
-          enableResize = true;
         }, 500);
       } else {
         document.documentElement.scrollTop = 0;
@@ -111,7 +111,6 @@ export default function PlanpointEmbed() {
         container!.style.zIndex = '999999999';
         iframe!.style.height = '100vh';
         iframe!.style.width = '100%';
-        enableResize = false;
       }
     }
 
@@ -124,49 +123,21 @@ export default function PlanpointEmbed() {
         } else {
           closeFullscreen();
         }
-      } else if (data && data.type === 'resize') {
-        iframe!.style.height = data.h + 'px';
-        container!.style.height = data.h + 'px';
       } else if (data && data.type === 'scroll-to-top') {
         const top = container!.getBoundingClientRect().top + window.scrollY;
         window.scrollTo({ top, behavior: 'smooth' });
-      } else if (typeof data === 'string') {
-        const h = parseInt(data.split('x')[0], 10);
-        if (!isNaN(h)) {
-          iframe!.style.height = h + 'px';
-          container!.style.height = h + 'px';
-        }
       }
     }
 
-    function onClick(event: MouseEvent) {
-      iframe!.contentWindow?.postMessage({ type: 'click', data: { type: event.type } }, '*');
-    }
-
-    function onScroll() {
-      if (!iframe!.contentWindow) return;
-      iframe!.contentWindow.postMessage({
-        type: 'scroll',
-        pageY: window.pageYOffset || document.documentElement.scrollTop,
-        iframeY: container!.offsetTop,
-        iframeRelativeY: container!.getBoundingClientRect().top,
-        iframeHeight: iframe!.scrollHeight,
-      }, '*');
-    }
-
     window.addEventListener('message', onMessage);
-    document.addEventListener('click', onClick);
-    document.addEventListener('scroll', onScroll);
     document.addEventListener('fullscreenchange', fullscreenHandler);
     document.addEventListener('webkitfullscreenchange', fullscreenHandler);
     document.addEventListener('mozfullscreenchange', fullscreenHandler);
     document.addEventListener('MSFullscreenChange', fullscreenHandler);
 
     return () => {
-      clearInterval(poll);
+      clearInterval(utmPoll);
       window.removeEventListener('message', onMessage);
-      document.removeEventListener('click', onClick);
-      document.removeEventListener('scroll', onScroll);
       document.removeEventListener('fullscreenchange', fullscreenHandler);
       document.removeEventListener('webkitfullscreenchange', fullscreenHandler);
       document.removeEventListener('mozfullscreenchange', fullscreenHandler);
