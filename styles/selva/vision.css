@@ -1,0 +1,121 @@
+/* ============================================================
+   SELVA Vision page — section styles
+   ============================================================ */
+
+/* Inner-page load fade-in (was in inner-page.css) */
+body { animation: selvaPageIn 0.6s var(--ease-out) both; }
+@keyframes selvaPageIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---- Vision stats row (inside copyBand bodyCol) ---------- */
+.vis-stats {
+  display: flex;
+  gap: var(--space-10);
+  margin-top: var(--space-10);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-border-strong);
+}
+.vis-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.vis-stat__val {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 3vw, 3.8rem);
+  font-weight: var(--font-weight-light);
+  line-height: 1;
+  color: #DDB075;
+}
+.vis-stat__key {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ---- Design pillars ------------------------------------- */
+/* Grid chrome + showcase look moved to components/icon-grid.css
+   (.icon-grid--showcase --cols-3). Vision keeps the .vis-pillars hook for the
+   outer section margin/background + its 3→2(3rd spans)→1 breakpoints below. */
+.vis-pillars {
+  background: var(--color-bg);
+  margin: clamp(var(--space-16), 7vw, var(--space-32))
+          clamp(var(--space-8), 6vw, var(--space-24));
+}
+
+/* ---- Statement ----------------------------------------- */
+.vis-statement {
+  background: var(--color-surface);
+  padding: clamp(var(--space-20), 10vw, var(--space-40))
+           clamp(var(--space-8), 14vw, 26rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  text-align: center;
+}
+.vis-statement__eyebrow {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.vis-statement__quote {
+  font-family: var(--font-heading);
+  font-size: clamp(2.4rem, 5vw, 6rem);
+  font-weight: var(--font-weight-light);
+  font-style: italic;
+  line-height: 1.15;
+  color: var(--color-text-strong);
+  letter-spacing: -0.01em;
+  max-width: 18ch;
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* ---- Second full-width image --------------------------- */
+.vis-image2 {
+  height: clamp(360px, 54vh, 820px);
+  overflow: hidden;
+}
+.vis-image2 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  transition: transform 0.6s var(--ease-out);
+}
+
+/* ---- CTA: shared .page-cta lives in inner-page.css ---- */
+
+/* ---- Responsive ---------------------------------------- */
+/* Keep 3 columns until 900px (icon-grid's default would drop to 2 at 1024) */
+@media (max-width: 1024px) {
+  .vis-pillars { grid-template-columns: repeat(3, 1fr); }
+}
+@media (max-width: 900px) {
+  .vis-pillars { grid-template-columns: 1fr 1fr; }
+  .vis-pillars .icon-grid__item:nth-child(3) { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .vis-pillars { grid-template-columns: 1fr; }
+  .vis-statement {
+    padding-left: var(--space-8);
+    padding-right: var(--space-8);
+  }
+}
+
+/* ---- Alternating feature sections moved to components/feature-row.css
+   (shared with the Team page). ---- */
+
+/* The Vision hero tagline is longer than the Home/Residences ones — allow it to
+   wrap (the shared rule forces nowrap on desktop) so it stays centered in the panel */
+.hero__tagline { white-space: normal; max-width: 34ch; }
+
+/* Vision copy band: heading column sits at the TOP of the band.
+   (The shared rule bottom-aligns both columns — Home keeps that; this is Vision-only.) */
+.vision__headingCol { align-self: start; }

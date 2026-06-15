@@ -9,8 +9,12 @@
 @import './selva/prose-band.css';
 @import './selva/stat-strip.css';
 @import './selva/carousel.css';
+@import './selva/icon-grid.css';
+@import './selva/feature-row.css';
+@import './selva/page-cta.css';
 @import './selva/home.css';
 @import './selva/residences.css';
+@import './selva/vision.css';
 @import './selva/footer.css';
 
 body.is-loading {
