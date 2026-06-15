@@ -30,6 +30,9 @@
   visibility: hidden;
 }
 
+/* Repeat visit within a session: hide curtain before paint (no flash) */
+html.selva-loaded .loader { display: none !important; }
+
 .loader__inner {
   position: relative;
   display: flex;

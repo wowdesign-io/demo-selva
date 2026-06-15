@@ -52,6 +52,13 @@ export default function RootLayout({
       className={`${cormorant.variable} ${dmSans.variable} ${barlow.variable}`}
     >
       <body>
+        {/* Runs before paint: on repeat visits within a session, hide the
+            loader curtain immediately so it never flashes before hydration. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{if(sessionStorage.getItem('selvaLoaded'))document.documentElement.classList.add('selva-loaded')}catch(e){}`,
+          }}
+        />
         <Loader />
         <SmoothScroll>
           <Nav />
