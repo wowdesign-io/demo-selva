@@ -94,16 +94,22 @@ Favicon: `app/icon.png` (SELVA green/gold "S"). Do **not** let a default `app/fa
 
 ## Deploy (every change)
 
-GitHub auto-deploy from Vercel has been unreliable since a rollback, so deploy manually:
+**Vercel Git auto-deploy is DISCONNECTED (2026-06-16)** — it kept racing the CLI and grabbing the `demo.wowdesign.io` alias with stale builds. Deploys are CLI-only now. `git push` is just source control; it does NOT deploy.
 
 ```bash
 cd projects/demo-presales
 npm run build                          # must be zero errors
 git add -A && git commit -m "…"
 gh auth switch --user wowdesign-andy   # uixandy lacks access to wowdesign-io org
-git push origin main
+git push origin main                   # source control only (no deploy)
 vercel --prod --yes                    # manual prod deploy (MCP token lacks team scope)
 ```
+
+If `demo.wowdesign.io` ever serves a stale build, pin the alias explicitly:
+```bash
+vercel alias set <new-deployment-url> demo.wowdesign.io
+```
+To re-enable auto-deploy later: `vercel git connect`.
 
 ---
 
