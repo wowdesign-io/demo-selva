@@ -83,7 +83,7 @@ export default function VisionSection() {
       {/* ── Full-width render image below ── */}
       <div className={styles.imageWrap}>
         <ZoomImage
-          src="/images/renders/interior-02.jpg"
+          src="/images/renders/exterior-03.png"
           alt="SELVA — where living and nature converge"
           sizes="100vw"
           quality={90}

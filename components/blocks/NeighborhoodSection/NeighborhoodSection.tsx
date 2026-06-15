@@ -36,7 +36,7 @@ export default function NeighborhoodSection() {
       {/* ── 1. Full-bleed break image ── */}
       <div className={styles.image}>
         <ZoomImage
-          src="/images/hero/hero-back.jpg"
+          src="/images/renders/bayfront-marina.png"
           alt="SELVA — Coconut Grove aerial, where canopy meets bay"
           sizes="100vw"
           quality={90}

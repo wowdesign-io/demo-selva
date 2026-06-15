@@ -224,8 +224,9 @@ export default function AmenitiesSection() {
           </motion.h2>
           <AnimateIn delay={0.15}>
             <p className={styles.sub}>
-              A curated collection of spaces designed for wellness, connection,
-              and the quiet pleasures of a life well-lived.
+              From the skylit wellness terrace to the botanical residents&rsquo; lounge,
+              every amenity at SELVA is conceived to enrich daily life with nature,
+              light, and unhurried luxury.
             </p>
           </AnimateIn>
           <div className={styles.ctaRow}>

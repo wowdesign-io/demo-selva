@@ -1,7 +1,7 @@
 /* ============================================
    Nav — fixed header with burger, logo, CTA
-   Bay Harbor pattern: burger+temp left | logo center | phone+cta right
-   Announcement bar hides on scroll; nav shifts to top:0
+   Burger+temp left | logo center | phone+cta right
+   Bar hides on scroll; nav shifts to top:0
    ============================================ */
 
 /* ── Announcement bar ────────────────────────── */
@@ -17,6 +17,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 0.55em;
+  padding: 0 var(--space-5);
+  white-space: nowrap;
   font-family: var(--font-label);
   font-size: 10px;
   font-weight: var(--font-weight-medium);
@@ -25,8 +28,14 @@
   transition: transform var(--duration-base) var(--ease-out);
 }
 
+.bar span { white-space: nowrap; }
+
 .barHidden {
   transform: translateY(-100%);
+}
+
+.barDot {
+  opacity: 0.5;
 }
 
 /* ── Main nav ────────────────────────────────── */
@@ -35,7 +44,7 @@
   top: 32px;
   left: 0;
   right: 0;
-  z-index: var(--z-top); /* must be above overlay so burger/X stays visible */
+  z-index: var(--z-top);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -45,7 +54,6 @@
   transition: top var(--duration-base) var(--ease-out);
 }
 
-/* Once bar is hidden, nav slides to top edge */
 .navScrolled {
   top: 0;
 }
@@ -58,7 +66,7 @@
   flex: 1;
 }
 
-/* Burger button (3 lines) */
+/* Burger — always 3 spans; CSS transforms them to X when .burgerOpen */
 .burger {
   display: flex;
   flex-direction: column;
@@ -68,6 +76,10 @@
   cursor: pointer;
   padding: var(--space-2);
   flex-shrink: 0;
+  width: 40px;
+  height: 36px;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .burger span {
@@ -75,38 +87,13 @@
   width: 24px;
   height: 1px;
   background: var(--color-text-strong);
+  transition: transform var(--transition-base), opacity var(--transition-base);
 }
 
-/* Burger → X close state */
-.burgerClose {
-  position: relative;
-  width: 36px;
-  height: 36px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: var(--space-2);
-  flex-shrink: 0;
-}
-
-.closeA,
-.closeB {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: block;
-  width: 20px;
-  height: 1px;
-  background: var(--color-text-strong);
-}
-
-.closeA {
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
-.closeB {
-  transform: translate(-50%, -50%) rotate(-45deg);
-}
+/* Burger → X */
+.burgerOpen span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burgerOpen span:nth-child(2) { opacity: 0; }
+.burgerOpen span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
 /* Temperature */
 .temp {
@@ -179,7 +166,7 @@
 .overlay {
   position: fixed;
   inset: 0;
-  z-index: calc(var(--z-top) - 1); /* just below nav so burger stays on top */
+  z-index: calc(var(--z-top) - 1);
   background: var(--color-primary);
   display: flex;
   flex-direction: column;
@@ -201,17 +188,18 @@
   align-items: center;
   justify-content: center;
   flex: 1;
-  gap: var(--space-2);
+  gap: var(--space-1);
+  padding: 0 clamp(var(--space-10), 8vw, var(--space-20));
 }
 
 .overlayLink {
   font-family: var(--font-heading);
-  font-size: clamp(1.8rem, 3.5vw, 3.5rem);
+  font-size: clamp(2.2rem, 4.5vw, 4.4rem);
   font-weight: var(--font-weight-light);
   letter-spacing: var(--tracking-tight);
-  color: var(--color-on-primary);
+  color: rgba(250, 250, 247, 0.45);
   text-decoration: none;
-  line-height: 1.15;
+  line-height: 1.12;
   opacity: 0;
   transform: translateY(16px);
   transition:
@@ -223,10 +211,27 @@
 .overlayOpen .overlayLink {
   opacity: 1;
   transform: translateY(0);
+  color: rgba(250, 250, 247, 0.45);
 }
 
-.overlayLink:hover {
-  color: var(--color-on-primary-strong);
+/* CSS stagger delays (no inline JS needed) */
+.overlayOpen .overlayLink:nth-child(1) { transition-delay: 0.08s; }
+.overlayOpen .overlayLink:nth-child(2) { transition-delay: 0.14s; }
+.overlayOpen .overlayLink:nth-child(3) { transition-delay: 0.20s; }
+.overlayOpen .overlayLink:nth-child(4) { transition-delay: 0.26s; }
+.overlayOpen .overlayLink:nth-child(5) { transition-delay: 0.32s; }
+.overlayOpen .overlayLink:nth-child(6) { transition-delay: 0.38s; }
+.overlayOpen .overlayLink:nth-child(7) { transition-delay: 0.44s; }
+
+.overlayLink:hover,
+.overlayOpen .overlayLink:hover {
+  color: #DDB075;
+}
+
+/* Active page link — amber */
+.overlayLink[aria-current='page'],
+.overlayOpen .overlayLink[aria-current='page'] {
+  color: #DDB075;
 }
 
 /* Overlay footer */
@@ -268,23 +273,15 @@
 
 /* ── Responsive ──────────────────────────────── */
 @media (max-width: 768px) {
-  .phone {
-    display: none;
-  }
+  .phone { display: none; }
+  .nav { padding: var(--space-3) var(--space-6); }
+  .overlayLink { font-size: clamp(2rem, 10vw, 4rem); }
+}
 
-  .nav {
-    padding: var(--space-3) var(--space-6);
-  }
-
-  .ctaExplore {
-    display: none;
-  }
-
-  .cta {
-    padding-inline: var(--space-3);
-  }
-
-  .overlayLink {
-    font-size: clamp(2rem, 10vw, 4rem);
-  }
+@media (max-width: 600px) {
+  .barDeskOnly { display: none; }
+  .bar { font-size: 9px; letter-spacing: var(--tracking-wide); padding: 0 var(--space-3); }
+  .ctaExplore { display: none; }
+  .cta { padding: var(--space-2) var(--space-3); letter-spacing: var(--tracking-wide); }
+  .nav { padding: var(--space-3) var(--space-4); }
 }

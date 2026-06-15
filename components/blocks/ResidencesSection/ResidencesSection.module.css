@@ -1,7 +1,6 @@
 /* ============================================
-   ResidencesSection
-   Left intro (label + heading + copy + CTA) → uneven 3-image grid
-   Pattern: 2200 Brickell adapted for SELVA
+   ResidencesSection — intro copy only
+   The horizontal scroll slider lives in ResHscroll/
    ============================================ */
 
 .section {
@@ -13,12 +12,8 @@
   max-width: var(--container-wide);
   margin: 0 auto;
   padding: 0 var(--space-16);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-16);
 }
 
-/* ── Intro ───────────────────────────────── */
 .intro {
   display: flex;
   flex-direction: column;
@@ -55,99 +50,12 @@
   margin: 0;
 }
 
-/* ── Three-element image composition ────── */
-.images {
-  display: grid;
-  grid-template-columns: 44fr 18fr 36fr;
-  gap: var(--space-5);
-  align-items: start;
-  position: relative;
-  isolation: isolate; /* contains z-index stacking to this grid */
-}
-
-/* Image link wrapper — block, inherits the image div's dimensions */
-.imageLink {
-  display: block;
-  text-decoration: none;
-}
-
-/* Left render — in front, half the top offset of right */
-.imageLarge {
-  position: relative;
-  height: clamp(280px, 44vh, 500px);
-  margin-top: var(--space-8);
-  z-index: 2;
-  overflow: hidden;
-}
-
-/* Center botanical — behind both side images, extends beyond its column */
-.imageCenter {
-  position: relative;
-  height: clamp(340px, 54vh, 600px);
-  margin-left: -70px;
-  margin-right: -70px;
-  z-index: 1;
-  overflow: hidden;
-}
-
-/* Placeholder: leaves-closeup until real plant asset arrives */
-.plantPlaceholder {
-  width: 100%;
-  height: 100%;
-  background-image: url('/images/backgrounds/leaves-closeup.jpg');
-  background-size: cover;
-  background-position: center;
-}
-
-/* Right render — in front, offset downward */
-.imageSmall {
-  position: relative;
-  height: clamp(220px, 36vh, 400px);
-  margin-top: var(--space-16);
-  z-index: 2;
-  overflow: hidden;
-}
-
-/* Hover overlay — fades in over both side images on link hover */
-.imageOverlay {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(15, 28, 20, 0);
-  opacity: 0;
-  transition: opacity 0.4s var(--ease-out), background 0.4s var(--ease-out);
-  pointer-events: none;
-}
-
-.imageLink:hover .imageOverlay {
-  opacity: 1;
-  background: rgba(15, 28, 20, 0.38);
-}
-
-.overlayLabel {
-  font-family: var(--font-label);
-  font-size: var(--text-xs);
-  font-weight: var(--font-weight-medium);
-  letter-spacing: var(--tracking-widest);
-  text-transform: uppercase;
-  color: #fff;
-  transform: translateY(6px);
-  transition: transform 0.4s var(--ease-out);
-}
-
-.imageLink:hover .overlayLabel {
-  transform: translateY(0);
-}
-
-/* ── CTA button ──────────────────────────── */
 .cta {
   position: relative;
   display: inline-block;
   overflow: hidden;
   margin-top: var(--space-3);
+  align-self: flex-start;
   height: 3rem;
   line-height: 3rem;
   padding: 0 var(--space-10);
@@ -162,13 +70,11 @@
   transition: background-color var(--transition-base);
 }
 
-/* First span — slides up on hover */
 .cta span:first-child {
   display: block;
   transition: transform 0.35s var(--ease-out);
 }
 
-/* Second span — starts below, slides up into view on hover */
 .cta span:last-child {
   position: absolute;
   inset: 0;
@@ -177,19 +83,11 @@
   transition: transform 0.35s var(--ease-out);
 }
 
-.cta:hover span:first-child {
-  transform: translateY(-100%);
-}
+.cta:hover span:first-child { transform: translateY(-100%); }
+.cta:hover span:last-child  { transform: translateY(0); }
+.cta:hover                  { background: var(--color-primary-hover); }
 
-.cta:hover span:last-child {
-  transform: translateY(0);
-}
-
-.cta:hover {
-  background: var(--color-primary-hover);
-}
-
-/* ── Responsive ──────────────────────────── */
+/* ── Responsive ──────────────────────────────── */
 @media (max-width: 1100px) {
   .container { padding-inline: var(--space-10); }
 }
@@ -200,29 +98,5 @@
 
 @media (max-width: 768px) {
   .section { padding: var(--space-20) 0; }
-
-  .images {
-    grid-template-columns: 1fr;
-    gap: var(--space-4);
-  }
-
-  .imageLarge {
-    margin-top: 0;
-    height: clamp(280px, 65vw, 460px);
-  }
-
-  .imageCenter {
-    margin-inline: 0;
-    height: clamp(220px, 52vw, 360px);
-  }
-
-  .imageSmall {
-    margin-top: 0;
-    height: clamp(220px, 52vw, 360px);
-  }
-
-  .container {
-    padding-inline: var(--space-6);
-    gap: var(--space-10);
-  }
+  .container { padding-inline: var(--space-6); }
 }

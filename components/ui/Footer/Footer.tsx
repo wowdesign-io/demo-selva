@@ -18,7 +18,7 @@ export default function Footer() {
           <span className={styles.actionValue}>sales@selvaresidences.com</span>
         </a>
 
-        <a className={styles.action} href="#">
+        <a className={styles.action} href="/downloads">
           <span className={styles.icon} aria-hidden>
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1">
               <rect x="5" y="6" width="18" height="16" />
@@ -29,7 +29,7 @@ export default function Footer() {
           <span className={styles.actionValue}>Request</span>
         </a>
 
-        <a className={styles.action} href="#">
+        <a className={styles.action} href="/inquiry">
           <span className={styles.icon} aria-hidden>
             <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="1">
               <circle cx="14" cy="14" r="10" />
@@ -48,7 +48,7 @@ export default function Footer() {
           <strong>Sales Gallery</strong>&nbsp;&nbsp;3000 Hibiscus Lane,<br />
           Coconut Grove, Miami, FL 33133
         </p>
-        <a className={styles.phone} href="tel:+13059000000">305.900.0000</a>
+        <a className={styles.phone} href="tel:+13055550100">305.555.0100</a>
         <div className={styles.social}>
           <a href="#" aria-label="Instagram">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
@@ -69,11 +69,11 @@ export default function Footer() {
           </a>
         </p>
         <nav className={styles.links} aria-label="Footer links">
-          <a href="#">Inquiry</a>
-          <a href="#">Team</a>
-          <a href="#">Downloads</a>
-          <a href="#">Legal</a>
-          <a href="#">Privacy Policy</a>
+          <a href="/inquiry">Inquiry</a>
+          <a href="/team">Team</a>
+          <a href="/downloads">Downloads</a>
+          <a href="/legal">Legal</a>
+          <a href="/privacy">Privacy Policy</a>
         </nav>
       </div>
 

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Cormorant_Garamond, DM_Sans, Barlow } from 'next/font/google';
 import Nav from '../components/ui/Nav/Nav';
 import Footer from '../components/ui/Footer/Footer';
+import Loader from '../components/ui/Loader/Loader';
 import SmoothScroll from '../components/ui/SmoothScroll/SmoothScroll';
 import ScrollProgress from '../components/ui/ScrollProgress/ScrollProgress';
 import '../styles/globals.css';
@@ -51,6 +52,7 @@ export default function RootLayout({
       className={`${cormorant.variable} ${dmSans.variable} ${barlow.variable}`}
     >
       <body>
+        <Loader />
         <SmoothScroll>
           <Nav />
           {children}

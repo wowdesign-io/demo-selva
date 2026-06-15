@@ -1,23 +1,25 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import styles from './Nav.module.css';
 
 const NAV_LINKS = [
-  { label: 'Vision', href: '/vision' },
-  { label: 'Residences', href: '/residences' },
-  { label: 'Amenities', href: '/amenities' },
+  { label: 'Vision',        href: '/vision' },
+  { label: 'Residences',   href: '/residences' },
+  { label: 'Amenities',    href: '/amenities' },
   { label: 'Neighborhood', href: '/neighborhood' },
-  { label: 'Gallery', href: '/gallery' },
-  { label: 'Press', href: '/press' },
-  { label: 'Team', href: '/team' },
+  { label: 'Gallery',      href: '/gallery' },
+  { label: 'Press',        href: '/press' },
+  { label: 'Team',         href: '/team' },
 ];
 
 export default function Nav() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [temp, setTemp] = useState<string | null>(null);
+  const pathname = usePathname();
+  const [scrolled, setScrolled]   = useState(false);
+  const [menuOpen, setMenuOpen]   = useState(false);
+  const [temp,     setTemp]       = useState<string | null>(null);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 30);
@@ -26,18 +28,12 @@ export default function Nav() {
   }, []);
 
   useEffect(() => {
-    const fetchTemp = () => {
-      fetch(
-        'https://api.open-meteo.com/v1/forecast?latitude=25.7617&longitude=-80.1918&current=temperature_2m&temperature_unit=fahrenheit'
-      )
-        .then((r) => r.json())
-        .then((d) => setTemp(Math.round(d.current.temperature_2m) + '°F'))
-        .catch(() => {});
-    };
-
-    fetchTemp();
-    const interval = setInterval(fetchTemp, 10 * 60 * 1000);
-    return () => clearInterval(interval);
+    fetch(
+      'https://api.open-meteo.com/v1/forecast?latitude=25.7617&longitude=-80.1918&current=temperature_2m&temperature_unit=fahrenheit'
+    )
+      .then((r) => r.json())
+      .then((d) => setTemp(Math.round(d.current.temperature_2m) + '°F'))
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -47,31 +43,28 @@ export default function Nav() {
 
   return (
     <>
-      {/* Announcement bar — hides on scroll */}
+      {/* Announcement bar */}
       <div className={scrolled ? `${styles.bar} ${styles.barHidden}` : styles.bar}>
-        Pre-Sales Now Open&nbsp;·&nbsp;40 Residences&nbsp;·&nbsp;Miami&nbsp;·&nbsp;Delivery Mid-2027
+        <span>Pre-Sales Now Open</span>
+        <span className={styles.barDot}>·</span>
+        <span>40 Residences</span>
+        <span className={`${styles.barDot} ${styles.barDeskOnly}`}>·</span>
+        <span className={styles.barDeskOnly}>Miami</span>
+        <span className={`${styles.barDot} ${styles.barDeskOnly}`}>·</span>
+        <span className={styles.barDeskOnly}>Delivery Mid-2027</span>
       </div>
 
-      {/* Main nav — always solid; moves to top:0 once bar is hidden */}
+      {/* Main nav */}
       <nav className={scrolled ? `${styles.nav} ${styles.navScrolled}` : styles.nav}>
         <div className={styles.left}>
           <button
-            className={menuOpen ? styles.burgerClose : styles.burger}
+            className={menuOpen ? `${styles.burger} ${styles.burgerOpen}` : styles.burger}
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           >
-            {menuOpen ? (
-              <>
-                <span className={styles.closeA} />
-                <span className={styles.closeB} />
-              </>
-            ) : (
-              <>
-                <span />
-                <span />
-                <span />
-              </>
-            )}
+            <span />
+            <span />
+            <span />
           </button>
           {temp && <span className={styles.temp}>{temp}</span>}
         </div>
@@ -81,8 +74,8 @@ export default function Nav() {
         </div>
 
         <div className={styles.right}>
-          <a href="tel:+13059000000" className={styles.phone}>305.900.0000</a>
-          <Link href="/residences" className={styles.cta}>
+          <a href="tel:+13055550100" className={styles.phone}>305.555.0100</a>
+          <Link href="/residences#planpoint" className={styles.cta}>
             <span className={styles.ctaExplore}>Explore </span>Floorplans
           </Link>
         </div>
@@ -91,12 +84,12 @@ export default function Nav() {
       {/* Full-screen overlay menu */}
       <div className={menuOpen ? `${styles.overlay} ${styles.overlayOpen}` : styles.overlay}>
         <nav className={styles.overlayNav}>
-          {NAV_LINKS.map((link, i) => (
+          {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
               className={styles.overlayLink}
-              style={{ transitionDelay: menuOpen ? `${i * 55}ms` : '0ms' }}
+              aria-current={pathname === link.href ? 'page' : undefined}
               onClick={() => setMenuOpen(false)}
             >
               {link.label}
@@ -106,7 +99,7 @@ export default function Nav() {
 
         <div className={styles.overlayFooter}>
           <span className={styles.overlayMark}>SELVA</span>
-          <Link href="/residences" className={styles.overlayCta} onClick={() => setMenuOpen(false)}>
+          <Link href="/residences#planpoint" className={styles.overlayCta} onClick={() => setMenuOpen(false)}>
             Explore Floorplans →
           </Link>
         </div>

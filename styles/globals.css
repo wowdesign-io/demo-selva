@@ -8,6 +8,11 @@
 @import './typography.css';
 @import './animations.css';
 
+/* ── Loader: prevent scroll while curtain is up ─── */
+body.is-loading {
+  overflow: hidden;
+}
+
 /* ── Hide native scrollbar (replaced by ScrollProgress component) ─── */
 html {
   scrollbar-width: none;
