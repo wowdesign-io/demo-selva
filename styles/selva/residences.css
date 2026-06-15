@@ -729,6 +729,9 @@
   .res-hscroll__header { padding: 0 var(--space-5) var(--space-2); }
   .res-hscroll__track { padding: 0 var(--space-5); gap: var(--space-3); }
   .res-hscroll__footer { padding: 0 var(--space-5); }
+  /* wider cards on mobile — the default clamp floors at 280px (too thin/tall) */
+  .res-hscroll__card { width: min(88vw, 460px); }
+  .res-hscroll__card--intro { width: min(80vw, 400px); }
 }
 @media (max-width: 600px) {
   .res-hero { height: 82vh; min-height: 480px; }
