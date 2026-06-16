@@ -65,7 +65,7 @@ The handoff is a complete, validated static HTML prototype. **We port it verbati
 | `/privacy` | ✅ Done | `SELVA Privacy.html` | shared `LegalDoc`, 10 sections |
 | `/downloads` | ✅ Done | `SELVA Downloads.html` | doc masthead, 4 download cards, request band |
 | `/press` | ✅ Done | `SELVA Press.html` | index (9 coverage cards) + `/press/[slug]` article via generateStaticParams (9 distinct articles prerendered). Data in `app/press/articles.ts` — block-based `body` (paragraph/heading/quote/figure), Storyblok-ready `Article` shape; cards derive from the article map. Renderer in `[slug]/page.tsx`. Migration plan: `docs/press-articles-plan.md` |
-| `/inquiry` | ⬜ **Next** | `SELVA Inquiry.html` | form + address/contact |
+| `/inquiry` | ✅ Done | `SELVA Inquiry.html` | doc-head masthead + two-column inquiry section. `components/blocks/InquiryForm/` (client) ports inquiry.js: HTML5 validation → inline thank-you state (no backend). Static contact/location aside |
 
 ---
 
