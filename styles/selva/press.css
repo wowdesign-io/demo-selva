@@ -1,0 +1,100 @@
+/* ============================================================
+   PAGE — Press
+   Shared hero → "Latest News" framed card grid of fictive
+   coverage (uniform — no featured) → media line → CTA.
+   Publication marks are typographic (no logos), per the brand's
+   press direction. → blok `press_index`
+   ============================================================ */
+
+/* Inner-page load fade-in + longer-tagline wrap (shared inner-page convention) */
+body { animation: selvaPageIn 0.6s var(--ease-out) both; }
+@keyframes selvaPageIn { from { opacity: 0; } to { opacity: 1; } }
+.hero__tagline { white-space: normal; max-width: 32ch; }
+
+/* ---- Section ---- */
+.press {
+  background: var(--color-bg);
+  padding: clamp(var(--space-16), 7vw, var(--space-32))
+           clamp(var(--space-8), 6vw, var(--space-24));
+  max-width: var(--container-wide);
+  margin: 0 auto;
+}
+
+/* ---- Header ---- */
+.press__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: var(--space-8);
+  flex-wrap: wrap;
+  margin-bottom: clamp(var(--space-12), 5vw, var(--space-20));
+  padding-bottom: var(--space-6);
+  border-bottom: var(--border-strong);
+}
+.press__intro { display: flex; flex-direction: column; gap: var(--space-4); max-width: 560px; }
+.press__label {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+.press__heading {
+  font-family: var(--font-heading);
+  font-size: clamp(2.2rem, 3.4vw, 3.6rem);
+  font-weight: var(--font-weight-light);
+  font-style: italic;
+  line-height: 1.06;
+  letter-spacing: -0.01em;
+  color: var(--color-text-strong);
+  margin: 0;
+}
+.press__note {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-regular);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  text-align: right;
+  line-height: var(--leading-relaxed);
+  max-width: 22ch;
+}
+
+/* ---- Media enquiries line ---- */
+.press-media {
+  max-width: var(--container-wide);
+  margin: 0 auto;
+  padding: 0 clamp(var(--space-8), 6vw, var(--space-24)) clamp(var(--space-16), 6vw, var(--space-24));
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+.press-media__label {
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.press-media__text {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--color-text-body);
+}
+.press-media__text a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-decoration-color: var(--color-border-strong);
+  text-underline-offset: 3px;
+  transition: text-decoration-color var(--transition-base);
+}
+.press-media__text a:hover { text-decoration-color: var(--color-primary); }
+
+/* ---- Responsive ---- */
+@media (max-width: 900px) {
+  .press__note { text-align: left; }
+}

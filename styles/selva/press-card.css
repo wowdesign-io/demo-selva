@@ -1,0 +1,83 @@
+/* ============================================================
+   COMPONENT — PressCard grid + ReadMore link
+   Framed card grid (transparent empty cells). Shared by the Press
+   index and the Press Article "More coverage" rail. Typographic
+   publication marks (no logos), per the brand's press direction.
+   → React <PressCardGrid cards[]> / <PressCard pub date title href>
+     · blok `press_card` {publication, date, title, link}
+   ============================================================ */
+
+/* Read-more link (also used by .press-lead in press.css) */
+.press-more {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-label);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  color: var(--color-primary);
+  align-self: flex-start;
+}
+.press-more svg { transition: transform var(--transition-base); }
+
+/* Card grid (framed; transparent empty cells) */
+.press__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  border-top: 1px solid var(--color-border);
+  border-left: 1px solid var(--color-border);
+}
+.press-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  background: transparent;
+  padding: clamp(var(--space-8), 2.5vw, var(--space-12)) clamp(var(--space-6), 2vw, var(--space-10));
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  text-decoration: none;
+  transition: background var(--transition-base);
+}
+.press-card:hover { background: var(--color-surface); }
+.press-card__meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+.press-card__pub {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-style: italic;
+  font-weight: var(--font-weight-regular);
+  line-height: 1.1;
+  color: var(--color-text-strong);
+}
+.press-card__date {
+  font-family: var(--font-label);
+  font-size: 10px;
+  font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.press-card__title {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-light);
+  line-height: 1.18;
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-strong);
+  margin: 0;
+  flex: 1;
+}
+.press-card .press-more { margin-top: 0; }
+.press-card:hover .press-more svg { transform: translateX(4px); }
+
+@media (max-width: 480px) {
+  .press__grid { grid-template-columns: 1fr; }
+}
