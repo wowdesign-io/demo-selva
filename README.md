@@ -56,16 +56,16 @@ The handoff is a complete, validated static HTML prototype. **We port it verbati
 |---|---|---|---|
 | `/` | ✅ Done · approved | `SELVA Home.html` | loader, hero, overview, vision, residences teaser, sticky hscroll slider, amenities carousel, neighborhood |
 | `/vision` | ✅ Done · approved | `SELVA Vision.html` | hero, stat-strip, vision band, 3 pillars (icon-grid), 2 feature rows, manifesto, page-cta |
-| `/residences` | ✅ Done · awaiting review | `SELVA Residences.html` | hero, light stat-strip, inline models slider (cursor-nav + `goToUnit`), **Planpoint embed**, 8 features, page-cta |
-| `/amenities` | ⬜ Next | `SELVA Amenities.html` | full amenities page |
-| `/neighborhood` | ⬜ Planned | `SELVA Neighborhood.html` | |
-| `/gallery` | ⬜ Planned | `SELVA Gallery.html` | no lightbox (per prototype) |
-| `/team` | ⬜ Planned | `SELVA Team.html` | feature rows |
-| `/press` | ⬜ Planned | `SELVA Press.html` | + `/press/[slug]` articles |
-| `/downloads` | ⬜ Planned | `SELVA Downloads.html` | |
-| `/inquiry` | ⬜ Planned | `SELVA Inquiry.html` | |
-| `/legal` | ⬜ Planned | `SELVA Legal.html` | |
-| `/privacy` | ⬜ Planned | `SELVA Privacy.html` | |
+| `/residences` | ✅ Done · approved | `SELVA Residences.html` | hero, light stat-strip, inline models slider (cursor-nav + `goToUnit`), **Planpoint embed**, 8 features, page-cta |
+| `/amenities` | ✅ Done · approved | `SELVA Amenities.html` | hero, intro+carousel (shared `AmenitiesCarousel`), motion band, 7-item grid, "A Day at SELVA" sticky slider, page-cta |
+| `/neighborhood` | ✅ Done · approved | `SELVA Neighborhood.html` | hero, proximity strip, intro band, sticky crossfade story, interactive SVG map (`NeighborhoodScript`), page-cta |
+| `/gallery` | ✅ Done · approved | `SELVA Gallery.html` | filterable masonry (`GalleryGrid`, React state), no lightbox |
+| `/team` | ✅ Done · approved | `SELVA Team.html` | 6 partner feature rows; team photos → WebP |
+| `/legal` | ✅ Done | `SELVA Legal.html` | shared `LegalDoc` (masthead + TOC scrollspy), 9 sections |
+| `/privacy` | ✅ Done | `SELVA Privacy.html` | shared `LegalDoc`, 10 sections |
+| `/downloads` | ✅ Done | `SELVA Downloads.html` | doc masthead, 4 download cards, request band |
+| `/press` | ⬜ **Next** | `SELVA Press.html` | + `/press/[slug]` articles (generateStaticParams) |
+| `/inquiry` | ⬜ Planned | `SELVA Inquiry.html` | form + address/contact |
 
 ---
 
