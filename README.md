@@ -64,8 +64,8 @@ The handoff is a complete, validated static HTML prototype. **We port it verbati
 | `/legal` | ✅ Done | `SELVA Legal.html` | shared `LegalDoc` (masthead + TOC scrollspy), 9 sections |
 | `/privacy` | ✅ Done | `SELVA Privacy.html` | shared `LegalDoc`, 10 sections |
 | `/downloads` | ✅ Done | `SELVA Downloads.html` | doc masthead, 4 download cards, request band |
-| `/press` | ⬜ **Next** | `SELVA Press.html` | + `/press/[slug]` articles (generateStaticParams) |
-| `/inquiry` | ⬜ Planned | `SELVA Inquiry.html` | form + address/contact |
+| `/press` | ✅ Done | `SELVA Press.html` | index (9 coverage cards) + `/press/[slug]` article via generateStaticParams. Data in `app/press/articles.ts` (slug-keyed, maps to Storyblok `press_article` blok). Article body currently hardcoded in `[slug]/page.tsx` — 1 written article; all cards point to it (see press-articles plan) |
+| `/inquiry` | ⬜ **Next** | `SELVA Inquiry.html` | form + address/contact |
 
 ---
 
