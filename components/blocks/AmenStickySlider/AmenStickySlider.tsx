@@ -1,6 +1,22 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
+import { storyblokEditable } from '@storyblok/react';
+
+interface AmenCardBlok {
+  _uid: string; component: 'amen_card'
+  image?: { filename: string }; alt?: string
+  time?: string; name?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [index: string]: any
+}
+export interface AmenStickySliderBlok {
+  _uid: string; component: 'amen_sticky_slider'
+  label?: string; title?: string
+  cards?: AmenCardBlok[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [index: string]: any
+}
 
 const CARDS = [
   { src: '/images/amenities/pool-deck.webp',         alt: 'Pool terrace at sunrise',              time: 'Sunrise',   name: 'Laps in the canopy pool' },
@@ -12,7 +28,7 @@ const CARDS = [
 ];
 
 /* "A Day at SELVA" — sticky section, scroll position drives a horizontal pan. */
-export default function AmenStickySlider() {
+export default function AmenStickySlider({ blok }: { blok?: AmenStickySliderBlok }) {
   const sectionRef = useRef<HTMLElement>(null);
   const trackRef   = useRef<HTMLDivElement>(null);
 
@@ -40,19 +56,25 @@ export default function AmenStickySlider() {
     };
   }, []);
 
+  const label = blok?.label ?? 'A Day at SELVA'
+  const title = blok?.title ?? 'From first light to last'
+  const cards = blok?.cards?.length
+    ? blok.cards.map(c => ({ src: c.image?.filename || '', alt: c.alt ?? '', time: c.time ?? '', name: c.name ?? '' }))
+    : CARDS
+
   return (
-    <section ref={sectionRef} className="amen-sticky" id="amenSticky" data-screen-label="A Day at SELVA">
+    <section ref={sectionRef} className="amen-sticky" id="amenSticky" data-screen-label="A Day at SELVA" {...(blok ? storyblokEditable(blok) : {})}>
       <div className="amen-sticky__pin">
         <div className="amen-sticky__head">
           <div>
-            <span className="amen-sticky__label">A Day at SELVA</span>
-            <h2 className="amen-sticky__title">From first light to last</h2>
+            <span className="amen-sticky__label">{label}</span>
+            <h2 className="amen-sticky__title">{title}</h2>
           </div>
           <span className="amen-sticky__hint">Scroll to move &rarr;</span>
         </div>
         <div className="amen-sticky__viewport">
           <div ref={trackRef} className="amen-sticky__track" id="amenStickyTrack">
-            {CARDS.map((c) => (
+            {cards.map((c) => (
               <figure key={c.time} className="amen-sticky__card">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={c.src} alt={c.alt} loading="lazy" decoding="async" />

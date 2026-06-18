@@ -262,5 +262,89 @@
     "copyright": "",
     "fieldtype": "asset",
     "meta_data": {}
+  },
+  "coworking-library.webp": {
+    "id": 188917542860427,
+    "alt": "SELVA — oak-panelled library and co-working space",
+    "name": "coworking-library.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/5fab3a7fae/coworking-library.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
+  },
+  "fitness.webp": {
+    "id": 188917551003276,
+    "alt": "SELVA — fitness studio facing the vertical garden",
+    "name": "fitness.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/0d4920f031/fitness.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
+  },
+  "garden-courtyard.webp": {
+    "id": 188917554394765,
+    "alt": "SELVA — botanical garden courtyard with water feature",
+    "name": "garden-courtyard.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/6ecdd8ca8f/garden-courtyard.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
+  },
+  "lounge.webp": {
+    "id": 188917557991054,
+    "alt": "SELVA — residents' lounge with living greenery",
+    "name": "lounge.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/ea52a06074/lounge.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
+  },
+  "pool-deck.webp": {
+    "id": 188917560751759,
+    "alt": "SELVA — infinity-edge pool terrace above the canopy",
+    "name": "pool-deck.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/066c71558f/pool-deck.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
+  },
+  "sky-terrace.webp": {
+    "id": 188917563807376,
+    "alt": "SELVA — rooftop sky terrace at golden hour",
+    "name": "sky-terrace.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/e866552d70/sky-terrace.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
+  },
+  "spa-room.webp": {
+    "id": 188917566973585,
+    "alt": "SELVA — private wellness spa treatment room",
+    "name": "spa-room.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/d3ba256f9f/spa-room.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
   }
 }

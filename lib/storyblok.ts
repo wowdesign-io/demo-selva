@@ -15,6 +15,10 @@ import PageCta            from '../components/blocks/PageCta/PageCta'
 import DesignPillars      from '../components/blocks/DesignPillars/DesignPillars'
 import VisFeature         from '../components/blocks/VisFeature/VisFeature'
 import Manifesto          from '../components/blocks/Manifesto/Manifesto'
+import AmenitiesIntroSection from '../components/blocks/AmenitiesIntroSection/AmenitiesIntroSection'
+import CinematicBand      from '../components/blocks/CinematicBand/CinematicBand'
+import AmenitiesGridSection from '../components/blocks/AmenitiesGridSection/AmenitiesGridSection'
+import AmenStickySlider   from '../components/blocks/AmenStickySlider/AmenStickySlider'
 
 // Block component registry — one entry per Storyblok block type.
 // Key = component field value in Storyblok (never change after stories are created).
@@ -51,7 +55,10 @@ export const getStoryblokApi = storyblokInit({
     manifesto:            Manifesto,
 
     // Session 4 — Amenities page
-    // amenities_intro, amenities_carousel_block, cinematic_band, amenities_grid, amen_sticky_slider
+    amenities_intro:      AmenitiesIntroSection, // Intro copy + carousel (shares .amen section)
+    cinematic_band:       CinematicBand,          // Full-width image band
+    amenities_grid:       AmenitiesGridSection,   // 7-item amenity icon grid
+    amen_sticky_slider:   AmenStickySlider,        // "A Day at SELVA" sticky scroll
 
     // Session 5 — Neighborhood page
     // nbhd_intro, nbhd_story, nbhd_map

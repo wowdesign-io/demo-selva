@@ -12,17 +12,22 @@ const SLIDES = [
   { src: '/images/amenities/garden-courtyard.webp',  label: 'Garden Courtyard' },
 ];
 
+interface SlideData { src: string; label: string }
+
 interface Props {
   /** Where an active slide click navigates. Home → /amenities; Amenities page → /residences#digital-twin */
   slideHref: string;
   /** Hover overlay label. Home → "View Amenities"; Amenities page → "View Residences" */
   overlayLabel: string;
+  /** Storyblok-driven slides. Falls back to hardcoded SLIDES when undefined or empty. */
+  slides?: SlideData[];
 }
 
 /* Shared amenities carousel (tripled-DOM grow-into-slot mechanic, geometry from
    live DOM, keyboard + swipe). Renders just the .amen__stage; the parent wraps
    it in .amen + intro copy. Ports selva/amenities.js. */
-export default function AmenitiesCarousel({ slideHref, overlayLabel }: Props) {
+export default function AmenitiesCarousel({ slideHref, overlayLabel, slides: slidesProp }: Props) {
+  const activeSlides = (slidesProp?.length ? slidesProp : SLIDES) as SlideData[];
   const trackRef   = useRef<HTMLDivElement>(null);
   const stageRef   = useRef<HTMLDivElement>(null);
   const prevRef    = useRef<HTMLButtonElement>(null);
@@ -37,7 +42,7 @@ export default function AmenitiesCarousel({ slideHref, overlayLabel }: Props) {
     const counter = counterRef.current;
     if (!track || !stage || !prevBtn || !nextBtn || !counter) return;
 
-    const realLen = SLIDES.length;
+    const realLen = activeSlides.length;
     const COPIES  = 3;
     let active    = realLen;
     let locked    = false;
@@ -49,7 +54,7 @@ export default function AmenitiesCarousel({ slideHref, overlayLabel }: Props) {
     const frag = document.createDocumentFragment();
     for (let c = 0; c < COPIES; c++) {
       for (let i = 0; i < realLen; i++) {
-        const s = SLIDES[i];
+        const s = activeSlides[i];
         const slide = document.createElement('a');
         slide.className = 'amen__slide';
         slide.href = slideHref;
@@ -226,7 +231,7 @@ export default function AmenitiesCarousel({ slideHref, overlayLabel }: Props) {
       window.removeEventListener('scroll', reqZoom);
       window.removeEventListener('resize', onResize);
     };
-  }, [slideHref, overlayLabel]);
+  }, [slideHref, overlayLabel, activeSlides]);
 
   return (
     <div ref={stageRef} className="amen__stage">
