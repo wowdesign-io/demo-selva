@@ -14,6 +14,7 @@ export interface ResHscrollBlok {
   header_label?: string; header_cta_text?: string; header_cta_href?: string
   intro_overline?: string; intro_heading?: string; intro_body?: string
   intro_cta_text?: string; intro_cta_href?: string; cards?: ResCardBlok[]
+  [index: string]: unknown
 }
 
 const FALLBACK_CARDS = [

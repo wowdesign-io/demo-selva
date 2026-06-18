@@ -5,6 +5,7 @@ export interface HomeHeroBlok {
   _uid: string; component: 'home_hero'
   pre_label?: string; title?: string; tagline?: string; delivery_note?: string
   bg_image?: SbAsset; bg_alt?: string
+  [index: string]: unknown
 }
 
 export default function HeroSection({ blok }: { blok?: HomeHeroBlok }) {

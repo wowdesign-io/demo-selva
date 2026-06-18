@@ -4,6 +4,7 @@ import AmenitiesCarousel from '../AmenitiesCarousel/AmenitiesCarousel'
 export interface AmenitiesTeaserBlok {
   _uid: string; component: 'amenities_teaser'
   label?: string; heading?: string; sub?: string; cta_text?: string; cta_href?: string
+  [index: string]: unknown
 }
 
 export default function AmenitiesSection({ blok }: { blok?: AmenitiesTeaserBlok }) {

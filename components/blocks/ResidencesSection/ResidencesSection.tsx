@@ -3,6 +3,7 @@ import { storyblokEditable } from '@storyblok/react/rsc'
 export interface ResidencesTeaserBlok {
   _uid: string; component: 'residences_teaser'
   label?: string; heading?: string; sub?: string; cta_text?: string; cta_href?: string
+  [index: string]: unknown
 }
 
 export default function ResidencesSection({ blok }: { blok?: ResidencesTeaserBlok }) {

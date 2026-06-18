@@ -8,6 +8,7 @@ interface OverviewPanelBlok {
 export interface OverviewSectionBlok {
   _uid: string; component: 'overview_section'
   intro_text?: string; panels?: OverviewPanelBlok[]
+  [index: string]: unknown
 }
 
 const FALLBACK_PANELS = [

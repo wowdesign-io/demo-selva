@@ -5,6 +5,7 @@ export interface VisionTeaserBlok {
   _uid: string; component: 'vision_teaser'
   label?: string; headline?: string; body_1?: string; body_2?: string
   cta_text?: string; cta_href?: string; image?: SbAsset; alt?: string
+  [index: string]: unknown
 }
 
 export default function VisionSection({ blok }: { blok?: VisionTeaserBlok }) {
