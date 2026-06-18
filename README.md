@@ -123,9 +123,59 @@ To re-enable auto-deploy later: `vercel git connect`.
 
 ---
 
+## Storyblok Integration — IN PROGRESS
+
+Full integration plan: `C:\Users\info\.claude\plans\i-went-into-storyblok-refactored-clock.md`
+
+### Space credentials
+- **Space:** Selva Demo (Partner Portal — free dev space)
+- **Space ID:** 293255653505523
+- **Preview token:** `IOVXHrVadtekRL4pdBdzOQtt` (in `.env.local` — not committed)
+- **Public token:** `LY0QTOCaUhVq3T1nykIHrAtt` (use in Vercel production env var)
+
+### Session status
+
+| Session | Scope | Status |
+|---|---|---|
+| 0 — Setup | SDK install, env, next.config, lib/storyblok.ts, StoryblokProvider, layout.tsx | ✅ Done |
+| 1 — Home | Wire all 7 home sections to Storyblok | ⬜ Next |
+| 2 — Residences | Wire ResModelsSlider, PlanpointEmbed, ResidenceFeatures | ⬜ |
+| 3 — Vision | Extract inline sections → block components | ⬜ |
+| 4 — Amenities | Wire AmenitiesCarousel, AmenStickySlider, new blocks | ⬜ |
+| 5 — Neighborhood | Wire STORY/PINS/CATEGORIES arrays | ⬜ |
+| 6 — Gallery + Team | Wire GalleryGrid, PARTNERS array | ⬜ |
+| 7 — Inquiry + Downloads | Wrap forms, wire download cards | ⬜ |
+| 8 — Press | Replace articles.ts with Storyblok stories | ⬜ |
+| 9 — Legal + Privacy | Wire LegalDoc sections (Richtext) | ⬜ |
+| 10 — Production | ISR webhook, token swap, catch-all route, deploy | ⬜ |
+
+### What Session 0 did
+- Installed `@storyblok/react@6.1.11`
+- Created `lib/storyblok.ts` — SDK init, EU region, component registry (empty, filled per session)
+- Created `components/ui/StoryblokProvider/StoryblokProvider.tsx` — client wrapper that inits SDK browser-side
+- Updated `app/layout.tsx` — wrapped body children in `<StoryblokProvider>`
+- Updated `next.config.ts` — added `a.storyblok.com` to image remote patterns
+- Created `.env.local` — preview token + space ID (not committed to git)
+
+### What to do at start of Session 1 (Home page)
+1. **Andy:** Create block library in Storyblok — build ALL blocks from the plan before touching React code
+2. **Andy:** Configure Visual Editor: Storyblok → Settings → Visual Editor → Preview URL → `http://localhost:3000/`
+3. **Claude:** Wire home page blocks to components (plan Session 1)
+
+### Block fallback pattern (use in every component)
+```tsx
+import { storyblokEditable } from '@storyblok/react/rsc'
+
+export default function HeroSection({ blok }: { blok?: HeroBlok }) {
+  const title = blok?.title ?? 'SELVA'  // falls back to hardcoded if blok missing
+  return <div {...(blok ? storyblokEditable(blok) : {})}> ... </div>
+}
+```
+
+---
+
 ## Known follow-ups (not blockers)
 
 - **Spark CRM test account** for the Planpoint embed — pending from Laurent.
-- **Storyblok wiring** — content is currently hardcoded in page files; maps to bloks once design is locked across all pages (do not start until every page is approved).
 - Footer Brochure / Private Tour / Instagram links point to real routes or `#` — wire when those flows exist.
 - Stale unused `*.module.css` files from the pre-rebuild era can be deleted in a cleanup pass.

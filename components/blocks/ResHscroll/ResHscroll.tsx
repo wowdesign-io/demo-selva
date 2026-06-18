@@ -1,11 +1,56 @@
 'use client';
 
 import { useRef, useEffect } from 'react';
+import { storyblokEditable } from '@storyblok/react';
 
-export default function ResHscroll() {
+interface SbAsset { filename: string; alt?: string }
+interface ResCardBlok {
+  _uid: string; component: 'res_card'
+  model_tag?: string; name?: string; sf?: string; layout?: string; outdoor?: string
+  image?: SbAsset; alt?: string; planpoint_floor?: string; planpoint_unit?: string; cta_text?: string
+}
+export interface ResHscrollBlok {
+  _uid: string; component: 'res_hscroll'
+  header_label?: string; header_cta_text?: string; header_cta_href?: string
+  intro_overline?: string; intro_heading?: string; intro_body?: string
+  intro_cta_text?: string; intro_cta_href?: string; cards?: ResCardBlok[]
+}
+
+const FALLBACK_CARDS = [
+  { _uid: 'c', model_tag: 'Model C', name: 'Patio 1BR Suite',  sf: '575',     layout: '1',       outdoor: 'Patio',    src: '/images/renders/terrace.webp',      alt: 'Model C — Patio 1BR Suite', floor: 'Floor%201', unit: '110' },
+  { _uid: 'd', model_tag: 'Model D', name: '1BR + Den Suite',  sf: '700–880', layout: '1 + Den', outdoor: 'Balcony',  src: '/images/renders/balcony.webp',      alt: 'Model D — 1BR + Den Suite', floor: 'Floor%201', unit: '113' },
+  { _uid: 'b', model_tag: 'Model B', name: '2BR Suite',        sf: '880',     layout: '2',       outdoor: 'Terrace',  src: '/images/renders/kitchen-wide.webp', alt: 'Model B — 2BR Suite',       floor: 'Floor%201', unit: '112' },
+]
+
+export default function ResHscroll({ blok }: { blok?: ResHscrollBlok }) {
   const outerRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const fillRef  = useRef<HTMLDivElement>(null);
+
+  const headerLabel   = blok?.header_label    ?? 'Residences · Three Models · 40 Suites'
+  const headerCtaText = blok?.header_cta_text ?? 'Explore in Digital Twin →'
+  const headerCtaHref = blok?.header_cta_href ?? '/residences#planpoint'
+  const introOverline = blok?.intro_overline  ?? 'SELVA · Miami · Pre-Sales'
+  const introHeading  = blok?.intro_heading   ?? 'Curated for Private Living.'
+  const introBody     = blok?.intro_body      ?? 'Three signature layouts — Models B, C and D — across forty residences and three floors, each opening to the green canopy.'
+  const introCtaText  = blok?.intro_cta_text  ?? 'Explore All Floorplans'
+  const introCtaHref  = blok?.intro_cta_href  ?? '/residences#planpoint'
+
+  const cards = blok?.cards?.length
+    ? blok.cards.map((c) => ({
+        _uid:      c._uid,
+        model_tag: c.model_tag ?? '',
+        name:      c.name      ?? '',
+        sf:        c.sf        ?? '',
+        layout:    c.layout    ?? '',
+        outdoor:   c.outdoor   ?? '',
+        src:       c.image?.filename || '',
+        alt:       c.alt ?? c.image?.alt ?? '',
+        floor:     encodeURIComponent(c.planpoint_floor ?? 'Floor 1'),
+        unit:      c.planpoint_unit ?? '',
+        ctaText:   c.cta_text ?? 'View Floorplan →',
+      }))
+    : FALLBACK_CARDS.map((c) => ({ ...c, ctaText: 'View Floorplan →' }))
 
   useEffect(() => {
     const outer = outerRef.current;
@@ -49,13 +94,13 @@ export default function ResHscroll() {
   }, []);
 
   return (
-    <section className="res-hscroll" id="residences" data-screen-label="Residences">
+    <section className="res-hscroll" id="residences" data-screen-label="Residences" {...(blok ? storyblokEditable(blok) : {})}>
       <div ref={outerRef} className="res-hscroll__outer" id="hscrollOuter">
         <div className="res-hscroll__sticky">
 
           <div className="res-hscroll__header">
-            <p className="res-hscroll__label">Residences &middot; Three Models &middot; 40 Suites</p>
-            <a href="/residences#planpoint" className="res-hscroll__cta-link">Explore in Digital Twin &rarr;</a>
+            <p className="res-hscroll__label">{headerLabel}</p>
+            <a href={headerCtaHref} className="res-hscroll__cta-link">{headerCtaText}</a>
           </div>
 
           <div ref={trackRef} className="res-hscroll__track" id="hscrollTrack">
@@ -63,14 +108,11 @@ export default function ResHscroll() {
             <div className="res-hscroll__card res-hscroll__card--intro">
               <div className="res-hscroll__intro-leaves"></div>
               <div className="res-hscroll__intro-content">
-                <p className="res-hscroll__intro-overline">SELVA &middot; Miami &middot; Pre-Sales</p>
-                <h2 className="res-hscroll__intro-heading">Curated for<br />Private Living.</h2>
-                <p className="res-hscroll__intro-body">
-                  Three signature layouts &mdash; Models B, C and D &mdash; across forty residences
-                  and three floors, each opening to the green canopy.
-                </p>
-                <a href="/residences#planpoint" className="res-hscroll__card-cta">
-                  Explore All Floorplans
+                <p className="res-hscroll__intro-overline">{introOverline}</p>
+                <h2 className="res-hscroll__intro-heading">{introHeading}</h2>
+                <p className="res-hscroll__intro-body">{introBody}</p>
+                <a href={introCtaHref} className="res-hscroll__card-cta">
+                  {introCtaText}
                   <svg width="14" height="7" viewBox="0 0 14 7" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <line x1="0" y1="3.5" x2="12" y2="3.5" />
                     <polyline points="9,1 12,3.5 9,6" />
@@ -79,59 +121,25 @@ export default function ResHscroll() {
               </div>
             </div>
 
-            <div className="res-hscroll__card">
-              <div className="res-hscroll__card-img">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/renders/terrace.webp" alt="Model C — Patio 1BR Suite" loading="lazy" decoding="async" />
-              </div>
-              <div className="res-hscroll__card-overlay"></div>
-              <div className="res-hscroll__card-body">
-                <p className="res-hscroll__model-tag">Model C</p>
-                <h3 className="res-hscroll__model-name">Patio 1BR Suite</h3>
-                <div className="res-hscroll__specs">
-                  <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">575</span><span className="res-hscroll__spec-key">Approx. SF</span></div>
-                  <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">1</span><span className="res-hscroll__spec-key">Bedroom</span></div>
-                  <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">Patio</span><span className="res-hscroll__spec-key">Outdoor</span></div>
+            {cards.map((card) => (
+              <div key={card._uid} className="res-hscroll__card">
+                <div className="res-hscroll__card-img">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={card.src} alt={card.alt} loading="lazy" decoding="async" />
                 </div>
-                <a href="/residences?f=Floor%201&u=110#planpoint" className="res-hscroll__card-cta">View Floorplan &rarr;</a>
-              </div>
-            </div>
-
-            <div className="res-hscroll__card">
-              <div className="res-hscroll__card-img">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/renders/balcony.webp" alt="Model D — 1BR + Den Suite" loading="lazy" decoding="async" />
-              </div>
-              <div className="res-hscroll__card-overlay"></div>
-              <div className="res-hscroll__card-body">
-                <p className="res-hscroll__model-tag">Model D</p>
-                <h3 className="res-hscroll__model-name">1BR + Den Suite</h3>
-                <div className="res-hscroll__specs">
-                  <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">700&ndash;880</span><span className="res-hscroll__spec-key">Approx. SF</span></div>
-                  <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">1 + Den</span><span className="res-hscroll__spec-key">Layout</span></div>
-                  <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">Balcony</span><span className="res-hscroll__spec-key">Outdoor</span></div>
+                <div className="res-hscroll__card-overlay"></div>
+                <div className="res-hscroll__card-body">
+                  <p className="res-hscroll__model-tag">{card.model_tag}</p>
+                  <h3 className="res-hscroll__model-name">{card.name}</h3>
+                  <div className="res-hscroll__specs">
+                    <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">{card.sf}</span><span className="res-hscroll__spec-key">Approx. SF</span></div>
+                    <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">{card.layout}</span><span className="res-hscroll__spec-key">{card.layout === '2' ? 'Bedrooms' : 'Bedroom'}</span></div>
+                    <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">{card.outdoor}</span><span className="res-hscroll__spec-key">Outdoor</span></div>
+                  </div>
+                  <a href={`/residences?f=${card.floor}&u=${card.unit}#planpoint`} className="res-hscroll__card-cta">{card.ctaText}</a>
                 </div>
-                <a href="/residences?f=Floor%201&u=113#planpoint" className="res-hscroll__card-cta">View Floorplan &rarr;</a>
               </div>
-            </div>
-
-            <div className="res-hscroll__card">
-              <div className="res-hscroll__card-img">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/renders/kitchen-wide.webp" alt="Model B — 2BR Suite" loading="lazy" decoding="async" />
-              </div>
-              <div className="res-hscroll__card-overlay"></div>
-              <div className="res-hscroll__card-body">
-                <p className="res-hscroll__model-tag">Model B</p>
-                <h3 className="res-hscroll__model-name">2BR Suite</h3>
-                <div className="res-hscroll__specs">
-                  <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">880</span><span className="res-hscroll__spec-key">Approx. SF</span></div>
-                  <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">2</span><span className="res-hscroll__spec-key">Bedrooms</span></div>
-                  <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">Terrace</span><span className="res-hscroll__spec-key">Outdoor</span></div>
-                </div>
-                <a href="/residences?f=Floor%201&u=112#planpoint" className="res-hscroll__card-cta">View Floorplan &rarr;</a>
-              </div>
-            </div>
+            ))}
 
           </div>
 
@@ -145,5 +153,5 @@ export default function ResHscroll() {
         </div>
       </div>
     </section>
-  );
+  )
 }

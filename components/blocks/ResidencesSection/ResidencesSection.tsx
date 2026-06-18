@@ -1,21 +1,29 @@
-export default function ResidencesSection() {
+import { storyblokEditable } from '@storyblok/react/rsc'
+
+export interface ResidencesTeaserBlok {
+  _uid: string; component: 'residences_teaser'
+  label?: string; heading?: string; sub?: string; cta_text?: string; cta_href?: string
+}
+
+export default function ResidencesSection({ blok }: { blok?: ResidencesTeaserBlok }) {
+  const label   = blok?.label    ?? 'Residences'
+  const heading = blok?.heading  ?? 'Curated for Private Living'
+  const sub     = blok?.sub      ?? 'Forty bespoke one- and two-bedroom residences — several with private dens — each thoughtfully proportioned for a life of botanical luxury and urban ease.'
+  const ctaText = blok?.cta_text ?? 'View Residences'
+  const ctaHref = blok?.cta_href ?? '/residences'
+
   return (
-    <section className="residences" data-screen-label="Residences">
+    <section className="residences" data-screen-label="Residences" {...(blok ? storyblokEditable(blok) : {})}>
       <div className="residences__container">
         <div className="residences__intro">
-          <span className="residences__label reveal">Residences</span>
-          <h2 className="residences__heading reveal" data-delay="100">
-            Curated for<br />Private Living
-          </h2>
-          <p className="residences__sub reveal" data-delay="200">
-            Forty bespoke one- and two-bedroom residences &mdash; several with private dens &mdash; each thoughtfully proportioned
-            for a life of botanical luxury and urban ease.
-          </p>
-          <a href="/residences" className="btnSlide residences__cta reveal" data-delay="300">
-            <span>View Residences</span><span aria-hidden="true">View Residences</span>
+          <span className="residences__label reveal">{label}</span>
+          <h2 className="residences__heading reveal" data-delay="100">{heading}</h2>
+          <p className="residences__sub reveal" data-delay="200">{sub}</p>
+          <a href={ctaHref} className="btnSlide residences__cta reveal" data-delay="300">
+            <span>{ctaText}</span><span aria-hidden="true">{ctaText}</span>
           </a>
         </div>
       </div>
     </section>
-  );
+  )
 }

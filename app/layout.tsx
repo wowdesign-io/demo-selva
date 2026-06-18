@@ -5,6 +5,7 @@ import Footer from '../components/ui/Footer/Footer';
 import Loader from '../components/ui/Loader/Loader';
 import SmoothScroll from '../components/ui/SmoothScroll/SmoothScroll';
 import ScrollProgress from '../components/ui/ScrollProgress/ScrollProgress';
+import StoryblokProvider from '../components/ui/StoryblokProvider/StoryblokProvider';
 import '../styles/globals.css';
 
 const cormorant = Cormorant_Garamond({
@@ -60,12 +61,14 @@ export default function RootLayout({
           }}
         />
         <Loader />
-        <SmoothScroll>
-          <Nav />
-          {children}
-          <Footer />
-          <ScrollProgress />
-        </SmoothScroll>
+        <StoryblokProvider>
+          <SmoothScroll>
+            <Nav />
+            {children}
+            <Footer />
+            <ScrollProgress />
+          </SmoothScroll>
+        </StoryblokProvider>
       </body>
     </html>
   );

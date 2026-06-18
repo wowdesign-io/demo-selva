@@ -1,40 +1,46 @@
-export default function OverviewSection() {
+import { storyblokEditable } from '@storyblok/react/rsc'
+
+interface SbAsset { filename: string; alt?: string }
+interface OverviewPanelBlok {
+  _uid: string; component: 'overview_panel'
+  label?: string; href?: string; image?: SbAsset; alt?: string
+}
+export interface OverviewSectionBlok {
+  _uid: string; component: 'overview_section'
+  intro_text?: string; panels?: OverviewPanelBlok[]
+}
+
+const FALLBACK_PANELS = [
+  { label: 'Residences',   href: '/residences',   src: '/images/renders/interior-01.jpg',                alt: 'SELVA Residences — curated interiors' },
+  { label: 'Amenities',    href: '/amenities',    src: '/images/amenities/pool-deck.webp',               alt: 'SELVA Amenities — botanical setting' },
+  { label: 'Neighborhood', href: '/neighborhood', src: '/images/neighborhood/sidewalk-storefronts.webp', alt: 'SELVA — Miami neighborhood' },
+]
+
+export default function OverviewSection({ blok }: { blok?: OverviewSectionBlok }) {
+  const introText = blok?.intro_text ?? "Nestled where Miami's botanical soul meets the open sky, SELVA presents forty private residences — a rare collection where verdant canopy, bespoke interiors, and the city converge."
+
+  const panels = blok?.panels?.length
+    ? blok.panels.map((p) => ({ label: p.label ?? '', href: p.href ?? '#', src: p.image?.filename || '', alt: p.alt ?? p.image?.alt ?? '', _uid: p._uid }))
+    : FALLBACK_PANELS.map((p) => ({ ...p, _uid: p.label }))
+
   return (
-    <section className="overview">
+    <section className="overview" {...(blok ? storyblokEditable(blok) : {})}>
       <div className="overview__intro">
         {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-        <p className="overview__introText" {...{ 'data-lines': '' } as any}>
-          <span className="lineWrap"><span className="line">Nestled where Miami&rsquo;s botanical soul meets the open sky,</span></span>
-          <span className="lineWrap"><span className="line">SELVA presents forty private residences — a rare collection</span></span>
-          <span className="lineWrap"><span className="line">where verdant canopy, bespoke interiors, and the city converge.</span></span>
-        </p>
+        <p className="overview__introText" {...{ 'data-lines': '' } as any}>{introText}</p>
       </div>
       <div className="overview__panels">
-        <a href="/residences" className="overview__panel">
-          <div className="overview__imageWrap zoom-panel">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/renders/interior-01.jpg" alt="SELVA Residences — curated interiors" loading="lazy" decoding="async" />
-          </div>
-          <div className="overview__overlay"></div>
-          <span className="overview__label">Residences</span>
-        </a>
-        <a href="/amenities" className="overview__panel">
-          <div className="overview__imageWrap zoom-panel">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/amenities/pool-deck.webp" alt="SELVA Amenities — botanical setting" loading="lazy" decoding="async" />
-          </div>
-          <div className="overview__overlay"></div>
-          <span className="overview__label">Amenities</span>
-        </a>
-        <a href="/neighborhood" className="overview__panel">
-          <div className="overview__imageWrap zoom-panel">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/neighborhood/sidewalk-storefronts.webp" alt="SELVA — Miami neighborhood" loading="lazy" decoding="async" />
-          </div>
-          <div className="overview__overlay"></div>
-          <span className="overview__label">Neighborhood</span>
-        </a>
+        {panels.map((panel) => (
+          <a href={panel.href} key={panel._uid} className="overview__panel">
+            <div className="overview__imageWrap zoom-panel">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={panel.src} alt={panel.alt} loading="lazy" decoding="async" />
+            </div>
+            <div className="overview__overlay"></div>
+            <span className="overview__label">{panel.label}</span>
+          </a>
+        ))}
       </div>
     </section>
-  );
+  )
 }
