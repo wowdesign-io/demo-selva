@@ -1,12 +1,13 @@
 'use client'
 
-import { useStoryblok } from '@storyblok/react'
-import HeroSection        from '../../blocks/HeroSection/HeroSection'
-import OverviewSection    from '../../blocks/OverviewSection/OverviewSection'
-import VisionSection      from '../../blocks/VisionSection/VisionSection'
-import ResidencesSection  from '../../blocks/ResidencesSection/ResidencesSection'
-import ResHscroll         from '../../blocks/ResHscroll/ResHscroll'
-import AmenitiesSection   from '../../blocks/AmenitiesSection/AmenitiesSection'
+import { useStoryblokBridge } from '@storyblok/react'
+import { useState } from 'react'
+import HeroSection         from '../../blocks/HeroSection/HeroSection'
+import OverviewSection     from '../../blocks/OverviewSection/OverviewSection'
+import VisionSection       from '../../blocks/VisionSection/VisionSection'
+import ResidencesSection   from '../../blocks/ResidencesSection/ResidencesSection'
+import ResHscroll          from '../../blocks/ResHscroll/ResHscroll'
+import AmenitiesSection    from '../../blocks/AmenitiesSection/AmenitiesSection'
 import NeighborhoodSection from '../../blocks/NeighborhoodSection/NeighborhoodSection'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -22,10 +23,13 @@ const SECTIONS: Record<string, React.ComponentType<{ blok: any }>> = {
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function StoryblokHomeView({ story: initialStory }: { story: any }) {
-  // useStoryblok initialises the Storyblok bridge — enables:
-  //   • canvas click-to-edit in the Visual Editor
-  //   • real-time preview updates when fields change
-  const story = useStoryblok(initialStory, { version: 'draft' })
+  const [story, setStory] = useState(initialStory)
+
+  // useStoryblokBridge activates the Visual Editor bridge:
+  // — enables canvas click-to-edit
+  // — fires setStory on every field change → live preview updates
+  useStoryblokBridge(story.id, (updatedStory) => setStory(updatedStory))
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const body: any[] = story?.content?.body ?? []
 
