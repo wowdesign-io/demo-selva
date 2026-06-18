@@ -141,13 +141,35 @@ Full integration plan: `C:\Users\info\.claude\plans\i-went-into-storyblok-refact
 | 1 — Home | 7 sections wired, all blocks created in Storyblok, home story filled | ✅ Done | 2026-06-17 |
 | 2 — Residences | ResModelsSlider, PlanpointEmbed, ResHscroll, ResidenceFeatures wired | ✅ Done | 2026-06-18 |
 | 3 — Vision | VisionCopyBand, DesignPillars, VisFeature ×2, Manifesto, VisionStatsBridge | ✅ Done | 2026-06-18 |
-| 4 — Amenities | Wire AmenitiesCarousel, AmenStickySlider, new blocks | ⬜ **Next** | — |
-| 5 — Neighborhood | Wire STORY/PINS/CATEGORIES arrays | ⬜ | — |
-| 6 — Gallery + Team | Wire GalleryGrid, PARTNERS array | ⬜ | — |
+| 4 — Amenities | 7 images uploaded, 7 blocks created, AmenitiesIntroSection + CinematicBand + AmenitiesGridSection extracted, story published | ✅ Done | 2026-06-18 |
+| 5 — Neighborhood | 4 images uploaded, 8 blocks created (nbhd_intro, nbhd_story, nbhd_story_panel, nbhd_map + map sub-blocks), NbhdIntro + NbhdStory + NbhdMap extracted, story published | ✅ Done | 2026-06-18 |
+| 6 — Gallery + Team | Wire GalleryGrid, PARTNERS array | ⬜ **Next** | — |
 | 7 — Inquiry + Downloads | Wrap forms, wire download cards | ⬜ | — |
 | 8 — Press | Replace articles.ts with Storyblok stories | ⬜ | — |
 | 9 — Legal + Privacy | Wire LegalDoc sections (Richtext) | ⬜ | — |
 | 10 — Production | ISR webhook, token swap, catch-all route, deploy | ⬜ | — |
+
+### Storyblok field ordering — critical rule
+
+**Two separate ordering systems exist in Storyblok:**
+
+| Where | What controls order | How to fix |
+|---|---|---|
+| Visual Editor sidebar (content editors) | `pos` value on each field | `PUT /components/{id}` — update pos only. **Zero content risk.** |
+| Block Library schema editor (developers) | Insertion order (order fields were added via API) | Delete + recreate — only safe on dev/demo. **Never on live.** |
+
+**On any live client project: only ever update `pos` values via PUT. Never delete+recreate.**
+
+Story content is stored by component name + field key, not component ID — so delete+recreate does preserve content. But there is a brief window between delete and recreate where a cached preview could serve unresolved blocks. Unacceptable on live.
+
+**Prevention (always do this on initial creation):** Use `[ordered]@{}` in PowerShell (or an ordered object in JS) so field insertion order matches `pos` order from the start. Convention:
+
+```
+Tagline → Heading → Text → Button Text → Button Link
+→ [grouped extras e.g. Carousel Overlay Text, Carousel Overlay Link, Slides]
+→ Image → Image - Alt Text
+→ [boolean toggles last]
+```
 
 ### Storyblok standards (apply from Session 4 onward — already done for 0–3)
 
@@ -166,10 +188,11 @@ All four rules are baked into the full integration plan. Summary:
 
 **22 render images** uploaded to Storyblok CDN via `scripts/storyblok-upload-renders.js`. Asset map: `storyblok-assets.json`.
 
-### What to do at start of Session 4 (Amenities)
-1. Add amenities image folder to `storyblok-upload-renders.js` and run it — upload all amenities images first
-2. Create `amen_sticky_slider` and `amen_card` blocks in Storyblok Block Library (see integration plan for field definitions)
-3. Wire `AmenitiesCarousel`, `AmenStickySlider`, `CinematicBand`, `AmenitiesGridSection` to Storyblok
+### What to do at start of Session 5 (Neighborhood)
+1. Check if neighborhood images need uploading (exterior/neighborhood photos) — use `scripts/storyblok-upload-amenities.js` as template
+2. Create blocks: `nbhd_intro`, `nbhd_story`, `story_panel`, `text_para`, `nbhd_map`, `map_category`, `map_poi`, `map_pin`
+3. Extract NbhdIntro, NbhdStory, NbhdMap components from inline `app/neighborhood/page.tsx` JSX
+4. Create neighborhood story, wire components, push to Vercel
 
 ### Block fallback pattern (use in every component)
 ```tsx

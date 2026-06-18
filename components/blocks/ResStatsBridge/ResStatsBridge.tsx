@@ -4,6 +4,7 @@ interface StatItemBlok { _uid: string; component: 'stat_item'; value: string; la
 export interface ResStatsBridgeBlok {
   _uid: string; component: 'res_stats_bridge'
   items?: StatItemBlok[]
+  light_theme?: boolean
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [index: string]: any
 }
@@ -20,7 +21,7 @@ export default function ResStatsBridge({ blok }: { blok?: ResStatsBridgeBlok }) 
 
   return (
     <div
-      className="stat-strip stat-strip--light"
+      className={`stat-strip${blok?.light_theme ? ' stat-strip--light' : ''}`}
       data-screen-label="Stats Bridge"
       {...(blok ? storyblokEditable(blok) : {})}
     >

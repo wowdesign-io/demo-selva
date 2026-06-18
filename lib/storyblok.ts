@@ -19,6 +19,9 @@ import AmenitiesIntroSection from '../components/blocks/AmenitiesIntroSection/Am
 import CinematicBand      from '../components/blocks/CinematicBand/CinematicBand'
 import AmenitiesGridSection from '../components/blocks/AmenitiesGridSection/AmenitiesGridSection'
 import AmenStickySlider   from '../components/blocks/AmenStickySlider/AmenStickySlider'
+import NbhdIntro          from '../components/blocks/NbhdIntro/NbhdIntro'
+import NbhdStory          from '../components/blocks/NbhdStory/NbhdStory'
+import NbhdMap            from '../components/blocks/NbhdMap/NbhdMap'
 
 // Block component registry — one entry per Storyblok block type.
 // Key = component field value in Storyblok (never change after stories are created).
@@ -61,7 +64,9 @@ export const getStoryblokApi = storyblokInit({
     amen_sticky_slider:   AmenStickySlider,        // "A Day at SELVA" sticky scroll
 
     // Session 5 — Neighborhood page
-    // nbhd_intro, nbhd_story, nbhd_map
+    nbhd_intro:            NbhdIntro,
+    nbhd_story:            NbhdStory,
+    nbhd_map:              NbhdMap,
 
     // Session 6 — Gallery + Team
     // gallery_intro, gallery_grid_block, team_intro, team_partners

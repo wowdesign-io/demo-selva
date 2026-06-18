@@ -346,5 +346,53 @@
     "copyright": "",
     "fieldtype": "asset",
     "meta_data": {}
+  },
+  "bayfront-marina.webp": {
+    "id": 188931327637996,
+    "alt": "Coconut Grove — sailboats moored at the bayfront marina at sunrise",
+    "name": "bayfront-marina.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/4371e167ca/bayfront-marina.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
+  },
+  "cultural-district.webp": {
+    "id": 188931332823533,
+    "alt": "Coconut Grove — design quarter gallery facades at golden hour",
+    "name": "cultural-district.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/f782a4da4b/cultural-district.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
+  },
+  "outdoor-dining.webp": {
+    "id": 188931335596526,
+    "alt": "Coconut Grove — candlelit courtyard dining under string lights at dusk",
+    "name": "outdoor-dining.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/c19db9fe97/outdoor-dining.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
+  },
+  "sidewalk-storefronts.webp": {
+    "id": 188931338557935,
+    "alt": "Coconut Grove — sunlit sidewalk storefronts beneath the oak canopy",
+    "name": "sidewalk-storefronts.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/eab6ccf35e/sidewalk-storefronts.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
   }
 }
