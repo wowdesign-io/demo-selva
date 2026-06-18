@@ -13,6 +13,11 @@ import ResModelsSlider    from '../components/blocks/ResModelsSlider/ResModelsSl
 import PlanpointEmbed     from '../components/blocks/PlanpointEmbed/PlanpointEmbed'
 import ResidenceFeatures  from '../components/blocks/ResidenceFeatures/ResidenceFeatures'
 import PageCta            from '../components/blocks/PageCta/PageCta'
+import VisionStatsBridge from '../components/blocks/VisionStatsBridge/VisionStatsBridge'
+import VisionCopyBand    from '../components/blocks/VisionCopyBand/VisionCopyBand'
+import DesignPillars     from '../components/blocks/DesignPillars/DesignPillars'
+import VisFeature        from '../components/blocks/VisFeature/VisFeature'
+import Manifesto         from '../components/blocks/Manifesto/Manifesto'
 
 // All Storyblok block components are registered here.
 // Pattern: add imports + entries as each session wires new pages.
@@ -45,7 +50,11 @@ export const getStoryblokApi = storyblokInit({
     page_cta:             PageCta,
 
     // Session 3 — Vision page
-    // vision_copy_band, design_pillars, vis_feature, manifesto
+    vision_stats_bridge:  VisionStatsBridge,
+    vision_copy_band:     VisionCopyBand,
+    design_pillars:       DesignPillars,
+    vis_feature:          VisFeature,
+    manifesto:            Manifesto,
 
     // Session 4 — Amenities page
     // amenities_intro, amenities_carousel_block, cinematic_band, amenities_grid, amen_sticky_slider
