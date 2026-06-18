@@ -8,7 +8,8 @@ interface OverviewPanelBlok {
 export interface OverviewSectionBlok {
   _uid: string; component: 'overview_section'
   intro_text?: string; panels?: OverviewPanelBlok[]
-  [index: string]: unknown
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [index: string]: any
 }
 
 const FALLBACK_PANELS = [

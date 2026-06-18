@@ -5,7 +5,8 @@ export interface VisionTeaserBlok {
   _uid: string; component: 'vision_teaser'
   label?: string; headline?: string; body_1?: string; body_2?: string
   cta_text?: string; cta_href?: string; image?: SbAsset; alt?: string
-  [index: string]: unknown
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [index: string]: any
 }
 
 export default function VisionSection({ blok }: { blok?: VisionTeaserBlok }) {

@@ -4,7 +4,8 @@ import AmenitiesCarousel from '../AmenitiesCarousel/AmenitiesCarousel'
 export interface AmenitiesTeaserBlok {
   _uid: string; component: 'amenities_teaser'
   label?: string; heading?: string; sub?: string; cta_text?: string; cta_href?: string
-  [index: string]: unknown
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [index: string]: any
 }
 
 export default function AmenitiesSection({ blok }: { blok?: AmenitiesTeaserBlok }) {

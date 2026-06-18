@@ -5,7 +5,8 @@ export interface HomeHeroBlok {
   _uid: string; component: 'home_hero'
   pre_label?: string; title?: string; tagline?: string; delivery_note?: string
   bg_image?: SbAsset; bg_alt?: string
-  [index: string]: unknown
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [index: string]: any
 }
 
 export default function HeroSection({ blok }: { blok?: HomeHeroBlok }) {

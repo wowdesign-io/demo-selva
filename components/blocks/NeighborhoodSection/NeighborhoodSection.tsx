@@ -6,7 +6,8 @@ export interface NeighborhoodTeaserBlok {
   _uid: string; component: 'neighborhood_teaser'
   image?: SbAsset; alt?: string; label?: string; heading?: string; body?: string
   address?: string; cta_text?: string; cta_href?: string; stats?: StatItemBlok[]
-  [index: string]: unknown
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [index: string]: any
 }
 
 const FALLBACK_STATS = [
