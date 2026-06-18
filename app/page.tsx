@@ -7,7 +7,8 @@ export const revalidate = 60
 
 export default async function Home() {
   const sbApi = getStoryblokApi()
-  const { data } = await sbApi.get('cdn/stories/home', { version: 'draft' })
+  const version = (process.env.STORYBLOK_VERSION as 'draft' | 'published') ?? 'published'
+  const { data } = await sbApi.get('cdn/stories/home', { version })
 
   return (
     <main>
