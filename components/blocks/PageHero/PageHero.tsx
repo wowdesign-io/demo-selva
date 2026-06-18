@@ -4,7 +4,7 @@ interface SbAsset { filename: string; alt?: string }
 export interface PageHeroBlok {
   _uid: string; component: 'page_hero'
   pre_label?: string; title?: string; tagline?: string
-  bg_image?: SbAsset; bg_alt?: string; delivery_note?: string
+  bg_src?: string; bg_image?: SbAsset; bg_alt?: string; delivery_note?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [index: string]: any
 }
@@ -13,7 +13,7 @@ export default function PageHero({ blok }: { blok?: PageHeroBlok }) {
   const preLabel     = blok?.pre_label     ?? 'Miami · 40 Residences'
   const titleLines   = (blok?.title        ?? 'Find Your\nResidence').split('\n')
   const tagline      = blok?.tagline       ?? 'Explore, select, and reserve — directly.'
-  const bgSrc        = blok?.bg_image?.filename || '/images/renders/exterior-02.webp'
+  const bgSrc        = blok?.bg_src || blok?.bg_image?.filename || '/images/renders/exterior-02.webp'
   const bgAlt        = blok?.bg_alt        ?? blok?.bg_image?.alt ?? ''
   const deliveryNote = blok?.delivery_note ?? 'Delivery Mid-2027'
 
