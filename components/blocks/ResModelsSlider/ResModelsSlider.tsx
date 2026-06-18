@@ -25,7 +25,6 @@ interface ResCardBlok {
 export interface ResModelsSliderBlok {
   _uid: string; component: 'res_models_slider'
   header_label?: string; cta_text?: string; header_cta_href?: SbLink | string
-  show_intro?: boolean
   cards?: (ResIntroCardBlok | ResCardBlok)[]
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [index: string]: any
@@ -77,8 +76,6 @@ function goToUnit(unitId: string, floorId: string) {
 export default function ResModelsSlider({ blok }: { blok?: ResModelsSliderBlok }) {
   const trackRef = useRef<HTMLDivElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
-
-  const showIntro = blok?.show_intro ?? true;
 
   // cards[0] is the intro card (res_intro_card), cards[1..] are model cards (res_card)
   const allCards = blok?.cards ?? [];
@@ -165,7 +162,7 @@ export default function ResModelsSlider({ blok }: { blok?: ResModelsSliderBlok }
       <div ref={wrapRef} className="res-inline-track-wrap">
         <div ref={trackRef} className="res-inline-track" id="resInlineTrack">
 
-          {showIntro && <div
+          <div
             className="res-inline-card res-inline-card--intro"
             {...(introCard ? storyblokEditable(introCard) : {})}
           >
@@ -190,7 +187,7 @@ export default function ResModelsSlider({ blok }: { blok?: ResModelsSliderBlok }
                 </svg>
               </a>
             </div>
-          </div>}
+          </div>
 
           {cards.map((card) => {
             const imgSrc = card.img_src || card.image?.filename || '';
