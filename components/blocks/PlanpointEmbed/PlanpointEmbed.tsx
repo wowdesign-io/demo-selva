@@ -1,8 +1,16 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { storyblokEditable } from '@storyblok/react';
 
 const PROJECT_URL = 'https://app.planpoint.io/miami-wowdesign/laurent?lang=English';
+
+export interface PlanpointEmbedBlok {
+  _uid: string; component: 'planpoint_embed'
+  planpoint_url?: string; overline?: string; title?: string; hint?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [index: string]: any
+}
 
 /* Planpoint embed controller.
    Keeps: size handshake (get_size -> embed reports height -> match iframe),
@@ -11,9 +19,14 @@ const PROJECT_URL = 'https://app.planpoint.io/miami-wowdesign/laurent?lang=Engli
    NOTE: a "floor hover highlights wrong floor / flickers" symptom is almost
    always Brave Shields blocking the cross-origin iframe (test in Chrome or with
    Shields off) — NOT this controller. See references/sops/planpoint-embed.md. */
-export default function PlanpointEmbed() {
+export default function PlanpointEmbed({ blok }: { blok?: PlanpointEmbedBlok }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLIFrameElement>(null);
+
+  const baseUrl  = blok?.planpoint_url ?? PROJECT_URL;
+  const overline = blok?.overline      ?? 'Digital Twin · Select & Reserve';
+  const title    = blok?.title         ?? 'Explore Every Residence';
+  const hint     = blok?.hint          ?? 'Hover a floor to preview available units. Select any residence to view its floorplan, imagery, and delivery date — then request directly.';
 
   useEffect(() => {
     const iframe = frameRef.current;
@@ -35,7 +48,7 @@ export default function PlanpointEmbed() {
     };
 
     const iframeSrc =
-      PROJECT_URL +
+      baseUrl +
       (p.f ? '&f=' + encodeURIComponent(p.f) : '') +
       (p.u ? '&u=' + encodeURIComponent(p.u) : '') +
       (p.utm_source ? '&utm_source=' + encodeURIComponent(p.utm_source) : '') +
@@ -158,19 +171,18 @@ export default function PlanpointEmbed() {
       document.removeEventListener('mozfullscreenchange', fullscreenHandler);
       document.removeEventListener('MSFullscreenChange', fullscreenHandler);
     };
-  }, []);
+  // baseUrl is derived from blok prop — re-run if it changes
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [baseUrl]);
 
   return (
-    <section id="planpoint" className="res-planpoint" data-screen-label="Digital Twin">
+    <section id="planpoint" className="res-planpoint" data-screen-label="Digital Twin" {...(blok ? storyblokEditable(blok) : {})}>
       <div className="res-planpoint__header reveal">
         <div className="res-planpoint__intro">
-          <p className="res-planpoint__overline">Digital Twin &middot; Select &amp; Reserve</p>
-          <h2 className="res-planpoint__title">Explore Every Residence</h2>
+          <p className="res-planpoint__overline">{overline}</p>
+          <h2 className="res-planpoint__title">{title}</h2>
         </div>
-        <p className="res-planpoint__hint">
-          Hover a floor to preview available units. Select any residence to view
-          its floorplan, imagery, and delivery date &mdash; then request directly.
-        </p>
+        <p className="res-planpoint__hint">{hint}</p>
       </div>
       <div className="res-planpoint__embed">
         <div

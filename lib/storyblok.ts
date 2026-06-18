@@ -7,6 +7,12 @@ import ResidencesSection  from '../components/blocks/ResidencesSection/Residence
 import ResHscroll         from '../components/blocks/ResHscroll/ResHscroll'
 import AmenitiesSection   from '../components/blocks/AmenitiesSection/AmenitiesSection'
 import NeighborhoodSection from '../components/blocks/NeighborhoodSection/NeighborhoodSection'
+import PageHero           from '../components/blocks/PageHero/PageHero'
+import ResStatsBridge     from '../components/blocks/ResStatsBridge/ResStatsBridge'
+import ResModelsSlider    from '../components/blocks/ResModelsSlider/ResModelsSlider'
+import PlanpointEmbed     from '../components/blocks/PlanpointEmbed/PlanpointEmbed'
+import ResidenceFeatures  from '../components/blocks/ResidenceFeatures/ResidenceFeatures'
+import PageCta            from '../components/blocks/PageCta/PageCta'
 
 // All Storyblok block components are registered here.
 // Pattern: add imports + entries as each session wires new pages.
@@ -31,10 +37,15 @@ export const getStoryblokApi = storyblokInit({
     neighborhood_teaser:  NeighborhoodSection,
 
     // Session 2 — Residences page
-    // page_hero, res_models_slider, planpoint_embed, res_features_grid
+    page_hero:            PageHero,
+    res_stats_bridge:     ResStatsBridge,
+    res_models_slider:    ResModelsSlider,
+    planpoint_embed:      PlanpointEmbed,
+    res_features_grid:    ResidenceFeatures,
+    page_cta:             PageCta,
 
     // Session 3 — Vision page
-    // vision_copy_band, design_pillars, vis_feature, manifesto, page_cta
+    // vision_copy_band, design_pillars, vis_feature, manifesto
 
     // Session 4 — Amenities page
     // amenities_intro, amenities_carousel_block, cinematic_band, amenities_grid, amen_sticky_slider
