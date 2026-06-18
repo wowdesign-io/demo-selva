@@ -20,7 +20,7 @@ export default function Manifesto({ blok }: { blok?: ManifestoBlok }) {
         <span className="vis-statement__eyebrow reveal">The Manifesto</span>
         <p className="vis-statement__quote reveal" data-delay="100">{quoteText}</p>
       </section>
-      <div className="vis-image2">
+      <div className="vis-image2" {...(blok ? storyblokEditable(blok) : {})}>
         <div className="zoom"><div className="zoom__inner zoom-img">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={imgSrc} alt={imgAlt} loading="lazy" decoding="async" />
