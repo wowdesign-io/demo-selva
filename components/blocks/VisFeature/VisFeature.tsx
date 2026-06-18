@@ -1,4 +1,5 @@
-import { storyblokEditable } from '@storyblok/react/rsc'
+﻿import { storyblokEditable } from '@storyblok/react/rsc'
+import { resolveLink, type SbLink } from '@/lib/resolveLink'
 
 interface SbAsset { filename: string; alt?: string }
 export interface VisFeatureBlok {
@@ -6,7 +7,7 @@ export interface VisFeatureBlok {
   eyebrow?: string
   img_src?: string; image?: SbAsset; alt?: string
   heading?: string; body_text?: string
-  cta_text?: string; cta_href?: string
+  cta_text?: string; cta_href?: SbLink | string
   reverse?: boolean
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [index: string]: any
@@ -19,7 +20,7 @@ export default function VisFeature({ blok }: { blok?: VisFeatureBlok }) {
   const heading  = (blok?.heading  ?? 'Designed around\nthe canopy').split('\n')
   const bodyText = blok?.body_text ?? ''
   const ctaText  = blok?.cta_text  ?? 'View Residences'
-  const ctaHref  = blok?.cta_href  ?? '/residences#planpoint'
+  const ctaLink  = resolveLink(blok?.cta_href, '/residences#digital-twin')
   const reverse  = blok?.reverse   ?? false
 
   return (
@@ -41,7 +42,7 @@ export default function VisFeature({ blok }: { blok?: VisFeatureBlok }) {
           ))}
         </h2>
         <p className="vis-feature__text reveal" data-delay="160">{bodyText}</p>
-        <a href={ctaHref} className="btnSlide reveal" data-delay="240">
+        <a href={ctaLink.href} target={ctaLink.target} rel={ctaLink.rel} className="btnSlide reveal" data-delay="240">
           <span>{ctaText}</span><span aria-hidden="true">{ctaText}</span>
         </a>
       </div>

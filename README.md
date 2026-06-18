@@ -30,7 +30,7 @@ The handoff is a complete, validated static HTML prototype. **We port it verbati
 4. **Build the page** at `app/<route>/page.tsx`:
    - Use the **exact handoff class names and DOM structure**. No CSS Modules for sections.
    - Convert `public/images/...` → `/images/...` and `.png`/`.jpg` → `.webp` where converted.
-   - Convert `SELVA X.html` links → app routes (`/vision`, `/residences#planpoint`, etc.).
+   - Convert `SELVA X.html` links → app routes (`/vision`, `/residences#digital-twin`, etc.).
    - `data-lines` attribute: write `data-lines=""`. Keep `.reveal` and `data-delay="…"` as-is.
    - Hero image: `decoding="async" fetchPriority="high"`. All other images: `loading="lazy" decoding="async"`.
    - Page is a **server component**; drop `<HomeScript />` at the end of `<main>` to drive reveals / hero animation / zoom. Interactive bits (carousels, embeds) become small `'use client'` components.
@@ -135,32 +135,41 @@ Full integration plan: `C:\Users\info\.claude\plans\i-went-into-storyblok-refact
 
 ### Session status
 
-| Session | Scope | Status |
-|---|---|---|
-| 0 — Setup | SDK install, env, next.config, lib/storyblok.ts, StoryblokProvider, layout.tsx | ✅ Done |
-| 1 — Home | Wire all 7 home sections to Storyblok | ⬜ Next |
-| 2 — Residences | Wire ResModelsSlider, PlanpointEmbed, ResidenceFeatures | ⬜ |
-| 3 — Vision | Extract inline sections → block components | ⬜ |
-| 4 — Amenities | Wire AmenitiesCarousel, AmenStickySlider, new blocks | ⬜ |
-| 5 — Neighborhood | Wire STORY/PINS/CATEGORIES arrays | ⬜ |
-| 6 — Gallery + Team | Wire GalleryGrid, PARTNERS array | ⬜ |
-| 7 — Inquiry + Downloads | Wrap forms, wire download cards | ⬜ |
-| 8 — Press | Replace articles.ts with Storyblok stories | ⬜ |
-| 9 — Legal + Privacy | Wire LegalDoc sections (Richtext) | ⬜ |
-| 10 — Production | ISR webhook, token swap, catch-all route, deploy | ⬜ |
+| Session | Scope | Status | Last updated |
+|---|---|---|---|
+| 0 — Setup | SDK install, env, next.config, lib/storyblok.ts, StoryblokProvider, layout.tsx | ✅ Done | 2026-06-17 |
+| 1 — Home | 7 sections wired, all blocks created in Storyblok, home story filled | ✅ Done | 2026-06-17 |
+| 2 — Residences | ResModelsSlider, PlanpointEmbed, ResHscroll, ResidenceFeatures wired | ✅ Done | 2026-06-18 |
+| 3 — Vision | VisionCopyBand, DesignPillars, VisFeature ×2, Manifesto, VisionStatsBridge | ✅ Done | 2026-06-18 |
+| 4 — Amenities | Wire AmenitiesCarousel, AmenStickySlider, new blocks | ⬜ **Next** | — |
+| 5 — Neighborhood | Wire STORY/PINS/CATEGORIES arrays | ⬜ | — |
+| 6 — Gallery + Team | Wire GalleryGrid, PARTNERS array | ⬜ | — |
+| 7 — Inquiry + Downloads | Wrap forms, wire download cards | ⬜ | — |
+| 8 — Press | Replace articles.ts with Storyblok stories | ⬜ | — |
+| 9 — Legal + Privacy | Wire LegalDoc sections (Richtext) | ⬜ | — |
+| 10 — Production | ISR webhook, token swap, catch-all route, deploy | ⬜ | — |
 
-### What Session 0 did
-- Installed `@storyblok/react@6.1.11`
-- Created `lib/storyblok.ts` — SDK init, EU region, component registry (empty, filled per session)
-- Created `components/ui/StoryblokProvider/StoryblokProvider.tsx` — client wrapper that inits SDK browser-side
-- Updated `app/layout.tsx` — wrapped body children in `<StoryblokProvider>`
-- Updated `next.config.ts` — added `a.storyblok.com` to image remote patterns
-- Created `.env.local` — preview token + space ID (not committed to git)
+### Storyblok standards (apply from Session 4 onward — already done for 0–3)
 
-### What to do at start of Session 1 (Home page)
-1. **Andy:** Create block library in Storyblok — build ALL blocks from the plan before touching React code
-2. **Andy:** Configure Visual Editor: Storyblok → Settings → Visual Editor → Preview URL → `http://localhost:3000/`
-3. **Claude:** Wire home page blocks to components (plan Session 1)
+All four rules are baked into the full integration plan. Summary:
+
+1. **Upload images first** — run `node scripts/storyblok-upload-renders.js` (extend for new image folders) before wiring any session
+2. **Marketing-friendly labels** — `cta_href` → "Button Link", `cta_text` → "Button Text", `bg_image` → "Image", `bg_alt` → "Image - Alt Text", etc. Do this when creating blocks, not after
+3. **All link fields = `multilink` type** — never `text`. Use `resolveLink()` from `@/lib/resolveLink` in components
+4. **No Planpoint wording in editor UI** — use "Digital Twin" in block/field labels and `#digital-twin` for HTML anchors/IDs
+
+### What is currently wired (Sessions 0–3)
+
+**lib/resolveLink.ts** — handles multilink objects + backward-compat strings. Import in every component with a link field.
+
+**Stories created:** Home, Residences, Vision (all 14 href fields stored as multilink objects — not strings)
+
+**22 render images** uploaded to Storyblok CDN via `scripts/storyblok-upload-renders.js`. Asset map: `storyblok-assets.json`.
+
+### What to do at start of Session 4 (Amenities)
+1. Add amenities image folder to `storyblok-upload-renders.js` and run it — upload all amenities images first
+2. Create `amen_sticky_slider` and `amen_card` blocks in Storyblok Block Library (see integration plan for field definitions)
+3. Wire `AmenitiesCarousel`, `AmenStickySlider`, `CinematicBand`, `AmenitiesGridSection` to Storyblok
 
 ### Block fallback pattern (use in every component)
 ```tsx
@@ -174,8 +183,46 @@ export default function HeroSection({ blok }: { blok?: HeroBlok }) {
 
 ---
 
+## Automated Follow-Up System
+
+**Rule: treat this as a live client project, not a demo. Every email must land and convince like real.**
+
+### Stack decision (2026-06-18)
+- **Email delivery:** Resend only — branded SELVA emails. No CRM. Demo is not indexed or publicly linked — shown on calls only.
+- **Automation:** Zapier free plan — 2 Zaps (trigger + 1 action each)
+- **Trigger:** Planpoint native Zapier "New Lead" (pending Laurent's invite) OR HubSpot free as short-term bridge (Planpoint → HubSpot native → Zapier HubSpot trigger) until invite arrives
+- **Demo inbox:** andy@wowdesign.io with Gmail label `SELVA` — filter on subject containing "SELVA", skip inbox
+
+### The 2 Zaps
+| Zap | Trigger | Action | Notes |
+|---|---|---|---|
+| 1 | Planpoint New Lead | Resend → Add to "SELVA Prospects" audience → automation fires (instant + 30min + 60min sequence) | Prospect-facing branded emails |
+| 2 | Planpoint New Lead | Resend → Send sales alert to andy@wowdesign.io | Subject contains "SELVA" → routes to label |
+
+### Email content (to build)
+- **Zap 1 — Sales alert:** Lead name, email, phone, unit requested, timestamp. Clear subject: "New Inquiry — SELVA Unit X"
+- **Zap 2 — Prospect confirmation:** Branded SELVA header, references unit by name, what happens next (sales team will be in touch), project highlights, CTA to explore the site
+- **Zap 3 — Follow-up (day 2 in production):** Softer touch, highlights the specific unit model, link back to Planpoint viewer
+
+### Status
+- [ ] Resend account set up + wowdesign.io domain verified
+- [ ] Zap 1 built + tested
+- [ ] Zap 2 built + tested (email template designed)
+- [ ] Zap 3 built + tested
+- [x] Gmail SELVA label + filter configured (andy@wowdesign.io)
+- [ ] Trigger confirmed: waiting on Laurent (Zapier invite) + Richard (Spark.re call 2026-06-19)
+- [ ] Inquiry form `/inquiry` wired to backend (currently static HTML5 validation only)
+
+### Demo access — security
+- Demo lives at https://demo.wowdesign.io — **never share URL publicly**
+- [ ] Vercel deployment protection (password) — to be enabled on Vercel Pro
+- [ ] robots.txt noindex — verify this is in place
+
+---
+
 ## Known follow-ups (not blockers)
 
-- **Spark CRM test account** for the Planpoint embed — pending from Laurent.
+- **Spark CRM test account** for the Planpoint embed — pending from Laurent. Richard Causton call 2026-06-19.
+- **Zapier integration invite** — requested from Laurent 2026-06-18. Determines trigger path for automation.
 - Footer Brochure / Private Tour / Instagram links point to real routes or `#` — wire when those flows exist.
 - Stale unused `*.module.css` files from the pre-rebuild era can be deleted in a cleanup pass.

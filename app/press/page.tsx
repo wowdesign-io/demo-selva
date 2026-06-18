@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import Link from 'next/link';
 import HomeScript from '../../components/ui/HomeScript/HomeScript';
 import { PRESS_CARDS } from './articles';
@@ -80,7 +80,7 @@ export default function PressPage() {
         <section className="page-cta" data-screen-label="Press CTA">
           <span className="page-cta__label reveal">Explore Next</span>
           <h2 className="page-cta__heading reveal" data-delay="100">Begin your <em>visit</em></h2>
-          <a href="/residences#planpoint" className="btnSlide reveal" data-delay="220">
+          <a href="/residences#digital-twin" className="btnSlide reveal" data-delay="220">
             <span>Explore Floorplans</span><span aria-hidden="true">Explore Floorplans</span>
           </a>
         </section>

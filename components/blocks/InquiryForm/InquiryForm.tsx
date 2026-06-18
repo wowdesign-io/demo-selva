@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useRef, useState, type FormEvent } from 'react';
 
@@ -105,7 +105,7 @@ export default function InquiryForm() {
         {/* success state */}
         <div className="inquiry__success" role="status" aria-live="polite">
           <h2>Thank you<span className="inquiry__successName">{firstName.trim() ? `, ${firstName.trim()}` : ''}</span>.</h2>
-          <p>Your enquiry is on its way. A member of the SELVA sales team will be in touch shortly. In the meantime, you&rsquo;re welcome to <a href="/residences#planpoint">explore the floor plans</a>.</p>
+          <p>Your enquiry is on its way. A member of the SELVA sales team will be in touch shortly. In the meantime, you&rsquo;re welcome to <a href="/residences#digital-twin">explore the floor plans</a>.</p>
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
@@ -58,7 +58,7 @@ export default function Nav() {
         </div>
         <div className="nav__right">
           <a href="tel:+13055550100" className="nav__phone">305.555.0100</a>
-          <Link href="/residences#planpoint" className="nav__cta">
+          <Link href="/residences#digital-twin" className="nav__cta">
             <span className="nav__cta-word">Explore </span>Floorplans
           </Link>
         </div>
@@ -76,7 +76,7 @@ export default function Nav() {
         </nav>
         <div className="overlay__footer">
           <span className="overlay__mark">SELVA</span>
-          <Link href="/residences#planpoint" className="overlay__cta" onClick={closeMenu}>
+          <Link href="/residences#digital-twin" className="overlay__cta" onClick={closeMenu}>
             Explore Floorplans →
           </Link>
         </div>

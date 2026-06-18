@@ -5,12 +5,12 @@ const path = require('path');
 const fs   = require('fs');
 const { randomUUID } = require('crypto');
 
-const TOKEN    = process.argv[2];
+const TOKEN    = process.argv[2] || process.env.STORYBLOK_PERSONAL_TOKEN;
 const SPACE_ID = process.env.STORYBLOK_SPACE_ID || '293255653505523';
 const BASE     = 'https://mapi.storyblok.com/v1';
 const PUBLIC   = path.resolve(__dirname, '../public');
 
-if (!TOKEN) { console.error('Usage: node scripts/storyblok-create-stories.js <token>'); process.exit(1); }
+if (!TOKEN) { console.error('No token found. Set STORYBLOK_PERSONAL_TOKEN env var or pass it as an argument.'); process.exit(1); }
 
 const uid  = () => randomUUID();
 const wait = (ms) => new Promise(r => setTimeout(r, ms));

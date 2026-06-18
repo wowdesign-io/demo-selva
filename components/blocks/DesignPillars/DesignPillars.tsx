@@ -1,14 +1,14 @@
 import { storyblokEditable } from '@storyblok/react/rsc'
 
-interface DesignPillarBlok {
-  _uid: string; component: 'design_pillar'
-  icon_name?: string; title?: string; description?: string
+interface FeatureItemBlok {
+  _uid: string; component: 'feature_item'
+  icon_name?: string; title?: string; desc?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [index: string]: any
 }
 export interface DesignPillarsBlok {
   _uid: string; component: 'design_pillars'
-  items?: DesignPillarBlok[]
+  items?: FeatureItemBlok[]
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [index: string]: any
 }
@@ -34,21 +34,21 @@ const ICON_MAP: Record<string, React.ReactNode> = {
   ),
 }
 
-const DEFAULTS: DesignPillarBlok[] = [
+const DEFAULTS: FeatureItemBlok[] = [
   {
-    _uid: 'p1', component: 'design_pillar', icon_name: 'botanical',
+    _uid: 'p1', component: 'feature_item', icon_name: 'botanical',
     title: 'Botanical\nArchitecture',
-    description: "Designed in dialogue with Miami's tropical canopy, every facade and terrace integrates living material — from shaded loggias to rooftop gardens that evolve with the seasons.",
+    desc: "Designed in dialogue with Miami's tropical canopy, every facade and terrace integrates living material — from shaded loggias to rooftop gardens that evolve with the seasons.",
   },
   {
-    _uid: 'p2', component: 'design_pillar', icon_name: 'living',
+    _uid: 'p2', component: 'feature_item', icon_name: 'living',
     title: 'Living\nInteriors',
-    description: 'A material palette of warm stone, aged timber, and hand-plastered walls brings the outside in. Every surface is chosen for its sensory connection to the earth beneath the canopy.',
+    desc: 'A material palette of warm stone, aged timber, and hand-plastered walls brings the outside in. Every surface is chosen for its sensory connection to the earth beneath the canopy.',
   },
   {
-    _uid: 'p3', component: 'design_pillar', icon_name: 'serenity',
+    _uid: 'p3', component: 'feature_item', icon_name: 'serenity',
     title: 'Urban\nSerenity',
-    description: "SELVA offers the rare privilege of seclusion without distance — a quietude only the canopy provides, with Miami's design districts, bay, and cultural heart just minutes away.",
+    desc: "SELVA offers the rare privilege of seclusion without distance — a quietude only the canopy provides, with Miami's design districts, bay, and cultural heart just minutes away.",
   },
 ]
 
@@ -77,7 +77,7 @@ export default function DesignPillars({ blok }: { blok?: DesignPillarsBlok }) {
                 <span key={j}>{line}{j < titleLines.length - 1 && <br />}</span>
               ))}
             </h3>
-            <p className="icon-grid__desc">{item.description}</p>
+            <p className="icon-grid__desc">{item.desc}</p>
           </div>
         )
       })}

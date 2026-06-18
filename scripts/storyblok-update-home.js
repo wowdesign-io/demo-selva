@@ -4,12 +4,12 @@
 const { randomUUID } = require('crypto');
 const uid = () => randomUUID();
 
-const TOKEN    = process.argv[2];
+const TOKEN    = process.argv[2] || process.env.STORYBLOK_PERSONAL_TOKEN;
 const SPACE_ID = '293255653505523';
 const STORY_ID = '188490829391950';
 const BASE     = 'https://mapi.storyblok.com/v1';
 
-if (!TOKEN) { console.error('Usage: node scripts/storyblok-update-home.js <token>'); process.exit(1); }
+if (!TOKEN) { console.error('No token found. Set STORYBLOK_PERSONAL_TOKEN env var or pass it as an argument.'); process.exit(1); }
 
 async function api(method, endpoint, body) {
   const res = await fetch(`${BASE}${endpoint}`, {

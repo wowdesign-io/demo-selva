@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { StoryblokStory } from '@storyblok/react/rsc'
 import { getStoryblokApi } from '../../lib/storyblok'
 import HomeScript from '../../components/ui/HomeScript/HomeScript'
-import StoryblokBridgeWrapper from '../../components/ui/StoryblokBridgeWrapper/StoryblokBridgeWrapper'
+import StoryblokPreviewView from '../../components/ui/StoryblokPreviewView/StoryblokPreviewView'
 
 export const metadata: Metadata = {
   title: 'Residences — SELVA',
@@ -27,8 +27,10 @@ export default async function ResidencesPage({
   return (
     <>
       <main>
-        <StoryblokStory story={data.story} />
-        {isPreview && <StoryblokBridgeWrapper storyId={data.story.id} />}
+        {isPreview
+          ? <StoryblokPreviewView story={data.story} />
+          : <StoryblokStory story={data.story} />
+        }
       </main>
       <HomeScript />
     </>

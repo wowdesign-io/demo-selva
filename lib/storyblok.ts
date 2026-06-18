@@ -1,6 +1,5 @@
 import { storyblokInit, apiPlugin } from '@storyblok/react/rsc'
 import Page               from '../components/blocks/Page/Page'
-import HeroSection        from '../components/blocks/HeroSection/HeroSection'
 import OverviewSection    from '../components/blocks/OverviewSection/OverviewSection'
 import VisionSection      from '../components/blocks/VisionSection/VisionSection'
 import ResidencesSection  from '../components/blocks/ResidencesSection/ResidencesSection'
@@ -13,16 +12,14 @@ import ResModelsSlider    from '../components/blocks/ResModelsSlider/ResModelsSl
 import PlanpointEmbed     from '../components/blocks/PlanpointEmbed/PlanpointEmbed'
 import ResidenceFeatures  from '../components/blocks/ResidenceFeatures/ResidenceFeatures'
 import PageCta            from '../components/blocks/PageCta/PageCta'
-import VisionStatsBridge from '../components/blocks/VisionStatsBridge/VisionStatsBridge'
-import VisionCopyBand    from '../components/blocks/VisionCopyBand/VisionCopyBand'
-import DesignPillars     from '../components/blocks/DesignPillars/DesignPillars'
-import VisFeature        from '../components/blocks/VisFeature/VisFeature'
-import Manifesto         from '../components/blocks/Manifesto/Manifesto'
+import DesignPillars      from '../components/blocks/DesignPillars/DesignPillars'
+import VisFeature         from '../components/blocks/VisFeature/VisFeature'
+import Manifesto          from '../components/blocks/Manifesto/Manifesto'
 
-// All Storyblok block components are registered here.
-// Pattern: add imports + entries as each session wires new pages.
-// Keys must match the `component` field in Storyblok Block Library exactly.
-// See: references/sops/storyblok-nextjs-architecture.md
+// Block component registry — one entry per Storyblok block type.
+// Key = component field value in Storyblok (never change after stories are created).
+// Display name in Storyblok Block Library = layout/function label for content editors.
+// See integration plan: C:\Users\info\.claude\plans\i-went-into-storyblok-refactored-clock.md
 
 export const getStoryblokApi = storyblokInit({
   accessToken: process.env.STORYBLOK_ACCESS_TOKEN,
@@ -33,27 +30,24 @@ export const getStoryblokApi = storyblokInit({
     page:                 Page,
 
     // Session 1 — Home page
-    home_hero:            HeroSection,
     overview_section:     OverviewSection,
-    vision_teaser:        VisionSection,
+    vision_teaser:        VisionSection,      // "50/50" — also used on Vision page (was: vision_copy_band)
     residences_teaser:    ResidencesSection,
-    res_hscroll:          ResHscroll,
+    res_hscroll:          ResHscroll,         // "Horizontal Slider"
     amenities_teaser:     AmenitiesSection,
     neighborhood_teaser:  NeighborhoodSection,
 
     // Session 2 — Residences page
-    page_hero:            PageHero,
-    res_stats_bridge:     ResStatsBridge,
-    res_models_slider:    ResModelsSlider,
-    planpoint_embed:      PlanpointEmbed,
-    res_features_grid:    ResidenceFeatures,
-    page_cta:             PageCta,
+    page_hero:            PageHero,           // "Hero" — used on all inner pages
+    res_stats_bridge:     ResStatsBridge,     // "Stat Strip" — also used on Vision page (was: vision_stats_bridge)
+    res_models_slider:    ResModelsSlider,    // "Models Slider"
+    planpoint_embed:      PlanpointEmbed,     // "Digital Twin"
+    res_features_grid:    ResidenceFeatures,  // "Features Grid"
+    page_cta:             PageCta,            // "Call to Action" — shared across all pages
 
     // Session 3 — Vision page
-    vision_stats_bridge:  VisionStatsBridge,
-    vision_copy_band:     VisionCopyBand,
-    design_pillars:       DesignPillars,
-    vis_feature:          VisFeature,
+    design_pillars:       DesignPillars,      // "Icon Grid" — items are feature_item (was: design_pillar)
+    vis_feature:          VisFeature,         // "Feature Row" — used on Vision + Team pages
     manifesto:            Manifesto,
 
     // Session 4 — Amenities page

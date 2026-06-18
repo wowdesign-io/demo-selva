@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useRef, useEffect } from 'react';
 
@@ -13,7 +13,7 @@ const SLIDES = [
 ];
 
 interface Props {
-  /** Where an active slide click navigates. Home → /amenities; Amenities page → /residences#planpoint */
+  /** Where an active slide click navigates. Home → /amenities; Amenities page → /residences#digital-twin */
   slideHref: string;
   /** Hover overlay label. Home → "View Amenities"; Amenities page → "View Residences" */
   overlayLabel: string;

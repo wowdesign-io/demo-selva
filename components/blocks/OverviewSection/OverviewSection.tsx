@@ -1,9 +1,10 @@
 import { storyblokEditable } from '@storyblok/react/rsc'
+import { resolveLink, type SbLink } from '@/lib/resolveLink'
 
 interface SbAsset { filename: string; alt?: string }
 interface OverviewPanelBlok {
   _uid: string; component: 'overview_panel'
-  label?: string; href?: string; image?: SbAsset; alt?: string
+  label?: string; href?: SbLink | string; image?: SbAsset; alt?: string
 }
 export interface OverviewSectionBlok {
   _uid: string; component: 'overview_section'
@@ -22,8 +23,8 @@ export default function OverviewSection({ blok }: { blok?: OverviewSectionBlok }
   const introText = blok?.intro_text ?? "Nestled where Miami's botanical soul meets the open sky, SELVA presents forty private residences — a rare collection where verdant canopy, bespoke interiors, and the city converge."
 
   const panels = blok?.panels?.length
-    ? blok.panels.map((p) => ({ label: p.label ?? '', href: p.href ?? '#', src: p.image?.filename || '', alt: p.alt ?? p.image?.alt ?? '', _uid: p._uid }))
-    : FALLBACK_PANELS.map((p) => ({ ...p, _uid: p.label }))
+    ? blok.panels.map((p) => ({ label: p.label ?? '', link: resolveLink(p.href, '#'), src: p.image?.filename || '', alt: p.alt ?? p.image?.alt ?? '', _uid: p._uid }))
+    : FALLBACK_PANELS.map((p) => ({ label: p.label, link: { href: p.href }, src: p.src, alt: p.alt, _uid: p.label }))
 
   return (
     <section className="overview" {...(blok ? storyblokEditable(blok) : {})}>
@@ -33,7 +34,7 @@ export default function OverviewSection({ blok }: { blok?: OverviewSectionBlok }
       </div>
       <div className="overview__panels">
         {panels.map((panel) => (
-          <a href={panel.href} key={panel._uid} className="overview__panel">
+          <a href={panel.link.href} target={panel.link.target} rel={panel.link.rel} key={panel._uid} className="overview__panel">
             <div className="overview__imageWrap zoom-panel">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={panel.src} alt={panel.alt} loading="lazy" decoding="async" />

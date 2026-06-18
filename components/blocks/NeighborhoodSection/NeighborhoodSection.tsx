@@ -1,11 +1,12 @@
 import { storyblokEditable } from '@storyblok/react/rsc'
+import { resolveLink, type SbLink } from '@/lib/resolveLink'
 
 interface SbAsset { filename: string; alt?: string }
 interface StatItemBlok { _uid: string; component: 'stat_item'; value?: string; label?: string }
 export interface NeighborhoodTeaserBlok {
   _uid: string; component: 'neighborhood_teaser'
   image?: SbAsset; alt?: string; label?: string; heading?: string; body?: string
-  address?: string; cta_text?: string; cta_href?: string; stats?: StatItemBlok[]
+  address?: string; cta_text?: string; cta_href?: SbLink | string; stats?: StatItemBlok[]
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [index: string]: any
 }
@@ -25,7 +26,7 @@ export default function NeighborhoodSection({ blok }: { blok?: NeighborhoodTease
   const body    = blok?.body    ?? "SELVA rises in one of Miami's last green enclaves — where the canopy meets the bay, and the city's culture, dining, and design districts sit just minutes away. A rare address that offers seclusion without distance."
   const address = blok?.address ?? '3000 Hibiscus Lane · Coconut Grove · Miami, FL 33133'
   const ctaText = blok?.cta_text ?? 'Explore the Neighborhood'
-  const ctaHref = blok?.cta_href ?? '/neighborhood'
+  const ctaLink = resolveLink(blok?.cta_href, '/neighborhood')
 
   const stats = blok?.stats?.length
     ? blok.stats.map((s) => ({ value: s.value ?? '', label: s.label ?? '', _uid: s._uid }))
@@ -57,7 +58,7 @@ export default function NeighborhoodSection({ blok }: { blok?: NeighborhoodTease
         <h2 className="hood__heading" {...{ 'data-lines': '' } as any}>{heading}</h2>
         <p className="hood__text reveal" data-delay="150">{body}</p>
         <p className="hood__address reveal" data-delay="250">{address}</p>
-        <a href={ctaHref} className="btnSlide hood__cta reveal" data-delay="350">
+        <a href={ctaLink.href} target={ctaLink.target} rel={ctaLink.rel} className="btnSlide hood__cta reveal" data-delay="350">
           <span>{ctaText}</span><span aria-hidden="true">{ctaText}</span>
         </a>
       </div>

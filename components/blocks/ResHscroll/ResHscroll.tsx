@@ -1,7 +1,8 @@
-'use client';
+﻿'use client';
 
 import { useRef, useEffect } from 'react';
 import { storyblokEditable } from '@storyblok/react';
+import { resolveLink, type SbLink } from '@/lib/resolveLink';
 
 interface SbAsset { filename: string; alt?: string }
 interface ResCardBlok {
@@ -11,9 +12,9 @@ interface ResCardBlok {
 }
 export interface ResHscrollBlok {
   _uid: string; component: 'res_hscroll'
-  header_label?: string; header_cta_text?: string; header_cta_href?: string
+  header_label?: string; header_cta_text?: string; header_cta_href?: SbLink | string
   intro_overline?: string; intro_heading?: string; intro_body?: string
-  intro_cta_text?: string; intro_cta_href?: string; cards?: ResCardBlok[]
+  intro_cta_text?: string; intro_cta_href?: SbLink | string; cards?: ResCardBlok[]
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [index: string]: any
 }
@@ -31,12 +32,12 @@ export default function ResHscroll({ blok }: { blok?: ResHscrollBlok }) {
 
   const headerLabel   = blok?.header_label    ?? 'Residences · Three Models · 40 Suites'
   const headerCtaText = blok?.header_cta_text ?? 'Explore in Digital Twin →'
-  const headerCtaHref = blok?.header_cta_href ?? '/residences#planpoint'
+  const headerCtaLink = resolveLink(blok?.header_cta_href, '/residences#digital-twin')
   const introOverline = blok?.intro_overline  ?? 'SELVA · Miami · Pre-Sales'
   const introHeading  = blok?.intro_heading   ?? 'Curated for Private Living.'
   const introBody     = blok?.intro_body      ?? 'Three signature layouts — Models B, C and D — across forty residences and three floors, each opening to the green canopy.'
   const introCtaText  = blok?.intro_cta_text  ?? 'Explore All Floorplans'
-  const introCtaHref  = blok?.intro_cta_href  ?? '/residences#planpoint'
+  const introCtaLink  = resolveLink(blok?.intro_cta_href, '/residences#digital-twin')
 
   const cards = blok?.cards?.length
     ? blok.cards.map((c) => ({
@@ -102,7 +103,7 @@ export default function ResHscroll({ blok }: { blok?: ResHscrollBlok }) {
 
           <div className="res-hscroll__header">
             <p className="res-hscroll__label">{headerLabel}</p>
-            <a href={headerCtaHref} className="res-hscroll__cta-link">{headerCtaText}</a>
+            <a href={headerCtaLink.href} target={headerCtaLink.target} rel={headerCtaLink.rel} className="res-hscroll__cta-link">{headerCtaText}</a>
           </div>
 
           <div ref={trackRef} className="res-hscroll__track" id="hscrollTrack">
@@ -113,7 +114,7 @@ export default function ResHscroll({ blok }: { blok?: ResHscrollBlok }) {
                 <p className="res-hscroll__intro-overline">{introOverline}</p>
                 <h2 className="res-hscroll__intro-heading">{introHeading}</h2>
                 <p className="res-hscroll__intro-body">{introBody}</p>
-                <a href={introCtaHref} className="res-hscroll__card-cta">
+                <a href={introCtaLink.href} target={introCtaLink.target} rel={introCtaLink.rel} className="res-hscroll__card-cta">
                   {introCtaText}
                   <svg width="14" height="7" viewBox="0 0 14 7" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <line x1="0" y1="3.5" x2="12" y2="3.5" />
@@ -138,7 +139,7 @@ export default function ResHscroll({ blok }: { blok?: ResHscrollBlok }) {
                     <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">{card.layout}</span><span className="res-hscroll__spec-key">{card.layout === '2' ? 'Bedrooms' : 'Bedroom'}</span></div>
                     <div className="res-hscroll__spec"><span className="res-hscroll__spec-val">{card.outdoor}</span><span className="res-hscroll__spec-key">Outdoor</span></div>
                   </div>
-                  <a href={`/residences?f=${card.floor}&u=${card.unit}#planpoint`} className="res-hscroll__card-cta">{card.ctaText}</a>
+                  <a href={`/residences?f=${card.floor}&u=${card.unit}#digital-twin`} className="res-hscroll__card-cta">{card.ctaText}</a>
                 </div>
               </div>
             ))}

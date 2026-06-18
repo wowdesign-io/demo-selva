@@ -2,7 +2,7 @@
 
 import { useStoryblokBridge } from '@storyblok/react'
 import { useState } from 'react'
-import HeroSection         from '../../blocks/HeroSection/HeroSection'
+import PageHero            from '../../blocks/PageHero/PageHero'
 import OverviewSection     from '../../blocks/OverviewSection/OverviewSection'
 import VisionSection       from '../../blocks/VisionSection/VisionSection'
 import ResidencesSection   from '../../blocks/ResidencesSection/ResidencesSection'
@@ -12,7 +12,7 @@ import NeighborhoodSection from '../../blocks/NeighborhoodSection/NeighborhoodSe
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SECTIONS: Record<string, React.ComponentType<{ blok: any }>> = {
-  home_hero:           HeroSection,
+  page_hero:           PageHero,
   overview_section:    OverviewSection,
   vision_teaser:       VisionSection,
   residences_teaser:   ResidencesSection,

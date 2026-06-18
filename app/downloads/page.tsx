@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import HomeScript from '../../components/ui/HomeScript/HomeScript';
 
 export const metadata: Metadata = {
@@ -71,7 +71,7 @@ export default function DownloadsPage() {
               <a href="mailto:sales@selvaresidences.com" className="btnSlide">
                 <span>Email Sales</span><span aria-hidden="true">Email Sales</span>
               </a>
-              <a href="/residences#planpoint" className="btnSlide btnSlide--amber">
+              <a href="/residences#digital-twin" className="btnSlide btnSlide--amber">
                 <span>Explore Floorplans</span><span aria-hidden="true">Explore Floorplans</span>
               </a>
             </div>

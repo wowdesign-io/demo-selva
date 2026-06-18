@@ -6,6 +6,14 @@ import { storyblokEditable } from '@storyblok/react';
 const PROJECT_URL = 'https://app.planpoint.io/miami-wowdesign/laurent?lang=English';
 
 interface SbAsset { filename: string; alt?: string }
+interface SbLink { linktype?: string; url?: string; cached_url?: string; target?: string }
+
+interface ResIntroCardBlok {
+  _uid: string; component: 'res_intro_card'
+  label?: string; heading?: string; body?: string; cta_text?: string; cta_href?: SbLink | string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [index: string]: any
+}
 interface ResCardBlok {
   _uid: string; component: 'res_card'
   model_tag?: string; name?: string; sf?: string; layout?: string; outdoor?: string
@@ -16,13 +24,19 @@ interface ResCardBlok {
 }
 export interface ResModelsSliderBlok {
   _uid: string; component: 'res_models_slider'
-  header_label?: string; cta_text?: string
-  intro_overline?: string; intro_heading?: string; intro_body?: string; intro_cta_text?: string
-  cards?: ResCardBlok[]
+  header_label?: string; cta_text?: string; header_cta_href?: SbLink | string
+  cards?: (ResIntroCardBlok | ResCardBlok)[]
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [index: string]: any
 }
 
+const DEFAULT_INTRO: ResIntroCardBlok = {
+  _uid: 'intro-default', component: 'res_intro_card',
+  label: 'SELVA · Miami · Pre-Sales',
+  heading: 'Three Models,\nOne Address.',
+  body: 'Three signature layouts — Models B, C and D — across forty residences and three floors, each opening to the green canopy.',
+  cta_text: 'Explore All Floorplans',
+}
 const DEFAULT_CARDS: ResCardBlok[] = [
   {
     _uid: 'c1', component: 'res_card',
@@ -44,10 +58,9 @@ const DEFAULT_CARDS: ResCardBlok[] = [
   },
 ]
 
-/* Deep-link into a specific Planpoint unit, then scroll to the embed. */
 function goToUnit(unitId: string, floorId: string) {
-  const iframe = document.getElementById('planpoint-frame') as HTMLIFrameElement | null;
-  const section = document.getElementById('planpoint');
+  const iframe = document.getElementById('digital-twin-frame') as HTMLIFrameElement | null;
+  const section = document.getElementById('digital-twin');
   if (iframe) {
     let src = PROJECT_URL;
     if (floorId) src += '&f=' + encodeURIComponent(floorId);
@@ -64,15 +77,19 @@ export default function ResModelsSlider({ blok }: { blok?: ResModelsSliderBlok }
   const trackRef = useRef<HTMLDivElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
 
-  const headerLabel  = blok?.header_label  ?? 'Three Models · 40 Residences';
-  const introCta     = blok?.cta_text      ?? 'Explore in Digital Twin →';
-  const introOverline = blok?.intro_overline ?? 'SELVA · Miami · Pre-Sales';
-  const introHeading = blok?.intro_heading  ?? 'Three Models,\nOne Address.';
-  const introBody    = blok?.intro_body     ?? 'Three signature layouts — Models B, C and D — across forty residences and three floors, each opening to the green canopy.';
-  const introCta2    = blok?.intro_cta_text ?? 'Explore All Floorplans';
-  const cards        = blok?.cards?.length  ? blok.cards : DEFAULT_CARDS;
+  // cards[0] is the intro card (res_intro_card), cards[1..] are model cards (res_card)
+  const allCards = blok?.cards ?? [];
+  const introCard = allCards[0]?.component === 'res_intro_card' ? allCards[0] as ResIntroCardBlok : null;
+  const modelCards = introCard ? allCards.slice(1) as ResCardBlok[] : allCards as ResCardBlok[];
 
-  /* Cursor-based nav: floating arrow follows the pointer; click scrolls one card. */
+  const intro   = introCard ?? DEFAULT_INTRO;
+  const cards   = modelCards.length ? modelCards : DEFAULT_CARDS;
+
+  const headerLabel   = blok?.header_label ?? 'Three Models · 40 Residences';
+  const headerCtaText = blok?.cta_text     ?? 'Explore in Digital Twin →';
+
+  const introHeadingLines = (intro.heading ?? '').split('\n');
+
   useEffect(() => {
     const inlineTrack = trackRef.current;
     const wrap = wrapRef.current;
@@ -125,8 +142,6 @@ export default function ResModelsSlider({ blok }: { blok?: ResModelsSliderBlok }
     };
   }, []);
 
-  const introHeadingLines = introHeading.split('\n');
-
   return (
     <section
       className="res-hscroll res-hscroll--inline"
@@ -136,33 +151,36 @@ export default function ResModelsSlider({ blok }: { blok?: ResModelsSliderBlok }
       <div className="res-inline-header">
         <p className="res-hscroll__label">{headerLabel}</p>
         <a
-          href="#planpoint"
+          href="#digital-twin"
           className="res-hscroll__cta-link"
           onClick={(e) => { e.preventDefault(); goToUnit('102', 'Floor 1'); }}
         >
-          {introCta}
+          {headerCtaText}
         </a>
       </div>
 
       <div ref={wrapRef} className="res-inline-track-wrap">
         <div ref={trackRef} className="res-inline-track" id="resInlineTrack">
 
-          <div className="res-inline-card res-inline-card--intro">
+          <div
+            className="res-inline-card res-inline-card--intro"
+            {...(introCard ? storyblokEditable(introCard) : {})}
+          >
             <div className="res-hscroll__intro-leaves"></div>
             <div className="res-hscroll__intro-content">
-              <p className="res-hscroll__intro-overline">{introOverline}</p>
+              <p className="res-hscroll__intro-overline">{intro.label}</p>
               <h2 className="res-hscroll__intro-heading">
                 {introHeadingLines.map((line, i) => (
                   <span key={i}>{line}{i < introHeadingLines.length - 1 && <br />}</span>
                 ))}
               </h2>
-              <p className="res-hscroll__intro-body">{introBody}</p>
+              <p className="res-hscroll__intro-body">{intro.body}</p>
               <a
-                href="#planpoint"
+                href="#digital-twin"
                 onClick={(e) => { e.preventDefault(); goToUnit('102', 'Floor 1'); }}
                 className="res-hscroll__card-cta"
               >
-                {introCta2}
+                {intro.cta_text}
                 <svg width="14" height="7" viewBox="0 0 14 7" fill="none" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <line x1="0" y1="3.5" x2="12" y2="3.5"></line>
                   <polyline points="9,1 12,3.5 9,6"></polyline>
@@ -201,7 +219,7 @@ export default function ResModelsSlider({ blok }: { blok?: ResModelsSliderBlok }
                     </div>
                   </div>
                   <a
-                    href="#planpoint"
+                    href="#digital-twin"
                     onClick={(e) => { e.preventDefault(); goToUnit(unitId, floorId); }}
                     className="res-hscroll__card-cta"
                   >

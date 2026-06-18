@@ -173,7 +173,7 @@ export default function PlanpointEmbed({ blok }: { blok?: PlanpointEmbedBlok }) 
   }, []);
 
   return (
-    <section id="planpoint" className="res-planpoint" data-screen-label="Digital Twin" {...(blok ? storyblokEditable(blok) : {})}>
+    <section id="digital-twin" className="res-planpoint" data-screen-label="Digital Twin" {...(blok ? storyblokEditable(blok) : {})}>
       <div className="res-planpoint__header reveal">
         <div className="res-planpoint__intro">
           <p className="res-planpoint__overline">{overline}</p>
@@ -184,12 +184,12 @@ export default function PlanpointEmbed({ blok }: { blok?: PlanpointEmbedBlok }) 
       <div className="res-planpoint__embed">
         <div
           ref={containerRef}
-          id="planpoint-container"
+          id="digital-twin-container"
           style={{ position: 'relative', overflow: 'hidden', width: '100%', height: '100vh', transition: 'all 0.2s ease' }}
         >
           <iframe
             ref={frameRef}
-            id="planpoint-frame"
+            id="digital-twin-frame"
             frameBorder="0"
             allowFullScreen
             style={{ position: 'relative', top: 0, left: 0, bottom: 0, right: 0, width: '100%', minHeight: '100vh' }}

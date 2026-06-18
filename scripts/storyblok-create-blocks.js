@@ -1,9 +1,9 @@
 // One-time setup: creates all Session 1 Storyblok blocks via Management API
 // Usage: node scripts/storyblok-create-blocks.js <personal_access_token>
 
-const TOKEN = process.argv[2];
+const TOKEN = process.argv[2] || process.env.STORYBLOK_PERSONAL_TOKEN;
 if (!TOKEN) {
-  console.error('Usage: node scripts/storyblok-create-blocks.js <personal_access_token>');
+  console.error('No token found. Set STORYBLOK_PERSONAL_TOKEN env var or pass it as an argument.');
   process.exit(1);
 }
 

@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import AmenitiesCarousel from '../../components/blocks/AmenitiesCarousel/AmenitiesCarousel';
 import AmenStickySlider from '../../components/blocks/AmenStickySlider/AmenStickySlider';
 import HomeScript from '../../components/ui/HomeScript/HomeScript';
@@ -52,13 +52,13 @@ export default function AmenitiesPage() {
                 every amenity at SELVA is conceived to enrich daily life with nature,
                 light, and unhurried luxury. A life lived beautifully, every day.
               </p>
-              <a href="/residences#planpoint" className="vision__cta reveal" data-delay="320" style={{ marginTop: 'var(--space-8)' }}>
+              <a href="/residences#digital-twin" className="vision__cta reveal" data-delay="320" style={{ marginTop: 'var(--space-8)' }}>
                 Explore the Residences <span className="vision__arrow" aria-hidden="true">&rarr;</span>
               </a>
             </div>
           </div>
 
-          <AmenitiesCarousel slideHref="/residences#planpoint" overlayLabel="View Residences" />
+          <AmenitiesCarousel slideHref="/residences#digital-twin" overlayLabel="View Residences" />
         </section>
 
         {/* ============ CINEMATIC MOTION ============ */}
@@ -71,7 +71,7 @@ export default function AmenitiesPage() {
           <div className="amen-motion__content">
             <span className="amen-motion__label reveal">In Motion</span>
             <h2 className="amen-motion__heading reveal" data-delay="100">Evenings unfold<br />above the canopy</h2>
-            <a href="/residences#planpoint" className="btnSlide btnSlide--amber reveal" data-delay="220" style={{ marginTop: 'var(--space-8)' }}>
+            <a href="/residences#digital-twin" className="btnSlide btnSlide--amber reveal" data-delay="220" style={{ marginTop: 'var(--space-8)' }}>
               <span>View the Floorplans</span><span aria-hidden="true">View the Floorplans</span>
             </a>
           </div>
@@ -137,7 +137,7 @@ export default function AmenitiesPage() {
         <section className="page-cta" data-screen-label="Amenities CTA">
           <span className="page-cta__label reveal">Explore SELVA</span>
           <h2 className="page-cta__heading reveal" data-delay="100">Find Your Residence</h2>
-          <a href="/residences#planpoint" className="btnSlide reveal" data-delay="220">
+          <a href="/residences#digital-twin" className="btnSlide reveal" data-delay="220">
             <span>Explore Floorplans</span><span aria-hidden="true">Explore Floorplans</span>
           </a>
         </section>

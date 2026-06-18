@@ -1,7 +1,7 @@
 import { StoryblokStory } from '@storyblok/react/rsc'
 import { getStoryblokApi } from '../lib/storyblok'
 import HomeScript from '../components/ui/HomeScript/HomeScript'
-import StoryblokBridgeWrapper from '../components/ui/StoryblokBridgeWrapper/StoryblokBridgeWrapper'
+import StoryblokPreviewView from '../components/ui/StoryblokPreviewView/StoryblokPreviewView'
 
 export const revalidate = 60
 
@@ -19,8 +19,12 @@ export default async function Home({
 
   return (
     <main>
-      <StoryblokStory story={data.story} />
-      {isPreview && <StoryblokBridgeWrapper storyId={data.story.id} />}
+      {isPreview
+        // Preview: client component uses bridge data directly — no API round-trip race condition
+        ? <StoryblokPreviewView story={data.story} />
+        // Production: server-rendered for SSR/ISR
+        : <StoryblokStory story={data.story} />
+      }
       <HomeScript />
     </main>
   )

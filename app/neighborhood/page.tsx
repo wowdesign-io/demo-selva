@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import HomeScript from '../../components/ui/HomeScript/HomeScript';
 import NeighborhoodScript from '../../components/blocks/NeighborhoodScript/NeighborhoodScript';
 
@@ -166,7 +166,7 @@ export default function NeighborhoodPage() {
               trees, an afternoon among the galleries, an evening table under string lights, and
               the marina never more than a short walk away.
             </p>
-            <a href="/residences#planpoint" className="vision__cta reveal" data-delay="420">
+            <a href="/residences#digital-twin" className="vision__cta reveal" data-delay="420">
               Explore the Residences <span className="vision__arrow" aria-hidden="true">&rarr;</span>
             </a>
           </div>
@@ -203,7 +203,7 @@ export default function NeighborhoodPage() {
                     <p className="nbhd-panel__num">{s.num}</p>
                     <h3 className="nbhd-panel__title">{s.title}</h3>
                     {s.paras.map((p, j) => <p key={j} className="nbhd-panel__text">{p}</p>)}
-                    <a href="/residences#planpoint" className="vision__cta vision__cta--amber" style={{ marginTop: 'var(--space-6)' }}>
+                    <a href="/residences#digital-twin" className="vision__cta vision__cta--amber" style={{ marginTop: 'var(--space-6)' }}>
                       Explore the Residences <span className="vision__arrow" aria-hidden="true">&rarr;</span>
                     </a>
                     <div className="nbhd-panel__meta">
@@ -324,7 +324,7 @@ export default function NeighborhoodPage() {
         <section className="page-cta" data-screen-label="Neighborhood CTA">
           <span className="page-cta__label reveal">Explore Next</span>
           <h2 className="page-cta__heading reveal" data-delay="100">Find your place<br /><em>at SELVA</em></h2>
-          <a href="/residences#planpoint" className="btnSlide reveal" data-delay="220">
+          <a href="/residences#digital-twin" className="btnSlide reveal" data-delay="220">
             <span>Explore Floorplans</span><span aria-hidden="true">Explore Floorplans</span>
           </a>
         </section>

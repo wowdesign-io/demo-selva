@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+﻿import type { Metadata } from 'next';
 import GalleryGrid from '../../components/blocks/GalleryGrid/GalleryGrid';
 import HomeScript from '../../components/ui/HomeScript/HomeScript';
 
@@ -46,7 +46,7 @@ export default function GalleryPage() {
         <section className="page-cta" data-screen-label="Gallery CTA">
           <span className="page-cta__label reveal">Explore Next</span>
           <h2 className="page-cta__heading reveal" data-delay="100">See it for <em>yourself</em></h2>
-          <a href="/residences#planpoint" className="btnSlide reveal" data-delay="220">
+          <a href="/residences#digital-twin" className="btnSlide reveal" data-delay="220">
             <span>Explore Floorplans</span><span aria-hidden="true">Explore Floorplans</span>
           </a>
         </section>
