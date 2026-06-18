@@ -24,7 +24,7 @@ export default function OverviewSection({ blok }: { blok?: OverviewSectionBlok }
 
   const panels = blok?.panels?.length
     ? blok.panels.map((p) => ({ label: p.label ?? '', link: resolveLink(p.href, '#'), src: p.image?.filename || '', alt: p.alt ?? p.image?.alt ?? '', _uid: p._uid }))
-    : FALLBACK_PANELS.map((p) => ({ label: p.label, link: { href: p.href }, src: p.src, alt: p.alt, _uid: p.label }))
+    : FALLBACK_PANELS.map((p) => ({ label: p.label, link: resolveLink(p.href), src: p.src, alt: p.alt, _uid: p.label }))
 
   return (
     <section className="overview" {...(blok ? storyblokEditable(blok) : {})}>
