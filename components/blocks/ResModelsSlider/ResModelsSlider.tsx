@@ -9,7 +9,7 @@ interface SbAsset { filename: string; alt?: string }
 interface ResCardBlok {
   _uid: string; component: 'res_card'
   model_tag?: string; name?: string; sf?: string; layout?: string; outdoor?: string
-  image?: SbAsset; alt?: string
+  img_src?: string; image?: SbAsset; alt?: string
   planpoint_floor?: string; planpoint_unit?: string; cta_text?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [index: string]: any
@@ -172,7 +172,7 @@ export default function ResModelsSlider({ blok }: { blok?: ResModelsSliderBlok }
           </div>
 
           {cards.map((card) => {
-            const imgSrc = card.image?.filename ?? '';
+            const imgSrc = card.img_src || card.image?.filename || '';
             const imgAlt = card.alt ?? card.image?.alt ?? card.name ?? '';
             const unitId = card.planpoint_unit ?? '';
             const floorId = card.planpoint_floor ?? 'Floor 1';

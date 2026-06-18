@@ -4,7 +4,7 @@ interface SbAsset { filename: string; alt?: string }
 export interface VisFeatureBlok {
   _uid: string; component: 'vis_feature'
   eyebrow?: string
-  image?: SbAsset; alt?: string
+  img_src?: string; image?: SbAsset; alt?: string
   heading?: string; body_text?: string
   cta_text?: string; cta_href?: string
   reverse?: boolean
@@ -14,7 +14,7 @@ export interface VisFeatureBlok {
 
 export default function VisFeature({ blok }: { blok?: VisFeatureBlok }) {
   const eyebrow  = blok?.eyebrow   ?? 'Architecture'
-  const imgSrc   = blok?.image?.filename ?? '/images/renders/exterior-04.webp'
+  const imgSrc   = blok?.img_src || blok?.image?.filename || '/images/renders/exterior-04.webp'
   const imgAlt   = blok?.alt ?? blok?.image?.alt ?? ''
   const heading  = (blok?.heading  ?? 'Designed around\nthe canopy').split('\n')
   const bodyText = blok?.body_text ?? ''
