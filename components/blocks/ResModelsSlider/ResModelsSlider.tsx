@@ -25,6 +25,7 @@ interface ResCardBlok {
 export interface ResModelsSliderBlok {
   _uid: string; component: 'res_models_slider'
   header_label?: string; cta_text?: string; header_cta_href?: SbLink | string
+  show_intro?: boolean
   cards?: (ResIntroCardBlok | ResCardBlok)[]
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [index: string]: any
@@ -77,13 +78,15 @@ export default function ResModelsSlider({ blok }: { blok?: ResModelsSliderBlok }
   const trackRef = useRef<HTMLDivElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
 
+  const showIntro = blok?.show_intro ?? true;
+
   // cards[0] is the intro card (res_intro_card), cards[1..] are model cards (res_card)
   const allCards = blok?.cards ?? [];
   const introCard = allCards[0]?.component === 'res_intro_card' ? allCards[0] as ResIntroCardBlok : null;
   const modelCards = introCard ? allCards.slice(1) as ResCardBlok[] : allCards as ResCardBlok[];
 
-  const intro   = introCard ?? DEFAULT_INTRO;
-  const cards   = modelCards.length ? modelCards : DEFAULT_CARDS;
+  const intro = introCard ?? DEFAULT_INTRO;
+  const cards = modelCards.length ? modelCards : DEFAULT_CARDS;
 
   const headerLabel   = blok?.header_label ?? 'Three Models · 40 Residences';
   const headerCtaText = blok?.cta_text     ?? 'Explore in Digital Twin →';
@@ -162,7 +165,7 @@ export default function ResModelsSlider({ blok }: { blok?: ResModelsSliderBlok }
       <div ref={wrapRef} className="res-inline-track-wrap">
         <div ref={trackRef} className="res-inline-track" id="resInlineTrack">
 
-          <div
+          {showIntro && <div
             className="res-inline-card res-inline-card--intro"
             {...(introCard ? storyblokEditable(introCard) : {})}
           >
@@ -187,7 +190,7 @@ export default function ResModelsSlider({ blok }: { blok?: ResModelsSliderBlok }
                 </svg>
               </a>
             </div>
-          </div>
+          </div>}
 
           {cards.map((card) => {
             const imgSrc = card.img_src || card.image?.filename || '';
