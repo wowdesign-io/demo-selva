@@ -5,15 +5,22 @@ import StoryblokBridgeWrapper from '../components/ui/StoryblokBridgeWrapper/Stor
 
 export const revalidate = 60
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ _storyblok?: string }>
+}) {
+  const params = await searchParams
+  const isPreview = '_storyblok' in params
+  const version = isPreview ? 'draft' : ((process.env.STORYBLOK_VERSION as 'draft' | 'published') ?? 'published')
+
   const sbApi = getStoryblokApi()
-  const version = (process.env.STORYBLOK_VERSION as 'draft' | 'published') ?? 'published'
   const { data } = await sbApi.get('cdn/stories/home', { version })
 
   return (
     <main>
       <StoryblokStory story={data.story} />
-      <StoryblokBridgeWrapper storyId={data.story.id} />
+      {isPreview && <StoryblokBridgeWrapper storyId={data.story.id} />}
       <HomeScript />
     </main>
   )
