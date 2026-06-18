@@ -11,6 +11,8 @@ interface ResCardBlok {
   model_tag?: string; name?: string; sf?: string; layout?: string; outdoor?: string
   image?: SbAsset; alt?: string
   planpoint_floor?: string; planpoint_unit?: string; cta_text?: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [index: string]: any
 }
 export interface ResModelsSliderBlok {
   _uid: string; component: 'res_models_slider'
