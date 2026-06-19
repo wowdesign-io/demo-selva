@@ -14,7 +14,7 @@ export const config = {
   ],
 };
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const pass = process.env.BASIC_AUTH_PASS;
 
   // Protection disabled when no password is set
