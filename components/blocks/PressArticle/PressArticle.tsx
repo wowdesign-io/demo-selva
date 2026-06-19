@@ -2,6 +2,13 @@ import Link from 'next/link';
 import { storyblokEditable } from '@storyblok/react/rsc';
 import { renderRichText } from '@storyblok/react/rsc';
 
+interface StoryblokAsset {
+  filename?: string
+  alt?: string
+  title?: string
+  focus?: string | null
+}
+
 export interface PressArticleBlok {
   _uid: string; component: 'press_article'
   publication?: string
@@ -10,8 +17,7 @@ export interface PressArticleBlok {
   dek?: string
   byline?: string
   read_time?: string
-  lead_image_src?: string
-  lead_image_alt?: string
+  lead_image?: StoryblokAsset
   lead_image_caption?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   body?: Record<string, any>
@@ -45,9 +51,9 @@ export default function PressArticle({ blok, relatedCards = [] }: { blok?: Press
   const dek              = blok?.dek              ?? '';
   const byline           = blok?.byline           ?? '';
   const readTime         = blok?.read_time        ?? '';
-  const leadSrc          = blok?.lead_image_src   ?? '';
-  const leadAlt          = blok?.lead_image_alt   ?? '';
-  const leadCaption      = blok?.lead_image_caption ?? '';
+  const leadSrc          = blok?.lead_image?.filename ?? '';
+  const leadAlt          = blok?.lead_image?.alt      ?? '';
+  const leadCaption      = blok?.lead_image_caption   ?? '';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const bodyHtml: string = blok?.body ? (renderRichText(blok.body as any) as string) : '';
 
