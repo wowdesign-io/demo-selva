@@ -29,6 +29,12 @@ import DocMasthead        from '../components/blocks/DocMasthead/DocMasthead'
 import InquiryFormBlock   from '../components/blocks/InquiryFormBlock/InquiryFormBlock'
 import DownloadsGrid      from '../components/blocks/DownloadsGrid/DownloadsGrid'
 import DownloadsRequest   from '../components/blocks/DownloadsRequest/DownloadsRequest'
+import PressIndex         from '../components/blocks/PressIndex/PressIndex'
+import PressArticle       from '../components/blocks/PressArticle/PressArticle'
+import BodyParagraph      from '../components/blocks/BodyParagraph/BodyParagraph'
+import BodyHeading        from '../components/blocks/BodyHeading/BodyHeading'
+import BodyQuote          from '../components/blocks/BodyQuote/BodyQuote'
+import BodyFigure         from '../components/blocks/BodyFigure/BodyFigure'
 
 // Block component registry — one entry per Storyblok block type.
 // Key = component field value in Storyblok (never change after stories are created).
@@ -87,7 +93,12 @@ export const getStoryblokApi = storyblokInit({
     downloads_request:    DownloadsRequest,        // "Downloads Request Band"
 
     // Session 8 — Press + Articles
-    // press_index, press_media, press_article, body_paragraph, body_heading, body_quote, body_figure
+    press_index:      PressIndex,        // "Press Index Page" — index shell (label/heading/note/media/CTA)
+    press_article:    PressArticle,      // "Press Article" — full article (async RSC, fetches related)
+    body_paragraph:   BodyParagraph,     // "Body Paragraph" — prose paragraph (dangerouslySetInnerHTML)
+    body_heading:     BodyHeading,       // "Body Heading" — h2 subheading within article body
+    body_quote:       BodyQuote,         // "Body Quote" — pull quote with citation
+    body_figure:      BodyFigure,        // "Body Figure" — inline figure with caption
 
     // Session 9 — Legal + Privacy
     // legal_page, legal_section
