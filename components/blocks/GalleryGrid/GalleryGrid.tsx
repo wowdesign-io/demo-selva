@@ -29,6 +29,13 @@ export interface GalleryGridBlok {
   [index: string]: any
 }
 
+// Transforms a Storyblok CDN URL to serve a WebP at max 1800px, quality 80.
+// Marketing teams upload raw files; this ensures they're compressed before delivery.
+function sbImg(url: string): string {
+  if (!url || !url.includes('a.storyblok.com')) return url;
+  return `${url}/m/1800x0/filters:quality(80):format(webp)`;
+}
+
 // Hardcoded defaults — used when Storyblok story has no items (dev safety net)
 const DEFAULT_FILTERS = [
   { cat: 'all',      label: 'All' },
@@ -77,15 +84,14 @@ export default function GalleryGrid({ blok }: { blok?: GalleryGridBlok }) {
   // Content team adds / removes / reorders gallery_item bloks in Storyblok editor.
   const items = blok?.items?.length
     ? blok.items.map(it => ({
-        src:    it.src?.filename || '',
-        cat:    it.cat           ?? 'exterior',
-        ar:     it.aspect_ratio  ?? '1/1',
-        alt:    it.alt           ?? '',
-        capCat: it.cap_cat       ?? '',
-        capName:it.cap_name      ?? '',
+        src:    sbImg(it.src?.filename || ''),
+        cat:    it.cat     ?? 'exterior',
+        alt:    it.alt     ?? '',
+        capCat: it.cap_cat ?? '',
+        capName:it.cap_name ?? '',
         key:    it._uid,
       }))
-    : DEFAULT_ITEMS.map(it => ({ ...it, key: it.src }));
+    : DEFAULT_ITEMS.map(it => ({ src: it.src, cat: it.cat, alt: it.alt, capCat: it.capCat, capName: it.capName, key: it.src }));
 
   return (
     <section
@@ -126,7 +132,7 @@ export default function GalleryGrid({ blok }: { blok?: GalleryGridBlok }) {
               data-cat={it.cat}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={it.src} style={{ aspectRatio: it.ar }} alt={it.alt} loading="lazy" decoding="async" />
+              <img src={it.src} alt={it.alt} loading="lazy" decoding="async" />
               <figcaption className="gallery__cap">
                 <span className="gallery__capCat">{it.capCat}</span>
                 <span className="gallery__capName">{it.capName}</span>
