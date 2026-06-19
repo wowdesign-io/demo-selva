@@ -1,11 +1,6 @@
 import Link from 'next/link';
-import { storyblokEditable, StoryblokServerComponent } from '@storyblok/react/rsc';
-import type { BodyParagraphBlok } from '../BodyParagraph/BodyParagraph';
-import type { BodyHeadingBlok } from '../BodyHeading/BodyHeading';
-import type { BodyQuoteBlok } from '../BodyQuote/BodyQuote';
-import type { BodyFigureBlok } from '../BodyFigure/BodyFigure';
-
-type BodyBlok = BodyParagraphBlok | BodyHeadingBlok | BodyQuoteBlok | BodyFigureBlok;
+import { storyblokEditable } from '@storyblok/react/rsc';
+import { renderRichText } from '@storyblok/react/rsc';
 
 export interface PressArticleBlok {
   _uid: string; component: 'press_article'
@@ -18,7 +13,8 @@ export interface PressArticleBlok {
   lead_image_src?: string
   lead_image_alt?: string
   lead_image_caption?: string
-  body?: BodyBlok[]
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  body?: Record<string, any>
   related?: string
   seo_title?: string
   seo_description?: string
@@ -52,7 +48,8 @@ export default function PressArticle({ blok, relatedCards = [] }: { blok?: Press
   const leadSrc          = blok?.lead_image_src   ?? '';
   const leadAlt          = blok?.lead_image_alt   ?? '';
   const leadCaption      = blok?.lead_image_caption ?? '';
-  const bodyBloks        = blok?.body ?? [];
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const bodyHtml: string = blok?.body ? (renderRichText(blok.body as any) as string) : '';
 
   return (
     <>
@@ -86,12 +83,11 @@ export default function PressArticle({ blok, relatedCards = [] }: { blok?: Press
           <figcaption className="article__caption">{leadCaption}</figcaption>
         </div>
 
-        {/* Body */}
-        <div className="article__body">
-          {bodyBloks.map((b) => (
-            <StoryblokServerComponent key={b._uid} blok={b} />
-          ))}
-        </div>
+        {/* Body — rendered from Storyblok richtext field */}
+        <div
+          className="article__body"
+          dangerouslySetInnerHTML={{ __html: bodyHtml }}
+        />
 
         {/* Foot */}
         <div className="article__foot">

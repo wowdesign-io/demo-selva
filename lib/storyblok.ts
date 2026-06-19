@@ -31,10 +31,6 @@ import DownloadsGrid      from '../components/blocks/DownloadsGrid/DownloadsGrid
 import DownloadsRequest   from '../components/blocks/DownloadsRequest/DownloadsRequest'
 import PressIndex         from '../components/blocks/PressIndex/PressIndex'
 import PressArticle       from '../components/blocks/PressArticle/PressArticle'
-import BodyParagraph      from '../components/blocks/BodyParagraph/BodyParagraph'
-import BodyHeading        from '../components/blocks/BodyHeading/BodyHeading'
-import BodyQuote          from '../components/blocks/BodyQuote/BodyQuote'
-import BodyFigure         from '../components/blocks/BodyFigure/BodyFigure'
 
 // Block component registry — one entry per Storyblok block type.
 // Key = component field value in Storyblok (never change after stories are created).
@@ -94,11 +90,7 @@ export const getStoryblokApi = storyblokInit({
 
     // Session 8 — Press + Articles
     press_index:      PressIndex,        // "Press Index Page" — index shell (label/heading/note/media/CTA)
-    press_article:    PressArticle,      // "Press Article" — full article (relatedCards passed from page)
-    body_paragraph:   BodyParagraph,     // "Body Paragraph" — prose paragraph (dangerouslySetInnerHTML)
-    body_heading:     BodyHeading,       // "Body Heading" — h2 subheading within article body
-    body_quote:       BodyQuote,         // "Body Quote" — pull quote with citation
-    body_figure:      BodyFigure,        // "Body Figure" — inline figure with caption
+    press_article:    PressArticle,      // "Press Article" — body is richtext field (renderRichText)
 
     // Session 9 — Legal + Privacy
     // legal_page, legal_section

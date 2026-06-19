@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import HomeScript from '../../components/ui/HomeScript/HomeScript';
 import PressIndex, { type PressCardItem } from '../../components/blocks/PressIndex/PressIndex';
 import type { PressIndexBlok } from '../../components/blocks/PressIndex/PressIndex';
+import PressIndexBridge from '../../components/blocks/PressIndex/PressIndexBridge';
 import type { PressArticleBlok } from '../../components/blocks/PressArticle/PressArticle';
 import { getStoryblokApi } from '../../lib/storyblok';
 
@@ -57,6 +58,7 @@ export default async function PressPage({
       <main>
         <PressIndex blok={pressBlok} cards={cards} />
       </main>
+      {isPreview && <PressIndexBridge storyId={indexData.story.id} />}
       <HomeScript />
     </>
   );
