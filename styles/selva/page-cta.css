@@ -31,5 +31,5 @@
   margin: 0;
 }
 .page-cta__heading em { font-style: italic; }
-.page-cta .btnSlide { margin-top: var(--space-4); background: #DDB075; color: var(--color-text-strong); }
+.page-cta .btnSlide { margin-top: var(--space-4); background: #DDB075; color: var(--color-text-strong); align-self: center; }
 .page-cta .btnSlide:hover { background: #E7C490; }
