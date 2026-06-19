@@ -94,7 +94,7 @@ export const getStoryblokApi = storyblokInit({
 
     // Session 8 — Press + Articles
     press_index:      PressIndex,        // "Press Index Page" — index shell (label/heading/note/media/CTA)
-    press_article:    PressArticle,      // "Press Article" — full article (async RSC, fetches related)
+    press_article:    PressArticle,      // "Press Article" — full article (relatedCards passed from page)
     body_paragraph:   BodyParagraph,     // "Body Paragraph" — prose paragraph (dangerouslySetInnerHTML)
     body_heading:     BodyHeading,       // "Body Heading" — h2 subheading within article body
     body_quote:       BodyQuote,         // "Body Quote" — pull quote with citation

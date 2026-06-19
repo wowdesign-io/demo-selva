@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { StoryblokStory } from '@storyblok/react/rsc';
 import HomeScript from '../../../components/ui/HomeScript/HomeScript';
 import StoryblokPreviewView from '../../../components/ui/StoryblokPreviewView/StoryblokPreviewView';
+import PressArticle from '../../../components/blocks/PressArticle/PressArticle';
 import { getStoryblokApi } from '../../../lib/storyblok';
 import type { PressArticleBlok } from '../../../components/blocks/PressArticle/PressArticle';
 
@@ -63,12 +64,42 @@ export default async function PressArticlePage({
 
   if (!data?.story) notFound();
 
+  const blok = data.story.content as PressArticleBlok;
+
+  // Fetch related cards (only in live mode — preview omits them)
+  let relatedCards: { pub: string; date: string; title: string; slug: string; delay?: string }[] = [];
+  if (!isPreview) {
+    const relatedSlugs = (blok.related ?? '')
+      .split(',').map((s: string) => s.trim()).filter(Boolean);
+    if (relatedSlugs.length > 0) {
+      try {
+        const bySlugs = relatedSlugs.map((s: string) => `press/${s}`).join(',');
+        const { data: relData } = await sbApi.get('cdn/stories', {
+          version, by_slugs: bySlugs, per_page: 5,
+          excluding_fields: 'body,lead_image_alt,lead_image_caption,byline,read_time,seo_title,seo_description,related',
+        });
+        const storiesMap = new Map(
+          (relData.stories ?? []).map((s: { slug: string; content: PressArticleBlok }) => [s.slug, s])
+        );
+        relatedCards = relatedSlugs
+          .map((slug: string, i: number) => {
+            const s = storiesMap.get(slug) as { slug: string; content: PressArticleBlok } | undefined;
+            if (!s) return null;
+            return { pub: s.content.publication ?? '', date: s.content.date ?? '', title: s.content.title ?? '', slug: s.slug, delay: i === 1 ? '80' : i === 2 ? '160' : undefined };
+          })
+          .filter(Boolean) as typeof relatedCards;
+      } catch {
+        // related fetch failure must not break the article page
+      }
+    }
+  }
+
   return (
     <>
       <main>
         {isPreview
           ? <StoryblokPreviewView story={data.story} />
-          : <StoryblokStory story={data.story} />
+          : <PressArticle blok={blok} relatedCards={relatedCards} />
         }
       </main>
       <HomeScript />

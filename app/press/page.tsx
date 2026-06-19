@@ -32,12 +32,13 @@ export default async function PressPage({
   const { data: indexData } = await sbApi.get('cdn/stories/press/index', { version });
   const pressBlok = indexData.story.content as PressIndexBlok;
 
-  // Fetch 2 — all article stories nested under press/
+  // Fetch 2 — all article stories nested under press/ (excluding the index story)
   const { data: articlesData } = await sbApi.get('cdn/stories', {
     version,
     starts_with: 'press/',
     per_page: 25,
     sort_by: 'created_at:desc',
+    excluding_slugs: 'press/index',
     excluding_fields: 'body,lead_image_alt,lead_image_caption,byline,read_time,seo_title,seo_description,related',
   });
 

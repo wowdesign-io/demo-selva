@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { storyblokEditable, StoryblokServerComponent } from '@storyblok/react/rsc';
-import { getStoryblokApi } from '../../../lib/storyblok';
 import type { BodyParagraphBlok } from '../BodyParagraph/BodyParagraph';
 import type { BodyHeadingBlok } from '../BodyHeading/BodyHeading';
 import type { BodyQuoteBlok } from '../BodyQuote/BodyQuote';
@@ -43,7 +42,7 @@ const BackIcon = () => (
   </svg>
 );
 
-export default async function PressArticle({ blok }: { blok?: PressArticleBlok }) {
+export default function PressArticle({ blok, relatedCards = [] }: { blok?: PressArticleBlok; relatedCards?: RelatedCard[] }) {
   const publication      = blok?.publication      ?? '';
   const date             = blok?.date             ?? '';
   const title            = blok?.title            ?? '';
@@ -54,39 +53,6 @@ export default async function PressArticle({ blok }: { blok?: PressArticleBlok }
   const leadAlt          = blok?.lead_image_alt   ?? '';
   const leadCaption      = blok?.lead_image_caption ?? '';
   const bodyBloks        = blok?.body ?? [];
-
-  // Fetch related article cards
-  let relatedCards: RelatedCard[] = [];
-  const relatedSlugs = (blok?.related ?? '')
-    .split(',').map(s => s.trim()).filter(Boolean);
-
-  if (relatedSlugs.length > 0) {
-    try {
-      const sbApi = getStoryblokApi();
-      const version = (process.env.STORYBLOK_VERSION as 'draft' | 'published') ?? 'published';
-      const bySlugs = relatedSlugs.map(s => `press/${s}`).join(',');
-      const { data } = await sbApi.get('cdn/stories', { version, by_slugs: bySlugs, per_page: 5 });
-      const slugOrder = relatedSlugs;
-      const storiesMap = new Map(
-        (data.stories ?? []).map((s: { slug: string; content: PressArticleBlok }) => [s.slug, s])
-      );
-      relatedCards = slugOrder
-        .map((slug, i): RelatedCard | null => {
-          const s = storiesMap.get(slug) as { slug: string; content: PressArticleBlok } | undefined;
-          if (!s) return null;
-          return {
-            pub: s.content.publication ?? '',
-            date: s.content.date ?? '',
-            title: s.content.title ?? '',
-            slug: s.slug,
-            delay: i === 1 ? '80' : i === 2 ? '160' : undefined,
-          };
-        })
-        .filter((c): c is RelatedCard => c !== null);
-    } catch {
-      // Related fetch failing should not break the article page
-    }
-  }
 
   return (
     <>
