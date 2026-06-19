@@ -31,14 +31,14 @@ const story = {
 
       // 1. Hero
       {
-        component: 'page_hero', _uid: uid(),
-        pre_label:     'Miami · The Neighborhood',
-        title:         'Rooted in\nthe Grove',
-        tagline:       'Coconut Grove’s banyan canopy, bayfront and design quarter — steps beyond your door.',
-        delivery_note: 'Delivery Mid-2027',
+        component: ‘page_hero’, _uid: uid(),
+        pre_label:      ‘Miami · The Neighborhood’,
+        title:          ‘Rooted in\nthe Grove’,
+        tagline:        ‘Coconut Grove’s banyan canopy, bayfront and design quarter — steps beyond your door.’,
+        delivery_note:  ‘Delivery Mid-2027’,
         wordmark_style: false,
-        image: asset(CDN.cultural.id, CDN.cultural.url, 'SELVA — the design quarter of Coconut Grove at golden hour'),
-        alt:   'SELVA — the design quarter of Coconut Grove at golden hour',
+        bg_image: asset(CDN.cultural.id, CDN.cultural.url, ‘SELVA — the design quarter of Coconut Grove at golden hour’),
+        bg_alt:   ‘SELVA — the design quarter of Coconut Grove at golden hour’,
       },
 
       // 2. Proximity strip (light theme)

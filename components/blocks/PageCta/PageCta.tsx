@@ -17,7 +17,7 @@ export default function PageCta({ blok }: { blok?: PageCtaBlok }) {
   return (
     <section className="page-cta" data-screen-label="Explore Next" {...(blok ? storyblokEditable(blok) : {})}>
       <span className="page-cta__label reveal">{label}</span>
-      <h2 className="page-cta__heading reveal" data-delay="100">{heading}</h2>
+      <h2 className="page-cta__heading reveal" data-delay="100" dangerouslySetInnerHTML={{ __html: heading }} />
       <a href={ctaLink.href} target={ctaLink.target} rel={ctaLink.rel} className="btnSlide reveal" data-delay="220">
         <span>{ctaText}</span><span aria-hidden="true">{ctaText}</span>
       </a>
