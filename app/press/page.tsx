@@ -55,7 +55,7 @@ export default async function PressPage({
   return (
     <>
       <main>
-        <PressIndex blok={isPreview ? pressBlok : pressBlok} cards={cards} />
+        <PressIndex blok={pressBlok} cards={cards} />
       </main>
       <HomeScript />
     </>

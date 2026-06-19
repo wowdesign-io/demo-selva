@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { StoryblokStory } from '@storyblok/react/rsc';
 import HomeScript from '../../../components/ui/HomeScript/HomeScript';
-import StoryblokPreviewView from '../../../components/ui/StoryblokPreviewView/StoryblokPreviewView';
 import PressArticle from '../../../components/blocks/PressArticle/PressArticle';
 import { getStoryblokApi } from '../../../lib/storyblok';
 import type { PressArticleBlok } from '../../../components/blocks/PressArticle/PressArticle';
@@ -49,6 +48,13 @@ export default async function PressArticlePage({
 }) {
   const { slug }  = await params;
   const qp        = await searchParams;
+
+  // Storyblok visual editor opens press/index at /press/index — redirect to the real index page
+  if (slug === 'index') {
+    const qs = new URLSearchParams(qp as Record<string, string>).toString();
+    redirect(qs ? `/press?${qs}` : '/press');
+  }
+
   const isPreview = '_storyblok' in qp;
   const version   = isPreview ? 'draft' : ((process.env.STORYBLOK_VERSION as 'draft' | 'published') ?? 'published');
 
@@ -98,7 +104,7 @@ export default async function PressArticlePage({
     <>
       <main>
         {isPreview
-          ? <StoryblokPreviewView story={data.story} />
+          ? <StoryblokStory story={data.story} />
           : <PressArticle blok={blok} relatedCards={relatedCards} />
         }
       </main>
