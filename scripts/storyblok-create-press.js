@@ -17,7 +17,7 @@ const BLOCKS = [
   {
     name: 'press_index',
     display_name: 'Press Index Page',
-    is_root: false, is_nestable: true,
+    is_root: true, is_nestable: false,
     schema: {
       label:           { type: 'text',      pos: 0, display_name: 'Label' },
       heading:         { type: 'text',      pos: 1, display_name: 'Heading' },
@@ -67,7 +67,7 @@ const BLOCKS = [
   {
     name: 'press_article',
     display_name: 'Press Article',
-    is_root: false, is_nestable: true,
+    is_root: true, is_nestable: false,
     schema: {
       publication:        { type: 'text',     pos: 0,  display_name: 'Publication' },
       date:               { type: 'text',     pos: 1,  display_name: 'Date' },
@@ -387,19 +387,40 @@ const ARTICLES = [
 // API helpers
 // ---------------------------------------------------------------------------
 
+async function getComponentId(name) {
+  const r = await fetch(`https://mapi.storyblok.com/v1/spaces/${SPACE_ID}/components/?search=${name}`, {
+    headers: { Authorization: TOKEN },
+  });
+  const d = await r.json();
+  return d.components?.find(c => c.name === name)?.id ?? null;
+}
+
 async function createBlock(def) {
   try {
+    // Try to find existing component first
+    const existingId = await getComponentId(def.name);
+
+    if (existingId) {
+      // Update the existing block (needed to fix is_root on already-created blocks)
+      const r = await fetch(`https://mapi.storyblok.com/v1/spaces/${SPACE_ID}/components/${existingId}`, {
+        method: 'PUT',
+        headers: { Authorization: TOKEN, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ component: def }),
+      });
+      const d = await r.json();
+      if (!r.ok) { console.error(`  ✗  update ${def.name}: ${JSON.stringify(d)}`); return; }
+      console.log(`  ↺  ${def.name} (updated, id=${existingId})`);
+      return;
+    }
+
     const r = await fetch(`https://mapi.storyblok.com/v1/spaces/${SPACE_ID}/components/`, {
       method: 'POST',
       headers: { Authorization: TOKEN, 'Content-Type': 'application/json' },
       body: JSON.stringify({ component: def }),
     });
     const d = await r.json();
-    if (!r.ok) {
-      if (r.status === 422) { console.log(`  –  ${def.name} (already exists — skipped)`); return; }
-      throw new Error(`${r.status}: ${JSON.stringify(d)}`);
-    }
-    console.log(`  ✓  ${def.name}`);
+    if (!r.ok) { throw new Error(`${r.status}: ${JSON.stringify(d)}`); }
+    console.log(`  ✓  ${def.name} (created)`);
   } catch (e) {
     console.error(`  ✗  ${def.name}: ${e.message}`);
   }
@@ -468,18 +489,52 @@ async function main() {
     await sleep(200);
   }
 
-  // Step 2 — Press index story (parent of all articles)
+    // Step 2a — Delete the story named "press" we created last run if it exists
+  // (it was a content story, not a folder — folders are created differently)
+  {
+    const existing = (await findStory('press')).find(s => s.slug === 'press' && !s.is_folder);
+    if (existing) {
+      console.log(`\nDeleting stale "press" content story (id=${existing.id})...`);
+      await fetch(`https://mapi.storyblok.com/v1/spaces/${SPACE_ID}/stories/${existing.id}`, {
+        method: 'DELETE', headers: { Authorization: TOKEN },
+      });
+      await sleep(400);
+    }
+  }
+
+  // Step 2b — Create the press/ folder
+  console.log('\nCreating press/ folder...');
+  let pressParentId;
+  {
+    const existingFolder = (await findStory('press')).find(s => s.slug === 'press' && s.is_folder);
+    if (existingFolder) {
+      pressParentId = existingFolder.id;
+      console.log(`  –  folder already exists (id=${pressParentId})`);
+    } else {
+      const r = await fetch(`https://mapi.storyblok.com/v1/spaces/${SPACE_ID}/stories`, {
+        method: 'POST',
+        headers: { Authorization: TOKEN, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ story: { name: 'Press', slug: 'press', is_folder: true, parent_id: 0 } }),
+      });
+      const d = await r.json();
+      if (!r.ok) { console.error('  Folder creation failed:', d); process.exit(1); }
+      pressParentId = d.story.id;
+      console.log(`  ✓  folder created (id=${pressParentId})`);
+    }
+  }
+  await sleep(400);
+
+  // Step 2c — Press index story inside the folder (slug = "index" → full_slug = press/index)
   console.log('\nCreating press index story...');
   const indexStory = await upsertStory({
     story: {
       name: 'Press',
-      slug: 'press',
+      slug: 'index',
       content: pressIndexContent,
     },
-    parentId: null,
+    parentId: pressParentId,
   });
   if (!indexStory) { console.error('Failed to create press index story — aborting.'); process.exit(1); }
-  const pressParentId = indexStory.id;
   console.log(`  Press parent id: ${pressParentId}`);
 
   // Step 3 — Article stories (nested under press index)

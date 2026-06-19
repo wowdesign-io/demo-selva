@@ -14,6 +14,7 @@ export async function generateStaticParams() {
     version: 'published',
     starts_with: 'press/',
     per_page: 50,
+    excluding_slugs: 'press/index',
     excluding_fields: 'body,lead_image_alt,lead_image_caption,byline,read_time,seo_title,seo_description,related',
   });
   return (data.stories ?? []).map((s: { slug: string }) => ({ slug: s.slug }));

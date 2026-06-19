@@ -28,8 +28,8 @@ export default async function PressPage({
 
   const sbApi = getStoryblokApi();
 
-  // Fetch 1 — press index story (label / heading / note / media / CTA)
-  const { data: indexData } = await sbApi.get('cdn/stories/press', { version });
+  // Fetch 1 — press index story at press/index (label / heading / note / media / CTA)
+  const { data: indexData } = await sbApi.get('cdn/stories/press/index', { version });
   const pressBlok = indexData.story.content as PressIndexBlok;
 
   // Fetch 2 — all article stories nested under press/
