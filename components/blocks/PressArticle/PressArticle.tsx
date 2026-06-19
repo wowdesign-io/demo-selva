@@ -44,18 +44,33 @@ const BackIcon = () => (
   </svg>
 );
 
+function calcReadTime(html: string): string {
+  const text  = html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  const words = text ? text.split(' ').length : 0;
+  return `${Math.max(1, Math.round(words / 200))} min read`;
+}
+
+function wrapBodyImages(html: string): string {
+  return html.replace(/<img\s([^>]*)>/gi, (_match, attrs) => {
+    const title = (/title="([^"]*)"/i.exec(attrs) ?? [])[1] ?? '';
+    const cap   = title ? `<figcaption>${title}</figcaption>` : '';
+    return `<figure class="article__figure reveal"><img ${attrs}>${cap}</figure>`;
+  });
+}
+
 export default function PressArticle({ blok, relatedCards = [] }: { blok?: PressArticleBlok; relatedCards?: RelatedCard[] }) {
   const publication      = blok?.publication      ?? '';
   const date             = blok?.date             ?? '';
   const title            = blok?.title            ?? '';
   const dek              = blok?.dek              ?? '';
   const byline           = blok?.byline           ?? '';
-  const readTime         = blok?.read_time        ?? '';
   const leadSrc          = blok?.lead_image?.filename ?? '';
   const leadAlt          = blok?.lead_image?.alt      ?? '';
   const leadCaption      = blok?.lead_image_caption   ?? '';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const bodyHtml: string = blok?.body ? (renderRichText(blok.body as any) as string) : '';
+  const rawBodyHtml      = blok?.body ? (renderRichText(blok.body as any) as string) : '';
+  const bodyHtml         = wrapBodyImages(rawBodyHtml);
+  const readTime         = calcReadTime(rawBodyHtml);
 
   return (
     <>
