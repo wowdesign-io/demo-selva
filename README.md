@@ -64,7 +64,7 @@ The handoff is a complete, validated static HTML prototype. **We port it verbati
 | `/legal` | ✅ Done | `SELVA Legal.html` | shared `LegalDoc` (masthead + TOC scrollspy), 9 sections |
 | `/privacy` | ✅ Done | `SELVA Privacy.html` | shared `LegalDoc`, 10 sections |
 | `/downloads` | ✅ Done | `SELVA Downloads.html` | doc masthead, 4 download cards, request band |
-| `/press` | ✅ Done | `SELVA Press.html` | index (9 coverage cards) + `/press/[slug]` article via generateStaticParams (9 distinct articles prerendered). Data in `app/press/articles.ts` — block-based `body` (paragraph/heading/quote/figure), Storyblok-ready `Article` shape; cards derive from the article map. Renderer in `[slug]/page.tsx`. Migration plan: `docs/press-articles-plan.md` |
+| `/press` | ✅ Done · Session 8 | `SELVA Press.html` | **Storyblok-driven.** Index page fetches `press/index` story (PressIndex blok) + `starts_with=press/` article list. Article pages use StoryblokStory (PressArticle blok, async RSC fetches related). 6 new blocks (press_index, press_article, body_paragraph, body_heading, body_quote, body_figure) + 9 article stories in Storyblok folder `press/`. Script: `scripts/storyblok-create-press.js`. |
 | `/inquiry` | ✅ Done | `SELVA Inquiry.html` | doc-head masthead + two-column inquiry section. `components/blocks/InquiryForm/` (client) ports inquiry.js: HTML5 validation → inline thank-you state (no backend). Static contact/location aside |
 
 ---
@@ -143,8 +143,9 @@ Full integration plan: `C:\Users\info\.claude\plans\i-went-into-storyblok-refact
 | 3 — Vision | VisionCopyBand, DesignPillars, VisFeature ×2, Manifesto, VisionStatsBridge | ✅ Done | 2026-06-18 |
 | 4 — Amenities | 7 images uploaded, 7 blocks created, AmenitiesIntroSection + CinematicBand + AmenitiesGridSection extracted, story published | ✅ Done | 2026-06-18 |
 | 5 — Neighborhood | 4 images uploaded, 8 blocks created (nbhd_intro, nbhd_story, nbhd_story_panel, nbhd_map + map sub-blocks), NbhdIntro + NbhdStory + NbhdMap extracted, story published | ✅ Done | 2026-06-18 |
-| 6 — Gallery + Team | Wire GalleryGrid, PARTNERS array | ⬜ **Next** | — |
-| 7 — Inquiry + Downloads | Wrap forms, wire download cards | ⬜ | — |
+| 5b — Bug fixes | (1) PageCta heading renders raw HTML → dangerouslySetInnerHTML added; (2) Neighborhood hero used wrong field names (image/alt vs bg_image/bg_alt) + map_pin x/y were numbers not strings → fixed + republished; (3) Home hero missing from production → home story was published before page_hero rename — republished draft | ✅ Done | 2026-06-19 |
+| 6 — Gallery + Team | GalleryGrid (blok? prop, 21 items from Storyblok CDN, content team can add images via editor), TeamIntro + TeamPartners (6 partner_row bloks), 6 team images uploaded to CDN, gallery + team stories published | ✅ Done | 2026-06-19 |
+| 7 — Inquiry + Downloads | DocMasthead (shared), InquiryFormBlock wrapper, DownloadsGrid (icon_type option, file Asset), DownloadsRequest (multilink CTAs) | ✅ Done | 2026-06-19 |
 | 8 — Press | Replace articles.ts with Storyblok stories | ⬜ | — |
 | 9 — Legal + Privacy | Wire LegalDoc sections (Richtext) | ⬜ | — |
 | 10 — Production | ISR webhook, token swap, catch-all route, deploy | ⬜ | — |
@@ -173,12 +174,14 @@ Tagline → Heading → Text → Button Text → Button Link
 
 ### Storyblok standards (apply from Session 4 onward — already done for 0–3)
 
-All four rules are baked into the full integration plan. Summary:
+All rules are baked into the full integration plan. Summary:
 
 1. **Upload images first** — run `node scripts/storyblok-upload-renders.js` (extend for new image folders) before wiring any session
 2. **Marketing-friendly labels** — `cta_href` → "Button Link", `cta_text` → "Button Text", `bg_image` → "Image", `bg_alt` → "Image - Alt Text", etc. Do this when creating blocks, not after
 3. **All link fields = `multilink` type** — never `text`. Use `resolveLink()` from `@/lib/resolveLink` in components
 4. **No Planpoint wording in editor UI** — use "Digital Twin" in block/field labels and `#digital-twin` for HTML anchors/IDs
+5. **Check for reusable blocks before creating new ones** — before creating any block or component, scan what already exists. Same layout = same block. Reuse `page_hero`, `page_cta`, `res_stats_bridge`, `stat_item`, `vis_feature`, `feature_item` across pages before making new variants.
+6. **HTML in heading/title fields** — some fields need `<em>` or `<br/>` for italics and line breaks (e.g. story panel titles, map headings, CTA headings). Store raw HTML in the text field and render via `dangerouslySetInnerHTML`. Document these fields as "HTML ok" in the block display name.
 
 ### What is currently wired (Sessions 0–3)
 
@@ -188,11 +191,13 @@ All four rules are baked into the full integration plan. Summary:
 
 **22 render images** uploaded to Storyblok CDN via `scripts/storyblok-upload-renders.js`. Asset map: `storyblok-assets.json`.
 
-### What to do at start of Session 5 (Neighborhood)
-1. Check if neighborhood images need uploading (exterior/neighborhood photos) — use `scripts/storyblok-upload-amenities.js` as template
-2. Create blocks: `nbhd_intro`, `nbhd_story`, `story_panel`, `text_para`, `nbhd_map`, `map_category`, `map_poi`, `map_pin`
-3. Extract NbhdIntro, NbhdStory, NbhdMap components from inline `app/neighborhood/page.tsx` JSX
-4. Create neighborhood story, wire components, push to Vercel
+### What to do at start of Session 6 (Gallery + Team)
+1. Upload any new images (gallery images, team photos) to Storyblok CDN via `node scripts/storyblok-upload-renders.js` (extend script for new image folders)
+2. Check for reusable blocks: `page_hero`, `page_cta` already exist — do not recreate
+3. Create blocks: `gallery_intro`, `gallery_grid_block`, `gallery_filter`, `gallery_item`, `team_intro`, `team_partners`, `partner_row`
+4. Extract GalleryGrid (has `useState` filter = client component), TeamPartners (reuses VisFeature)
+5. Create gallery and team stories, fill content, publish
+6. Push commit + `vercel --prod --yes`
 
 ### Block fallback pattern (use in every component)
 ```tsx
