@@ -31,6 +31,7 @@ import DownloadsGrid      from '../components/blocks/DownloadsGrid/DownloadsGrid
 import DownloadsRequest   from '../components/blocks/DownloadsRequest/DownloadsRequest'
 import PressIndex         from '../components/blocks/PressIndex/PressIndex'
 import PressArticle       from '../components/blocks/PressArticle/PressArticle'
+import LegalPage          from '../components/blocks/LegalPage/LegalPage'
 
 // Block component registry — one entry per Storyblok block type.
 // Key = component field value in Storyblok (never change after stories are created).
@@ -93,7 +94,7 @@ export const getStoryblokApi = storyblokInit({
     press_article:    PressArticle,      // "Press Article" — body is richtext field (renderRichText)
 
     // Session 9 — Legal + Privacy
-    // legal_page, legal_section
+    legal_page:       LegalPage,          // "Legal Document" — shared by /legal and /privacy
 
     // Session 10 — Production: token swap, ISR webhook, catch-all route
   },

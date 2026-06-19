@@ -179,3 +179,33 @@
 @media (max-width: 768px) {
   .legaldoc { padding: var(--space-16) var(--space-6); }
 }
+
+/* Richtext-rendered lists (no legaldoc__list class from Storyblok) */
+.legaldoc__section ul {
+  margin: var(--space-2) 0 var(--space-4);
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.legaldoc__section ul li {
+  position: relative;
+  padding-left: var(--space-6);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: var(--leading-relaxed);
+  color: var(--color-text-body);
+}
+.legaldoc__section ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 5px;
+  height: 1px;
+  background: var(--color-accent);
+}
+.legaldoc__section ul li strong {
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-strong);
+}

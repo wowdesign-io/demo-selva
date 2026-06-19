@@ -1,24 +1,25 @@
 'use client';
 
-import { useEffect, type ReactNode } from 'react';
+import { useEffect } from 'react';
 
 export interface LegalSection {
   id: string;
-  tocLabel: ReactNode;
-  title: ReactNode;
-  body: ReactNode;
+  tocLabel: string;
+  title: string;
+  bodyHtml: string;
 }
 
 interface Props {
   title: string;
   lead: string;
-  intro: ReactNode;
+  intro: string;
+  updated?: string;
   sections: LegalSection[];
 }
 
 /* Doc masthead + two-column legal/privacy document with TOC scrollspy
    (ports selva/legal-doc.js). */
-export default function LegalDoc({ title, lead, intro, sections }: Props) {
+export default function LegalDoc({ title, lead, intro, updated = 'June 2026', sections }: Props) {
   useEffect(() => {
     const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.legaldoc__tocLink'));
     if (!links.length) return;
@@ -51,7 +52,7 @@ export default function LegalDoc({ title, lead, intro, sections }: Props) {
           <h1 className="doc-head__title reveal" data-delay="80">{title}</h1>
           <div className="doc-head__rule reveal" data-delay="160"></div>
           <p className="doc-head__lead reveal" data-delay="200">{lead}</p>
-          <p className="doc-head__meta reveal" data-delay="260">Last updated &middot; June 2026</p>
+          <p className="doc-head__meta reveal" data-delay="260">Last updated &middot; {updated}</p>
         </div>
       </header>
 
@@ -70,7 +71,7 @@ export default function LegalDoc({ title, lead, intro, sections }: Props) {
           {sections.map((s) => (
             <article key={s.id} className="legaldoc__section" id={s.id}>
               <h2 className="legaldoc__sectionTitle">{s.title}</h2>
-              {s.body}
+              <div dangerouslySetInnerHTML={{ __html: s.bodyHtml }} />
             </article>
           ))}
         </div>
