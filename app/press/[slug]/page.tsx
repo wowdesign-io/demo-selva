@@ -87,7 +87,7 @@ export default async function PressArticlePage({
           version, by_uuids_ordered: relatedUuids.join(','), per_page: 5,
           excluding_fields: CARD_FIELDS,
         });
-        relatedCards = (relData.stories ?? []).map((s: RelatedStory, i: number) => ({
+        relatedCards = (relData.stories ?? []).slice(0, 3).map((s: RelatedStory, i: number) => ({
           pub: s.content.publication ?? '', date: s.content.date ?? '',
           title: s.content.title ?? '', slug: s.slug,
           delay: i === 1 ? '80' : i === 2 ? '160' : undefined,
