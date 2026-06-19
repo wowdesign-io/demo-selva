@@ -394,5 +394,77 @@
     "copyright": "",
     "fieldtype": "asset",
     "meta_data": {}
+  },
+  "andy-bittner.webp": {
+    "id": 189133266865218,
+    "alt": "Andy Bittner — wowdesign, digital experience",
+    "name": "andy-bittner.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/c4a736a8b7/andy-bittner.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
+  },
+  "architect.webp": {
+    "id": 189133271620675,
+    "alt": "Estudio Frondoso — principal architect",
+    "name": "architect.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/422da37b68/architect.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
+  },
+  "developer.webp": {
+    "id": 189133273975876,
+    "alt": "Banyan Bay Development — boutique residential developer",
+    "name": "developer.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/05febaa103/developer.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
+  },
+  "interior-design.webp": {
+    "id": 189133276417093,
+    "alt": "Taller Lumina — interior design studio",
+    "name": "interior-design.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/3772e79250/interior-design.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
+  },
+  "landscape.webp": {
+    "id": 189133278805062,
+    "alt": "Raíz Landscape Studio — studio director",
+    "name": "landscape.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/923c576230/landscape.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
+  },
+  "sales-marketing.webp": {
+    "id": 189133281451079,
+    "alt": "Meridian Residential — sales and marketing",
+    "name": "sales-marketing.webp",
+    "focus": "",
+    "title": "",
+    "source": "",
+    "filename": "https://a.storyblok.com/f/293255653505523/e2e8b4bc8c/sales-marketing.webp",
+    "copyright": "",
+    "fieldtype": "asset",
+    "meta_data": {}
   }
 }

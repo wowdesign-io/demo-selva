@@ -22,6 +22,9 @@ import AmenStickySlider   from '../components/blocks/AmenStickySlider/AmenSticky
 import NbhdIntro          from '../components/blocks/NbhdIntro/NbhdIntro'
 import NbhdStory          from '../components/blocks/NbhdStory/NbhdStory'
 import NbhdMap            from '../components/blocks/NbhdMap/NbhdMap'
+import GalleryGrid        from '../components/blocks/GalleryGrid/GalleryGrid'
+import TeamIntro          from '../components/blocks/TeamIntro/TeamIntro'
+import TeamPartners       from '../components/blocks/TeamPartners/TeamPartners'
 
 // Block component registry — one entry per Storyblok block type.
 // Key = component field value in Storyblok (never change after stories are created).
@@ -69,7 +72,9 @@ export const getStoryblokApi = storyblokInit({
     nbhd_map:              NbhdMap,
 
     // Session 6 — Gallery + Team
-    // gallery_intro, gallery_grid_block, team_intro, team_partners
+    gallery_grid_block:   GalleryGrid,           // "Gallery Grid" — filterable masonry gallery
+    team_intro:           TeamIntro,              // "Team Intro" — label + lead + body
+    team_partners:        TeamPartners,           // "Team Partners" — list of partner_row bloks
 
     // Session 7 — Inquiry + Downloads
     // inquiry_masthead, inquiry_form_block, downloads_masthead, downloads_grid, downloads_request
