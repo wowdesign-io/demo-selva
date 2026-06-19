@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import { storyblokEditable } from '@storyblok/react/rsc';
-import { renderRichText } from '@storyblok/react/rsc';
+import { richTextResolver } from '@storyblok/richtext';
+
+const _rtr = richTextResolver<string>();
 
 interface StoryblokAsset {
   filename?: string
@@ -68,7 +70,7 @@ export default function PressArticle({ blok, relatedCards = [] }: { blok?: Press
   const leadAlt          = blok?.lead_image?.alt      ?? '';
   const leadCaption      = blok?.lead_image_caption   ?? '';
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const rawBodyHtml      = blok?.body ? (renderRichText(blok.body as any) as string) : '';
+  const rawBodyHtml      = blok?.body ? _rtr.render(blok.body as any) : '';
   const bodyHtml         = wrapBodyImages(rawBodyHtml);
   const readTime         = calcReadTime(rawBodyHtml);
 
