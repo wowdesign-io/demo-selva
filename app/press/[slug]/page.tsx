@@ -15,7 +15,7 @@ export async function generateStaticParams() {
     starts_with: 'press/',
     per_page: 50,
     excluding_slugs: 'press/index',
-    excluding_fields: 'body,lead_image_alt,lead_image_caption,byline,read_time,seo_title,seo_description,related',
+    excluding_fields: 'body,lead_image,lead_image_caption,byline,seo_title,seo_description,related',
   });
   return (data.stories ?? []).map((s: { slug: string }) => ({ slug: s.slug }));
 }
@@ -72,30 +72,49 @@ export default async function PressArticlePage({
 
   const blok = data.story.content as PressArticleBlok;
 
+  type RelatedStory = { slug: string; content: PressArticleBlok };
+  const CARD_FIELDS = 'body,lead_image,lead_image_caption,byline,seo_title,seo_description,related';
+
   // Fetch related cards (only in live mode — preview omits them)
   let relatedCards: { pub: string; date: string; title: string; slug: string; delay?: string }[] = [];
   if (!isPreview) {
-    const relatedSlugs = (blok.related ?? '')
-      .split(',').map((s: string) => s.trim()).filter(Boolean);
-    if (relatedSlugs.length > 0) {
+    // related field is now options/internal_stories → CDN returns array of UUIDs
+    const relatedUuids: string[] = Array.isArray(blok.related) ? blok.related.filter(Boolean) : [];
+
+    if (relatedUuids.length > 0) {
       try {
-        const bySlugs = relatedSlugs.map((s: string) => `press/${s}`).join(',');
         const { data: relData } = await sbApi.get('cdn/stories', {
-          version, by_slugs: bySlugs, per_page: 5,
-          excluding_fields: 'body,lead_image_alt,lead_image_caption,byline,read_time,seo_title,seo_description,related',
+          version, by_uuids_ordered: relatedUuids.join(','), per_page: 5,
+          excluding_fields: CARD_FIELDS,
         });
-        const storiesMap = new Map(
-          (relData.stories ?? []).map((s: { slug: string; content: PressArticleBlok }) => [s.slug, s])
-        );
-        relatedCards = relatedSlugs
-          .map((slug: string, i: number) => {
-            const s = storiesMap.get(slug) as { slug: string; content: PressArticleBlok } | undefined;
-            if (!s) return null;
-            return { pub: s.content.publication ?? '', date: s.content.date ?? '', title: s.content.title ?? '', slug: s.slug, delay: i === 1 ? '80' : i === 2 ? '160' : undefined };
-          })
-          .filter(Boolean) as typeof relatedCards;
+        relatedCards = (relData.stories ?? []).map((s: RelatedStory, i: number) => ({
+          pub: s.content.publication ?? '', date: s.content.date ?? '',
+          title: s.content.title ?? '', slug: s.slug,
+          delay: i === 1 ? '80' : i === 2 ? '160' : undefined,
+        }));
       } catch {
         // related fetch failure must not break the article page
+      }
+    } else {
+      // Random fallback: shuffle all other press articles, take up to 3
+      try {
+        const { data: allData } = await sbApi.get('cdn/stories', {
+          version, starts_with: 'press/',
+          excluding_slugs: `press/index,press/${slug}`,
+          per_page: 50, excluding_fields: CARD_FIELDS,
+        });
+        const all: RelatedStory[] = allData.stories ?? [];
+        for (let i = all.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [all[i], all[j]] = [all[j], all[i]];
+        }
+        relatedCards = all.slice(0, 3).map((s, i) => ({
+          pub: s.content.publication ?? '', date: s.content.date ?? '',
+          title: s.content.title ?? '', slug: s.slug,
+          delay: i === 1 ? '80' : i === 2 ? '160' : undefined,
+        }));
+      } catch {
+        // random fallback failure must not break the article page
       }
     }
   }
