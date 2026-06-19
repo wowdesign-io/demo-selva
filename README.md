@@ -146,8 +146,8 @@ Full integration plan: `C:\Users\info\.claude\plans\i-went-into-storyblok-refact
 | 5b — Bug fixes | (1) PageCta heading renders raw HTML → dangerouslySetInnerHTML added; (2) Neighborhood hero used wrong field names (image/alt vs bg_image/bg_alt) + map_pin x/y were numbers not strings → fixed + republished; (3) Home hero missing from production → home story was published before page_hero rename — republished draft | ✅ Done | 2026-06-19 |
 | 6 — Gallery + Team | GalleryGrid (blok? prop, 21 items from Storyblok CDN, content team can add images via editor), TeamIntro + TeamPartners (6 partner_row bloks), 6 team images uploaded to CDN, gallery + team stories published | ✅ Done | 2026-06-19 |
 | 7 — Inquiry + Downloads | DocMasthead (shared), InquiryFormBlock wrapper, DownloadsGrid (icon_type option, file Asset), DownloadsRequest (multilink CTAs) | ✅ Done | 2026-06-19 |
-| 8 — Press | Replace articles.ts with Storyblok stories | ⬜ | — |
-| 9 — Legal + Privacy | Wire LegalDoc sections (Richtext) | ⬜ | — |
+| 8 — Press | Replace articles.ts with Storyblok stories | ✅ Done | 2026-06-19 |
+| 9 — Legal + Privacy | Wire LegalDoc sections (Richtext) | ✅ Done | 2026-06-19 |
 | 10 — Production | ISR webhook, token swap, catch-all route, deploy | ⬜ | — |
 
 ### Storyblok field ordering — critical rule
