@@ -25,6 +25,10 @@ import NbhdMap            from '../components/blocks/NbhdMap/NbhdMap'
 import GalleryGrid        from '../components/blocks/GalleryGrid/GalleryGrid'
 import TeamIntro          from '../components/blocks/TeamIntro/TeamIntro'
 import TeamPartners       from '../components/blocks/TeamPartners/TeamPartners'
+import DocMasthead        from '../components/blocks/DocMasthead/DocMasthead'
+import InquiryFormBlock   from '../components/blocks/InquiryFormBlock/InquiryFormBlock'
+import DownloadsGrid      from '../components/blocks/DownloadsGrid/DownloadsGrid'
+import DownloadsRequest   from '../components/blocks/DownloadsRequest/DownloadsRequest'
 
 // Block component registry — one entry per Storyblok block type.
 // Key = component field value in Storyblok (never change after stories are created).
@@ -77,7 +81,10 @@ export const getStoryblokApi = storyblokInit({
     team_partners:        TeamPartners,           // "Team Partners" — list of partner_row bloks
 
     // Session 7 — Inquiry + Downloads
-    // inquiry_masthead, inquiry_form_block, downloads_masthead, downloads_grid, downloads_request
+    doc_masthead:         DocMasthead,            // "Document Header" — shared by inquiry + downloads
+    inquiry_form_block:   InquiryFormBlock,        // "Inquiry Form" — wraps client InquiryForm
+    downloads_grid:       DownloadsGrid,           // "Downloads Grid" — card array
+    downloads_request:    DownloadsRequest,        // "Downloads Request Band"
 
     // Session 8 — Press + Articles
     // press_index, press_media, press_article, body_paragraph, body_heading, body_quote, body_figure

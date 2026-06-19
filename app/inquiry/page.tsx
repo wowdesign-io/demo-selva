@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
-import HomeScript from '../../components/ui/HomeScript/HomeScript';
-import InquiryForm from '../../components/blocks/InquiryForm/InquiryForm';
+import { StoryblokStory } from '@storyblok/react/rsc'
+import { getStoryblokApi } from '../../lib/storyblok'
+import HomeScript from '../../components/ui/HomeScript/HomeScript'
+import StoryblokPreviewView from '../../components/ui/StoryblokPreviewView/StoryblokPreviewView'
 
 export const metadata: Metadata = {
   title: 'Inquire — SELVA Residences',
@@ -8,26 +10,29 @@ export const metadata: Metadata = {
     'Enquire about SELVA Residences — share a few details and a member of our Coconut Grove sales team will be in touch.',
 };
 
-export default function InquiryPage() {
+export const revalidate = 60
+
+export default async function InquiryPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ _storyblok?: string }>
+}) {
+  const params    = await searchParams
+  const isPreview = '_storyblok' in params
+  const version   = isPreview ? 'draft' : ((process.env.STORYBLOK_VERSION as 'draft' | 'published') ?? 'published')
+
+  const sbApi = getStoryblokApi()
+  const { data } = await sbApi.get('cdn/stories/inquiry', { version })
+
   return (
     <>
       <main>
-
-        {/* ============ MASTHEAD ============ */}
-        <header className="doc-head" data-screen-label="Inquiry Header">
-          <div className="doc-head__inner">
-            <p className="doc-head__label reveal">SELVA Residences &middot; Coconut Grove</p>
-            <h1 className="doc-head__title reveal" data-delay="80">Inquire</h1>
-            <div className="doc-head__rule reveal" data-delay="160"></div>
-            <p className="doc-head__lead reveal" data-delay="200">Pre-sales are now open, from $300,000. Share a few details and a member of our sales team will be in touch.</p>
-          </div>
-        </header>
-
-        {/* ============ INQUIRY ============ */}
-        <InquiryForm />
-
+        {isPreview
+          ? <StoryblokPreviewView story={data.story} />
+          : <StoryblokStory story={data.story} />
+        }
       </main>
       <HomeScript />
     </>
-  );
+  )
 }
