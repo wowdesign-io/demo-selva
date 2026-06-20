@@ -148,7 +148,7 @@ Full integration plan: `C:\Users\info\.claude\plans\i-went-into-storyblok-refact
 | 7 — Inquiry + Downloads | DocMasthead (shared), InquiryFormBlock wrapper, DownloadsGrid (icon_type option, file Asset), DownloadsRequest (multilink CTAs) | ✅ Done | 2026-06-19 |
 | 8 — Press | Replace articles.ts with Storyblok stories | ✅ Done | 2026-06-19 |
 | 9 — Legal + Privacy | Wire LegalDoc sections (Richtext) | ✅ Done | 2026-06-19 |
-| 10 — Production | ISR webhook, token swap, catch-all route, deploy | ⬜ | — |
+| 10 — Production | Custom 404 (not-found.tsx, doc-head + back-to-home). ISR webhook + token swap skipped — pages are fully dynamic (ƒ), publish reflects instantly, demo token risk is zero. | ✅ Done | 2026-06-20 |
 
 ### Storyblok field ordering — critical rule
 
