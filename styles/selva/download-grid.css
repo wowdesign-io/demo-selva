@@ -18,7 +18,7 @@
   font-weight: var(--font-weight-medium);
   letter-spacing: var(--tracking-widest);
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--color-forest);
   margin: 0 0 var(--space-10);
 }
 .dl__grid {

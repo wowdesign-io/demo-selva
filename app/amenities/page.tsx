@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { StoryblokStory } from '@storyblok/react/rsc';
 import { getStoryblokApi } from '../../lib/storyblok';
+import { getHeroPreloadHref } from '../../lib/heroPreload';
 import StoryblokPreviewView from '../../components/ui/StoryblokPreviewView/StoryblokPreviewView';
 import HomeScript from '../../components/ui/HomeScript/HomeScript';
 
@@ -19,8 +20,13 @@ export default async function AmenitiesPage({ searchParams }: { searchParams: Pr
   const storyblokApi = getStoryblokApi();
   const { data } = await storyblokApi.get('cdn/stories/amenities', { version });
 
+  const heroPreload = getHeroPreloadHref(data.story)
+
   return (
     <>
+      {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+      {/* @ts-ignore */}
+      {heroPreload && <link rel="preload" as="image" href={heroPreload} fetchPriority="high" />}
       <main>
         {isPreview
           ? <StoryblokPreviewView story={data.story} />
