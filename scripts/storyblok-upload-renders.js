@@ -10,6 +10,7 @@ const TOKEN    = process.env.STORYBLOK_PERSONAL_TOKEN;
 const SPACE_ID = '293255653505523';
 const VISION_ID     = '188866154629753';
 const RESIDENCES_ID = '188859761921168';
+const TEAM_ID       = '189133310384052';
 
 const RENDERS_DIR = path.join(__dirname, '../public/images/renders');
 
@@ -23,6 +24,8 @@ const MIME = {
 const ALT = {
   'vision-01.webp':        'SELVA — aerial view of the botanical complex',
   'vision-02.webp':        'SELVA — the low-rise building emerging from the forest canopy',
+  'vision-hero.webp':      'SELVA — tropical botanical entrance at golden hour',
+  'team-hero.webp':        'SELVA — tropical botanical entrance at dusk',
   'exterior-02.webp':      'SELVA — bold tropical facade at golden hour',
   'exterior-03.webp':      'SELVA — lush canopy rising above the building',
   'exterior-04.webp':      'SELVA — planted terraces against a warm-white facade',
@@ -148,7 +151,7 @@ async function updateVision(map) {
     switch (blok.component) {
       case 'page_hero':
         blok.bg_src   = '';
-        blok.bg_image = map['vision-02.webp'];
+        blok.bg_image = map['vision-hero.webp'];
         break;
       case 'vision_copy_band':
         blok.image = map['interior-02.jpg'];
@@ -202,6 +205,24 @@ async function updateResidences(map) {
   console.log(`  residences → published`);
 }
 
+async function updateTeam(map) {
+  const { story } = await sbGet(`/stories/${TEAM_ID}`);
+  const body = story.content.body;
+
+  for (const blok of body) {
+    if (blok.component === 'page_hero') {
+      blok.bg_src   = '';
+      blok.bg_image = map['team-hero.webp'];
+    }
+  }
+
+  await sbPut(`/stories/${TEAM_ID}`, {
+    story: { content: { _uid: story.content._uid, component: story.content.component, body } },
+    publish: 1,
+  });
+  console.log(`  team → published`);
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 async function main() {
@@ -216,6 +237,7 @@ async function main() {
   console.log('\nLinking assets in stories...');
   await updateVision(map);
   await updateResidences(map);
+  await updateTeam(map);
 
   console.log('\nDone. All renders are in Storyblok CDN and linked in stories.');
 }
