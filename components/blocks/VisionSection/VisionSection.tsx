@@ -50,6 +50,7 @@ export default function VisionSection({ blok }: { blok?: VisionTeaserBlok }) {
                 src={imgSrc}
                 alt={imgAlt}
                 fill
+                quality={85}
                 sizes="100vw"
                 style={{ objectFit: 'cover', objectPosition: 'center' }}
               />

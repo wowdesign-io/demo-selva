@@ -40,8 +40,8 @@ export default function PageHero({ blok }: { blok?: PageHeroBlok }) {
               alt={bgAlt}
               fill
               priority
-              quality={65}
-              sizes="(max-width: 900px) 100vw, 50vw"
+              quality={90}
+              sizes="(max-width: 900px) 100vw, 100vw"
               style={{ objectFit: 'cover', objectPosition: 'center' }}
             />
           </div>
