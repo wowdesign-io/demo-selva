@@ -1,9 +1,21 @@
 'use client';
 
 import { useEffect } from 'react';
+import { usePathname } from 'next/navigation';
 import Lenis from 'lenis';
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
+  // Reset Lenis scroll position on every client-side navigation.
+  // Next.js tells the browser to scroll to top, but Lenis holds its own
+  // internal scroll state and overrides it — causing the new page to open
+  // at the previous page's scroll position.
+  useEffect(() => {
+    const lenis = (window as Window & { __lenis?: Lenis }).__lenis;
+    if (lenis) lenis.scrollTo(0, { immediate: true });
+  }, [pathname]);
+
   useEffect(() => {
     let lenis: Lenis | null = null;
     let timer: ReturnType<typeof setTimeout> | null = null;

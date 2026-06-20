@@ -731,7 +731,8 @@
   .res-feat__inner { padding: 0 var(--space-6); gap: var(--space-10); }
   /* Horizontal scroll â€” keep sticky slider on mobile, compact sizing */
   .res-hscroll__sticky { height: 100vh; height: 100dvh; padding: var(--space-6) 0 var(--space-4); }
-  .res-hscroll__header { padding: 0 var(--space-5) var(--space-2); }
+  .res-hscroll__header { padding: 0 var(--space-5) var(--space-2); flex-direction: column; align-items: flex-start; gap: var(--space-1); }
+  .res-hscroll__label, .res-hscroll__cta-link { white-space: nowrap; }
   .res-hscroll__track { padding: 0 var(--space-5); gap: var(--space-3); }
   .res-hscroll__footer { padding: 0 var(--space-5); }
   /* wider cards on mobile — the default clamp floors at 280px (too thin/tall);
