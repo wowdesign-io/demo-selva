@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-const MIN_SHOW = 2000;
+const MIN_SHOW = 1000;
 
 export default function Loader() {
   const [phase, setPhase] = useState<'loading' | 'lifting' | 'gone'>('loading');
@@ -14,7 +14,6 @@ export default function Loader() {
     }
 
     document.body.classList.add('is-loading');
-    const startTime = Date.now();
 
     function lift() {
       sessionStorage.setItem('selvaLoaded', '1');
@@ -23,19 +22,11 @@ export default function Loader() {
       setTimeout(() => setPhase('gone'), 1100);
     }
 
-    function onLoad() {
-      const elapsed = Date.now() - startTime;
-      setTimeout(lift, Math.max(0, MIN_SHOW - elapsed));
-    }
-
-    if (document.readyState === 'complete') {
-      onLoad();
-    } else {
-      window.addEventListener('load', onLoad, { once: true });
-    }
-
-    const safety = setTimeout(lift, 5000);
-    return () => { clearTimeout(safety); };
+    // Lift after MIN_SHOW from mount — do NOT wait for window.load.
+    // Waiting for load blocks LCP on slow connections (window.load fires at 5-6s
+    // on slow 4G, making the hero invisible behind the curtain until then).
+    const timer = setTimeout(lift, MIN_SHOW);
+    return () => clearTimeout(timer);
   }, []);
 
   if (phase === 'gone') return null;
