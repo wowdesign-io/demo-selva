@@ -9,12 +9,6 @@ export default function Loader() {
   const [phase, setPhase] = useState<'loading' | 'lifting' | 'gone'>('loading');
 
   useEffect(() => {
-    // Mobile: no loader — skip entirely
-    if (window.innerWidth <= 768) {
-      setPhase('gone');
-      return;
-    }
-
     if (sessionStorage.getItem('selvaLoaded')) {
       setPhase('gone');
       return;
@@ -26,10 +20,11 @@ export default function Loader() {
       sessionStorage.setItem('selvaLoaded', '1');
       document.body.classList.remove('is-loading');
       setPhase('lifting');
-      setTimeout(() => setPhase('gone'), 1100);
+      setTimeout(() => setPhase('gone'), 450);
     }
 
-    const timer = setTimeout(lift, MIN_SHOW_DESKTOP);
+    const MIN_SHOW = window.innerWidth <= 768 ? MIN_SHOW_MOBILE : MIN_SHOW_DESKTOP;
+    const timer = setTimeout(lift, MIN_SHOW);
     return () => clearTimeout(timer);
   }, []);
 
