@@ -19,7 +19,7 @@
   --color-water:           #5B9BA8;   /* teal/aqua — pools + ocean */
   --color-text-strong:     #1A2820;   /* near-black, green undertone */
   --color-text-body:       #4A5E4A;   /* dark olive */
-  --color-text-muted:      #8A9E8A;   /* sage */
+  --color-text-muted:      #5F775F;   /* sage — WCAG AA 4.7:1 on #FAFAF7 */
   --color-cta-bg:          #2D4E2D;   /* forest green CTA */
   --color-cta-text:        #FAFAF7;
   --color-overlay:         rgba(26, 40, 32, 0.65); /* dark green image overlay */

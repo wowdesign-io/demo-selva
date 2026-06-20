@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { storyblokEditable } from '@storyblok/react'
 
 interface SbAsset { filename: string; alt?: string }
@@ -32,8 +33,16 @@ export default function PageHero({ blok }: { blok?: PageHeroBlok }) {
     >
       <div className="hero__sticky">
         <div className="hero__imagePanel" id="heroImage">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={bgSrc} alt={bgAlt} decoding="async" fetchPriority="high" />
+          <div className="hero__imageFill">
+            <Image
+              src={bgSrc}
+              alt={bgAlt}
+              fill
+              priority
+              sizes="(max-width: 900px) 100vw, 50vw"
+              style={{ objectFit: 'cover', objectPosition: 'center' }}
+            />
+          </div>
         </div>
         <div className="hero__textPanel">
           <div className="hero__textInner" id="heroText">

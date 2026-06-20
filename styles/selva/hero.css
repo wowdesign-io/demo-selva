@@ -13,7 +13,7 @@
   position: absolute; top: 0; left: 0; height: 100%;
   width: 50%; z-index: 1; overflow: hidden; will-change: width;
 }
-.hero__imagePanel img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.hero__imageFill { position: relative; width: 100%; height: 100%; }
 
 .hero__textPanel {
   position: absolute; top: 0; right: 0; width: 50%; height: 100%;
