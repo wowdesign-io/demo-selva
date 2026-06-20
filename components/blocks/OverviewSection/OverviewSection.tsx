@@ -43,8 +43,8 @@ export default function OverviewSection({ blok }: { blok?: OverviewSectionBlok }
                   src={panel.src}
                   alt={panel.alt}
                   fill
-                  quality={75}
-                  sizes="(max-width: 768px) 100vw, (max-width: 1440px) 90vw, 65vw"
+                  quality={65}
+                  sizes="(max-width: 768px) 100vw, 38vw"
                   style={{ objectFit: 'cover', objectPosition: 'center' }}
                 />
               </div>
