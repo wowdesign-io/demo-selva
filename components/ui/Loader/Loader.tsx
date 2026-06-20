@@ -9,12 +9,6 @@ export default function Loader() {
   const [phase, setPhase] = useState<'loading' | 'lifting' | 'gone'>('loading');
 
   useEffect(() => {
-    // Desktop: skip loader — LCP is h1 text, loader adds 1350ms+ to LCP for no gain
-    if (window.innerWidth > 768) {
-      setPhase('gone');
-      return;
-    }
-
     if (sessionStorage.getItem('selvaLoaded')) {
       setPhase('gone');
       return;
