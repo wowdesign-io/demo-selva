@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/selva/residences.css'
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { storyblokEditable } from '@storyblok/react';

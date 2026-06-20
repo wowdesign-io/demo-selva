@@ -1,3 +1,4 @@
+import '@/styles/selva/download-grid.css'
 import { storyblokEditable } from '@storyblok/react/rsc';
 
 interface SbAsset { filename: string; alt?: string }

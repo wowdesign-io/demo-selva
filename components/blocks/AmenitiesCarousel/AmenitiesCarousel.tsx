@@ -1,5 +1,6 @@
 ﻿'use client';
 
+import '@/styles/selva/carousel.css'
 import { useRef, useEffect } from 'react';
 
 const SLIDES = [

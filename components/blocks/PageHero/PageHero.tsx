@@ -1,5 +1,6 @@
 'use client'
 
+import '@/styles/selva/hero.css'
 import Image from 'next/image'
 import { storyblokEditable } from '@storyblok/react'
 

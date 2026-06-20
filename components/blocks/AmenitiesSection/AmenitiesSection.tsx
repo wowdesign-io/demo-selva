@@ -1,3 +1,4 @@
+import '@/styles/selva/amenities.css'
 import { storyblokEditable } from '@storyblok/react/rsc'
 import AmenitiesCarousel from '../AmenitiesCarousel/AmenitiesCarousel'
 import { resolveLink, type SbLink } from '@/lib/resolveLink'

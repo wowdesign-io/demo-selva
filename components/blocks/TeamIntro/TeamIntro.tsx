@@ -1,3 +1,4 @@
+import '@/styles/selva/team.css'
 import { storyblokEditable } from '@storyblok/react/rsc';
 
 export interface TeamIntroBlok {

@@ -1,3 +1,4 @@
+import '@/styles/selva/icon-grid.css'
 import { storyblokEditable } from '@storyblok/react/rsc'
 
 interface FeatureItemBlok { _uid: string; component: 'feature_item'; icon_name?: string; title?: string; desc?: string }

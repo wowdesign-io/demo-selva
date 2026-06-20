@@ -1,6 +1,8 @@
 ﻿'use client';
 
+import '@/styles/selva/residences.css'
 import { useRef, useEffect } from 'react';
+import Image from 'next/image';
 import { storyblokEditable } from '@storyblok/react';
 import { resolveLink, type SbLink } from '@/lib/resolveLink';
 
@@ -127,8 +129,15 @@ export default function ResHscroll({ blok }: { blok?: ResHscrollBlok }) {
             {cards.map((card) => (
               <div key={card._uid} className="res-hscroll__card">
                 <div className="res-hscroll__card-img">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={card.src} alt={card.alt} loading="lazy" decoding="async" />
+                  <div className="res-hscroll__imageFill">
+                    <Image
+                      src={card.src}
+                      alt={card.alt}
+                      fill
+                      sizes="(max-width: 768px) 80vw, 50vw"
+                      style={{ objectFit: 'cover', objectPosition: 'center' }}
+                    />
+                  </div>
                 </div>
                 <div className="res-hscroll__card-overlay"></div>
                 <div className="res-hscroll__card-body">

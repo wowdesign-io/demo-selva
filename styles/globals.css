@@ -1,33 +1,13 @@
-/* Handoff CSS — import all selva stylesheets directly */
+/* Global: tokens, reset, typography, animations, layout utilities */
+/* Section CSS is imported by each component — keeps per-route bundles lean */
 @import './selva/selva.css';
 @import './selva/nav.css';
 @import './selva/loader.css';
-@import './selva/hero.css';
-@import './selva/button.css';
-@import './selva/overview.css';
-@import './selva/zoom.css';
-@import './selva/prose-band.css';
-@import './selva/stat-strip.css';
-@import './selva/carousel.css';
-@import './selva/icon-grid.css';
-@import './selva/feature-row.css';
-@import './selva/page-cta.css';
-@import './selva/pill.css';
-@import './selva/doc-masthead.css';
-@import './selva/legal-doc.css';
-@import './selva/download-grid.css';
-@import './selva/inquiry-form.css';
-@import './selva/press-card.css';
-@import './selva/home.css';
-@import './selva/residences.css';
-@import './selva/vision.css';
-@import './selva/amenities.css';
-@import './selva/neighborhood.css';
-@import './selva/gallery.css';
-@import './selva/team.css';
-@import './selva/press.css';
-@import './selva/press-article.css';
 @import './selva/footer.css';
+@import './selva/button.css';
+@import './selva/zoom.css';
+@import './selva/pill.css';
+@import './selva/home.css';
 
 body.is-loading {
   overflow: hidden;

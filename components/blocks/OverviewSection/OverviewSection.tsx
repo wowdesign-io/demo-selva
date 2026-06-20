@@ -1,3 +1,4 @@
+import '@/styles/selva/overview.css'
 import Image from 'next/image'
 import { storyblokEditable } from '@storyblok/react/rsc'
 import { resolveLink, type SbLink } from '@/lib/resolveLink'

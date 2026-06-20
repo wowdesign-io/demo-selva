@@ -1,3 +1,5 @@
+import '@/styles/selva/press-article.css'
+import '@/styles/selva/press-card.css'
 import Link from 'next/link';
 import { storyblokEditable } from '@storyblok/react/rsc';
 import { renderNode } from '../../../lib/renderRichText';

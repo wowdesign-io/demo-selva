@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/selva/gallery.css'
 import { useState } from 'react';
 import { storyblokEditable } from '@storyblok/react';
 

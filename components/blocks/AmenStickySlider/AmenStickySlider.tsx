@@ -1,5 +1,6 @@
 'use client';
 
+import '@/styles/selva/amenities.css'
 import { useRef, useEffect } from 'react';
 import { storyblokEditable } from '@storyblok/react';
 

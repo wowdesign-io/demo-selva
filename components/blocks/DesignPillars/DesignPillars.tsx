@@ -1,3 +1,4 @@
+import '@/styles/selva/feature-row.css'
 import { storyblokEditable } from '@storyblok/react/rsc'
 
 interface FeatureItemBlok {

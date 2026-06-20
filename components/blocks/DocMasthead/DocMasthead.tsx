@@ -1,3 +1,4 @@
+import '@/styles/selva/doc-masthead.css'
 import { storyblokEditable } from '@storyblok/react/rsc';
 
 export interface DocMastheadBlok {

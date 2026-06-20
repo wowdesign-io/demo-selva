@@ -1,3 +1,4 @@
+import '@/styles/selva/legal-doc.css'
 import { storyblokEditable } from '@storyblok/react/rsc';
 import LegalDoc, { type LegalSection } from '../LegalDoc/LegalDoc';
 import { renderNode } from '../../../lib/renderRichText';

@@ -1,3 +1,4 @@
+import '@/styles/selva/stat-strip.css'
 import { storyblokEditable } from '@storyblok/react/rsc'
 
 interface StatItemBlok { _uid: string; component: 'stat_item'; value: string; label: string }

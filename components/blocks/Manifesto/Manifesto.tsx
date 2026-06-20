@@ -1,3 +1,4 @@
+import '@/styles/selva/prose-band.css'
 import { storyblokEditable } from '@storyblok/react/rsc'
 
 interface SbAsset { filename: string; alt?: string }

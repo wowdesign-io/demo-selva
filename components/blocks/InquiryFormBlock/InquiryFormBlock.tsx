@@ -1,3 +1,4 @@
+import '@/styles/selva/inquiry-form.css'
 import { storyblokEditable } from '@storyblok/react/rsc';
 import InquiryForm from '../InquiryForm/InquiryForm';
 

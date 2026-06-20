@@ -1,3 +1,5 @@
+import '@/styles/selva/vision.css'
+import Image from 'next/image'
 import { storyblokEditable } from '@storyblok/react/rsc'
 import { resolveLink, type SbLink } from '@/lib/resolveLink'
 
@@ -43,8 +45,15 @@ export default function VisionSection({ blok }: { blok?: VisionTeaserBlok }) {
       <div className="vision__imageWrap">
         <div className="zoom">
           <div className="zoom__inner zoom-img">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={imgSrc} alt={imgAlt} loading="lazy" decoding="async" />
+            <div className="vision__imageFill">
+              <Image
+                src={imgSrc}
+                alt={imgAlt}
+                fill
+                sizes="100vw"
+                style={{ objectFit: 'cover', objectPosition: 'center' }}
+              />
+            </div>
           </div>
         </div>
       </div>

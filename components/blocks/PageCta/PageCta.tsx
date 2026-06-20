@@ -1,3 +1,4 @@
+import '@/styles/selva/page-cta.css'
 import { storyblokEditable } from '@storyblok/react/rsc'
 import { resolveLink, type SbLink } from '@/lib/resolveLink'
 
