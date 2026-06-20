@@ -13,7 +13,7 @@
 .overview__panels { display: grid; grid-template-columns: repeat(3, 1fr); height: clamp(420px, 64vh, 720px); }
 .overview__panel { position: relative; overflow: hidden; display: block; text-decoration: none; }
 .overview__imageWrap { position: absolute; inset: -7%; will-change: transform; }
-.overview__imageWrap img { width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.overview__imageFill { position: relative; width: 100%; height: 100%; }
 .overview__overlay {
   position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(to bottom, transparent 35%, rgba(10, 20, 14, 0.62) 100%);

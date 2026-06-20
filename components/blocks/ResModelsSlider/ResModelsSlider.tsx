@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { storyblokEditable } from '@storyblok/react';
 
 const PROJECT_URL = 'https://app.planpoint.io/miami-wowdesign/laurent?lang=English';
@@ -197,8 +198,15 @@ export default function ResModelsSlider({ blok }: { blok?: ResModelsSliderBlok }
             return (
               <div key={card._uid} className="res-inline-card" {...storyblokEditable(card)}>
                 <div className="res-hscroll__card-img">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={imgSrc} alt={imgAlt} loading="lazy" decoding="async" />
+                  <div className="res-hscroll__imageFill">
+                    <Image
+                      src={imgSrc}
+                      alt={imgAlt}
+                      fill
+                      sizes="(max-width: 768px) 100vw, 360px"
+                      style={{ objectFit: 'cover', objectPosition: 'center' }}
+                    />
+                  </div>
                 </div>
                 <div className="res-hscroll__card-overlay"></div>
                 <div className="res-hscroll__card-body">

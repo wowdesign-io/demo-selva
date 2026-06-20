@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { storyblokEditable } from '@storyblok/react/rsc'
 import { resolveLink, type SbLink } from '@/lib/resolveLink'
 
@@ -36,8 +37,15 @@ export default function OverviewSection({ blok }: { blok?: OverviewSectionBlok }
         {panels.map((panel) => (
           <a href={panel.link.href} target={panel.link.target} rel={panel.link.rel} key={panel._uid} className="overview__panel">
             <div className="overview__imageWrap zoom-panel">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={panel.src} alt={panel.alt} loading="lazy" decoding="async" />
+              <div className="overview__imageFill">
+                <Image
+                  src={panel.src}
+                  alt={panel.alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  style={{ objectFit: 'cover', objectPosition: 'center' }}
+                />
+              </div>
             </div>
             <div className="overview__overlay"></div>
             <span className="overview__label">{panel.label}</span>
