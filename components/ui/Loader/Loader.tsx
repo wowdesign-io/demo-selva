@@ -2,12 +2,18 @@
 
 import { useEffect, useState } from 'react';
 
-const MIN_SHOW = 900;
+const MIN_SHOW = 700;
 
 export default function Loader() {
   const [phase, setPhase] = useState<'loading' | 'lifting' | 'gone'>('loading');
 
   useEffect(() => {
+    // Desktop: skip loader entirely
+    if (window.innerWidth > 768) {
+      setPhase('gone');
+      return;
+    }
+
     if (sessionStorage.getItem('selvaLoaded')) {
       setPhase('gone');
       return;
