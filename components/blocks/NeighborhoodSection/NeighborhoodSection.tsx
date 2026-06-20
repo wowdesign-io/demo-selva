@@ -1,5 +1,6 @@
 import '@/styles/selva/home.css'
 import '@/styles/selva/neighborhood.css'
+import Image from 'next/image'
 import { storyblokEditable } from '@storyblok/react/rsc'
 import { resolveLink, type SbLink } from '@/lib/resolveLink'
 
@@ -39,8 +40,9 @@ export default function NeighborhoodSection({ blok }: { blok?: NeighborhoodTease
       <div className="hood__image">
         <div className="zoom">
           <div className="zoom__inner zoom-img">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={imgSrc} alt={imgAlt} loading="lazy" decoding="async" />
+            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+              <Image fill src={imgSrc} alt={imgAlt} quality={85} sizes="100vw" style={{ objectFit: 'cover', objectPosition: 'center' }} loading="lazy" />
+            </div>
           </div>
         </div>
       </div>

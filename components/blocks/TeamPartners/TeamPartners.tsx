@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { Fragment } from 'react';
 import { storyblokEditable } from '@storyblok/react/rsc';
 
@@ -107,8 +108,7 @@ export default function TeamPartners({ blok }: { blok?: TeamPartnersBlok }) {
             data-screen-label={p.eyebrow}
           >
             <div className="vis-feature__media">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={imgSrc} alt={alt} loading="lazy" decoding="async" />
+              {imgSrc && <Image fill src={imgSrc} alt={alt} quality={85} sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover', objectPosition: 'center' }} loading="lazy" />}
             </div>
             <div className="vis-feature__body">
               <span className="vis-feature__eyebrow">{p.eyebrow}</span>

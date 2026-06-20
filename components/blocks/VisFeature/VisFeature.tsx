@@ -1,4 +1,5 @@
-﻿import { storyblokEditable } from '@storyblok/react/rsc'
+﻿import Image from 'next/image'
+import { storyblokEditable } from '@storyblok/react/rsc'
 import { resolveLink, type SbLink } from '@/lib/resolveLink'
 
 interface SbAsset { filename: string; alt?: string }
@@ -30,8 +31,9 @@ export default function VisFeature({ blok }: { blok?: VisFeatureBlok }) {
     >
       <div className="vis-feature__media">
         <div className="zoom"><div className="zoom__inner zoom-img">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={imgSrc} alt={imgAlt} loading="lazy" decoding="async" />
+          <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+            <Image fill src={imgSrc} alt={imgAlt} quality={85} sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: 'cover', objectPosition: 'center' }} loading="lazy" />
+          </div>
         </div></div>
       </div>
       <div className="vis-feature__body">

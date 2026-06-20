@@ -1,5 +1,6 @@
 import '@/styles/selva/press-article.css'
 import '@/styles/selva/press-card.css'
+import Image from 'next/image'
 import Link from 'next/link';
 import { storyblokEditable } from '@storyblok/react/rsc';
 import { renderNode } from '../../../lib/renderRichText';
@@ -98,13 +99,16 @@ export default function PressArticle({ blok, relatedCards = [] }: { blok?: Press
         </header>
 
         {/* Lead image */}
-        <div className="article__lead reveal">
-          <figure className="article__leadFig">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={leadSrc} alt={leadAlt} loading="lazy" decoding="async" />
-          </figure>
-          <figcaption className="article__caption">{leadCaption}</figcaption>
-        </div>
+        {leadSrc && (
+          <div className="article__lead reveal">
+            <figure className="article__leadFig">
+              <div style={{ position: 'relative', height: 'clamp(320px, 52vw, 640px)' }}>
+                <Image fill src={leadSrc} alt={leadAlt} quality={85} sizes="(max-width: 768px) 100vw, 80vw" style={{ objectFit: 'cover', objectPosition: 'center' }} loading="lazy" />
+              </div>
+            </figure>
+            <figcaption className="article__caption">{leadCaption}</figcaption>
+          </div>
+        )}
 
         {/* Body — rendered from Storyblok richtext field */}
         <div

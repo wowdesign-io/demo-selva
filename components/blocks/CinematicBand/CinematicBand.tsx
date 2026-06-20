@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { storyblokEditable } from '@storyblok/react'
 import { resolveLink, type SbLink } from '@/lib/resolveLink'
 
@@ -24,8 +25,9 @@ export default function CinematicBand({ blok }: { blok?: CinematicBandBlok }) {
   return (
     <section className="amen-motion" data-screen-label="Amenity Film" {...(blok ? storyblokEditable(blok) : {})}>
       <div className="amen-motion__media">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={imgSrc} alt={imgAlt} loading="lazy" decoding="async" />
+        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+          <Image fill src={imgSrc} alt={imgAlt} quality={85} sizes="100vw" style={{ objectFit: 'cover' }} loading="lazy" />
+        </div>
       </div>
       <div className="amen-motion__scrim"></div>
       <div className="amen-motion__content">

@@ -1,4 +1,5 @@
 import '@/styles/selva/prose-band.css'
+import Image from 'next/image'
 import { storyblokEditable } from '@storyblok/react/rsc'
 
 interface SbAsset { filename: string; alt?: string }
@@ -23,8 +24,9 @@ export default function Manifesto({ blok }: { blok?: ManifestoBlok }) {
       </section>
       <div className="vis-image2" {...(blok ? storyblokEditable(blok) : {})}>
         <div className="zoom"><div className="zoom__inner zoom-img">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={imgSrc} alt={imgAlt} loading="lazy" decoding="async" />
+          <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+            <Image fill src={imgSrc} alt={imgAlt} quality={85} sizes="100vw" style={{ objectFit: 'cover', objectPosition: 'center 30%' }} loading="lazy" />
+          </div>
         </div></div>
       </div>
     </>

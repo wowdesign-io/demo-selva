@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import { storyblokEditable } from '@storyblok/react/rsc'
 import { resolveLink, type SbLink } from '../../../lib/resolveLink'
 
@@ -78,8 +79,9 @@ export default function NbhdStory({ blok }: { blok?: NbhdStoryBlok }) {
             const src = s.image?.filename || (s as unknown as { img?: string }).img || ''
             return (
               <div key={s._uid} className={`nbhd-story__layer${i === 0 ? ' is-active' : ''}`}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={src} alt="" loading="lazy" decoding="async" />
+                <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+                  <Image fill src={src} alt="" quality={85} sizes="50vw" style={{ objectFit: 'cover', objectPosition: 'center' }} loading="lazy" />
+                </div>
               </div>
             )
           })}
@@ -105,8 +107,9 @@ export default function NbhdStory({ blok }: { blok?: NbhdStoryBlok }) {
 
             return (
               <article key={s._uid} className="nbhd-panel">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img className="nbhd-panel__img" src={src} alt={imgAlt} loading="lazy" decoding="async" />
+                <div className="nbhd-panel__img" style={{ position: 'relative' }}>
+                  <Image fill src={src} alt={imgAlt} quality={85} sizes="100vw" style={{ objectFit: 'cover' }} loading="lazy" />
+                </div>
                 <div className="nbhd-panel__body">
                   <p className="nbhd-panel__num">{s.num}</p>
                   <h3

@@ -1,5 +1,6 @@
 ﻿'use client';
 
+import Image from 'next/image'
 import { useRef, useState, type FormEvent } from 'react';
 
 /* Ports selva/inquiry.js: native HTML5 validation runs, then the real submit
@@ -120,8 +121,9 @@ export default function InquiryForm() {
           <p className="inquiry__blockLabel">Visit</p>
           <p className="inquiry__address"><strong>By Appointment</strong>3000 Hibiscus Lane,<br />Coconut Grove, Miami, FL 33133</p>
           <figure className="inquiry__locFig">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/neighborhood/bayfront-marina.webp" alt="The Coconut Grove bayfront near the SELVA sales gallery" loading="lazy" decoding="async" />
+            <div style={{ position: 'relative', height: '220px' }}>
+              <Image fill src="/images/neighborhood/bayfront-marina.webp" alt="The Coconut Grove bayfront near the SELVA sales gallery" quality={85} sizes="(max-width: 768px) 100vw, 45vw" style={{ objectFit: 'cover', objectPosition: 'center' }} loading="lazy" />
+            </div>
             <figcaption className="inquiry__locCaption">Coconut Grove, Miami</figcaption>
           </figure>
         </div>

@@ -1,6 +1,7 @@
 'use client';
 
 import '@/styles/selva/amenities.css'
+import Image from 'next/image'
 import { useRef, useEffect } from 'react';
 import { storyblokEditable } from '@storyblok/react';
 
@@ -77,8 +78,7 @@ export default function AmenStickySlider({ blok }: { blok?: AmenStickySliderBlok
           <div ref={trackRef} className="amen-sticky__track" id="amenStickyTrack">
             {cards.map((c) => (
               <figure key={c.time} className="amen-sticky__card">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={c.src} alt={c.alt} loading="lazy" decoding="async" />
+                <Image fill src={c.src} alt={c.alt} quality={85} sizes="(max-width: 900px) 72vw, 34vw" style={{ objectFit: 'cover' }} loading="lazy" />
                 <div className="amen-sticky__cardOverlay"></div>
                 <figcaption className="amen-sticky__cardBody">
                   <span className="amen-sticky__cardTime">{c.time}</span>

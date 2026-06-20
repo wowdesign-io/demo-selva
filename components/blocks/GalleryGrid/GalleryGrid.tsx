@@ -1,6 +1,7 @@
 'use client';
 
 import '@/styles/selva/gallery.css'
+import Image from 'next/image'
 import { useState } from 'react';
 import { storyblokEditable } from '@storyblok/react';
 
@@ -91,8 +92,9 @@ export default function GalleryGrid({ blok }: { blok?: GalleryGridBlok }) {
         capCat: it.cap_cat ?? '',
         capName:it.cap_name ?? '',
         key:    it._uid,
+        ar:     it.aspect_ratio ?? '4/3',
       }))
-    : DEFAULT_ITEMS.map(it => ({ src: it.src, cat: it.cat, alt: it.alt, capCat: it.capCat, capName: it.capName, key: it.src }));
+    : DEFAULT_ITEMS.map(it => ({ src: it.src, cat: it.cat, alt: it.alt, capCat: it.capCat, capName: it.capName, key: it.src, ar: it.ar }));
 
   return (
     <section
@@ -126,14 +128,14 @@ export default function GalleryGrid({ blok }: { blok?: GalleryGridBlok }) {
       <div className="gallery__grid" id="galleryGrid">
         {items.map((it) => {
           const hidden = active !== 'all' && it.cat !== active;
+          const [arW, arH] = (it.ar ?? '4/3').split('/').map(Number);
           return (
             <figure
               key={it.key}
               className={`gallery__item${hidden ? ' is-hidden' : ''}`}
               data-cat={it.cat}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={it.src} alt={it.alt} loading="lazy" decoding="async" />
+              <Image src={it.src} alt={it.alt} width={arW} height={arH} quality={85} sizes="(max-width: 480px) 100vw, (max-width: 768px) 50vw, (max-width: 1100px) 33vw, 25vw" style={{ width: '100%', height: 'auto', display: 'block' }} loading="lazy" />
               <figcaption className="gallery__cap">
                 <span className="gallery__capCat">{it.capCat}</span>
                 <span className="gallery__capName">{it.capName}</span>
