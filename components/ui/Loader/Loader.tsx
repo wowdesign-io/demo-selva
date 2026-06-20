@@ -2,18 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
-const MIN_SHOW = 700;
+const MIN_SHOW_DESKTOP = 900;
+const MIN_SHOW_MOBILE  = 700;
 
 export default function Loader() {
   const [phase, setPhase] = useState<'loading' | 'lifting' | 'gone'>('loading');
 
   useEffect(() => {
-    // Desktop: skip loader entirely
-    if (window.innerWidth > 768) {
-      setPhase('gone');
-      return;
-    }
-
     if (sessionStorage.getItem('selvaLoaded')) {
       setPhase('gone');
       return;
@@ -28,9 +23,7 @@ export default function Loader() {
       setTimeout(() => setPhase('gone'), 1100);
     }
 
-    // Lift after MIN_SHOW from mount — do NOT wait for window.load.
-    // Waiting for load blocks LCP on slow connections (window.load fires at 5-6s
-    // on slow 4G, making the hero invisible behind the curtain until then).
+    const MIN_SHOW = window.innerWidth <= 768 ? MIN_SHOW_MOBILE : MIN_SHOW_DESKTOP;
     const timer = setTimeout(lift, MIN_SHOW);
     return () => clearTimeout(timer);
   }, []);
