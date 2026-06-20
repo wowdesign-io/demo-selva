@@ -53,8 +53,8 @@ export default function PressIndex({
           <div className="hero__imagePanel" id="heroImage">
             <div className="hero__imageFill">
               <Image
-                src="/images/renders/interior-01.jpg"
-                alt="SELVA Residences — a light-filled living space opening to the canopy"
+                src="/images/renders/press-hero.webp"
+                alt="SELVA Residences — tropical canopy at dusk, building facade through lush palm fronds"
                 fill
                 priority
                 quality={75}
