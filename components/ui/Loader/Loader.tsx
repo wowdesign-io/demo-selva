@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-const MIN_SHOW = 1000;
+const MIN_SHOW = 900;
 
 export default function Loader() {
   const [phase, setPhase] = useState<'loading' | 'lifting' | 'gone'>('loading');

@@ -7,8 +7,6 @@
 @import './selva/button.css';
 @import './selva/zoom.css';
 @import './selva/pill.css';
-@import './selva/home.css';
-
 body.is-loading {
   overflow: hidden;
 }
