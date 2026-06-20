@@ -12,17 +12,19 @@ export default function HomeScript() {
       return outMin + (outMax - outMin) * t;
     }
 
-    /* Miami temperature */
+    /* Miami temperature — deferred 5s so it never lands inside the LCP window */
     const tempEl = document.getElementById('temp');
     if (tempEl) {
-      fetch('https://api.open-meteo.com/v1/forecast?latitude=25.7617&longitude=-80.1918&current=temperature_2m&temperature_unit=fahrenheit')
-        .then(r => r.json())
-        .then(d => {
-          if (d?.current?.temperature_2m != null) {
-            tempEl.textContent = Math.round(d.current.temperature_2m) + '°F';
-          }
-        })
-        .catch(() => {});
+      setTimeout(() => {
+        fetch('https://api.open-meteo.com/v1/forecast?latitude=25.7617&longitude=-80.1918&current=temperature_2m&temperature_unit=fahrenheit')
+          .then(r => r.json())
+          .then(d => {
+            if (d?.current?.temperature_2m != null) {
+              tempEl.textContent = Math.round(d.current.temperature_2m) + '°F';
+            }
+          })
+          .catch(() => {});
+      }, 5000);
     }
 
     /* .reveal elements — fade/slide in with optional data-delay */
