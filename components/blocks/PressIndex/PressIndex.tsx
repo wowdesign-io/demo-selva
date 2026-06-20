@@ -1,5 +1,6 @@
 import '@/styles/selva/press.css'
 import '@/styles/selva/press-card.css'
+import Image from 'next/image';
 import Link from 'next/link';
 import { storyblokEditable } from '@storyblok/react/rsc';
 import { resolveLink, type SbLink } from '../../../lib/resolveLink';
@@ -50,13 +51,17 @@ export default function PressIndex({
       <div className="hero" id="hero" data-screen-label="Press Hero">
         <div className="hero__sticky">
           <div className="hero__imagePanel" id="heroImage">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/images/renders/interior-01.jpg"
-              alt="SELVA Residences — a light-filled living space opening to the canopy"
-              decoding="async"
-              fetchPriority="high"
-            />
+            <div className="hero__imageFill">
+              <Image
+                src="/images/renders/interior-01.jpg"
+                alt="SELVA Residences — a light-filled living space opening to the canopy"
+                fill
+                priority
+                quality={75}
+                sizes="(max-width: 900px) 100vw, 100vw"
+                style={{ objectFit: 'cover', objectPosition: 'center' }}
+              />
+            </div>
           </div>
           <div className="hero__textPanel">
             <div className="hero__textInner" id="heroText">
