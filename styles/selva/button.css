@@ -10,7 +10,7 @@
   font-family: var(--font-label); font-size: var(--text-sm); font-weight: var(--font-weight-medium);
   letter-spacing: var(--tracking-widest); text-transform: uppercase; text-decoration: none;
   color: var(--color-cta-text); background: var(--color-cta-bg);
-  transition: background-color var(--transition-base);
+  transition: background-color var(--transition-base), opacity 0.85s var(--ease-out), transform 0.85s var(--ease-out);
 }
 .btnSlide span:first-child { display: block; transition: transform 0.35s var(--ease-out); }
 .btnSlide span:last-child {
