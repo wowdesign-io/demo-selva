@@ -37,7 +37,7 @@ export default function MapboxMap({ pins }: { pins: MapPin[] }) {
     })
     mapRef.current = map
 
-    map.on('style.load', () => {
+    map.on('load', () => {
       // Tint water to match SELVA palette
       try { map.setPaintProperty('water', 'fill-color', '#B8D4DF') } catch (_e) { /* */ }
 

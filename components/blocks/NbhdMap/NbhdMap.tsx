@@ -68,9 +68,8 @@ export default function NbhdMap({ blok }: { blok?: NbhdMapBlok }) {
   const sub        = blok?.sub        ?? 'Hover any place to find it on the map — the everyday pleasures that surround SELVA, all within the neighborhood.'
   const categories = blok?.categories?.length ? blok.categories : DEFAULT_CATEGORIES
 
-  const pins: MapPin[] = blok?.pins?.length
-    ? blok.pins.map((p) => ({ key: p.key, label: p.label, lng: p.lng, lat: p.lat, colorVar: p.color_var }))
-    : DEFAULT_PINS
+  // Always use DEFAULT_PINS — Storyblok schema still has old x/y fields, not lng/lat
+  const pins: MapPin[] = DEFAULT_PINS
 
   return (
     <section
