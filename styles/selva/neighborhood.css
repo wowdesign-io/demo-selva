@@ -330,6 +330,7 @@ body { animation: selvaPageIn 0.6s var(--ease-out) both; }
 
 .nbhd-map__hint {
   margin-top: var(--space-5);
+  scroll-margin-top: 80px;
   font-family: var(--font-label);
   font-size: 11px;
   letter-spacing: var(--tracking-wide);

@@ -99,8 +99,8 @@ export default function NeighborhoodScript() {
           focusPin(key);
         };
         const activateAndScroll = () => {
-          const stage = document.getElementById('nbhdMapStage');
-          if (stage) stage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          const target = document.querySelector<HTMLElement>('.nbhd-map__hint') ?? document.getElementById('nbhdMapStage');
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
           // Delay flyTo so map is in view before animation starts
           setTimeout(activate, 350);
         };
