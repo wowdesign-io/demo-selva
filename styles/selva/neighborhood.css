@@ -381,6 +381,7 @@ body { animation: selvaPageIn 0.6s var(--ease-out) both; }
 @media (max-width: 640px) {
   .nbhd-map__lists { grid-template-columns: 1fr; }
   .nbhd-map__stage { aspect-ratio: 3 / 3.2; }
+  .nmap-home__label { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .nbhd-story__layer { transition: opacity 0.3s linear; transform: none; }
