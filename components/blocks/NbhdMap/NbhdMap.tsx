@@ -1,3 +1,4 @@
+'use client'
 import dynamic from 'next/dynamic'
 import { storyblokEditable } from '@storyblok/react/rsc'
 import type { MapPin } from './MapboxMap'
