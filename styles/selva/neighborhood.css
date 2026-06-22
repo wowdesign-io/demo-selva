@@ -297,6 +297,7 @@ body { animation: selvaPageIn 0.6s var(--ease-out) both; }
   z-index: 3;
 }
 .nmap-pin__dot {
+  display: block;
   width: 13px; height: 13px;
   border-radius: 999px;
   border: 2px solid var(--color-bg);
