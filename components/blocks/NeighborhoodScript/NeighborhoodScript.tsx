@@ -56,33 +56,37 @@ export default function NeighborhoodScript() {
     }
 
     /* ---------- 2. INTERACTIVE MAP ---------- */
-    const stage = document.getElementById('nbhdMapStage');
-    const canvas = document.getElementById('nbhdMapCanvas');
-    if (stage && canvas) {
-      const pois = Array.from(document.querySelectorAll<HTMLElement>('.nbhd-poi'));
-      const pins: Record<string, HTMLElement> = {};
-      canvas.querySelectorAll<HTMLElement>('.nmap-pin').forEach((pin) => {
-        const key = pin.getAttribute('data-key');
-        if (key) pins[key] = pin;
-      });
+    // Pin coordinates match DEFAULT_PINS in NbhdMap.tsx — MapboxMap listens for these events
+    const pinCoords: Record<string, [number, number]> = {
+      cafe:     [-80.2385, 25.7298],
+      market:   [-80.2405, 25.7272],
+      bistro:   [-80.2360, 25.7248],
+      design:   [-80.2338, 25.7262],
+      gallery:  [-80.2420, 25.7312],
+      cinema:   [-80.2438, 25.7328],
+      marina:   [-80.2355, 25.7218],
+      coast:    [-80.2392, 25.7305],
+      sailing:  [-80.2325, 25.7175],
+      grocer:   [-80.2332, 25.7255],
+      wellness: [-80.2468, 25.7242],
+      tennis:   [-80.2482, 25.7285],
+    };
 
-      const ZOOM = 2.35;
+    const lists = document.getElementById('nbhdMapLists');
+    if (lists) {
+      const pois = Array.from(lists.querySelectorAll<HTMLElement>('.nbhd-poi'));
       let resetTimer: ReturnType<typeof setTimeout> | null = null;
 
       const focusPin = (key: string) => {
-        const pin = pins[key];
-        if (!pin) return;
-        const px = parseFloat(pin.getAttribute('data-x') || '0');
-        const py = parseFloat(pin.getAttribute('data-y') || '0');
-        const tx = 50 - ZOOM * px;
-        const ty = 50 - ZOOM * py;
-        canvas.style.transform = 'translate(' + tx + '%, ' + ty + '%) scale(' + ZOOM + ')';
-        for (const k in pins) pins[k].classList.toggle('is-active', k === key);
+        const coords = pinCoords[key];
+        if (!coords) return;
+        window.dispatchEvent(new CustomEvent('selva:map-focus', {
+          detail: { lng: coords[0], lat: coords[1], key },
+        }));
       };
 
       const resetMap = () => {
-        canvas.style.transform = 'translate(0%, 0%) scale(1)';
-        for (const k in pins) pins[k].classList.remove('is-active');
+        window.dispatchEvent(new CustomEvent('selva:map-reset'));
         pois.forEach((p) => p.classList.remove('is-active'));
       };
 
@@ -99,23 +103,18 @@ export default function NeighborhoodScript() {
         poiHandlers.push({ el: poi, fn: activate });
       });
 
-      const lists = document.getElementById('nbhdMapLists');
       const onLeave = () => { resetTimer = setTimeout(resetMap, 250); };
       const onEnter = () => { if (resetTimer) { clearTimeout(resetTimer); resetTimer = null; } };
-      if (lists) {
-        lists.addEventListener('mouseleave', onLeave);
-        lists.addEventListener('mouseenter', onEnter);
-      }
+      lists.addEventListener('mouseleave', onLeave);
+      lists.addEventListener('mouseenter', onEnter);
 
       cleanups.push(() => {
         poiHandlers.forEach(({ el, fn }) => {
           el.removeEventListener('mouseenter', fn);
           el.removeEventListener('focus', fn);
         });
-        if (lists) {
-          lists.removeEventListener('mouseleave', onLeave);
-          lists.removeEventListener('mouseenter', onEnter);
-        }
+        lists.removeEventListener('mouseleave', onLeave);
+        lists.removeEventListener('mouseenter', onEnter);
         if (resetTimer) clearTimeout(resetTimer);
       });
     }

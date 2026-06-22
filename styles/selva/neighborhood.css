@@ -261,39 +261,19 @@ body { animation: selvaPageIn 0.6s var(--ease-out) both; }
 .nbhd-map__canvas {
   position: absolute;
   inset: 0;
-  transform-origin: 0 0;
-  transition: transform 1.1s var(--ease-out);
-  will-change: transform;
 }
-/* illustrated neighborhood map (SVG, brand palette) */
-.nmap-svg { position: absolute; inset: 0; width: 100%; height: 100%; }
-.nmap-svg text { font-family: var(--font-label); }
-.nmap-bay   { fill: var(--color-water); opacity: 0.15; }
-.nmap-coast { fill: none; stroke: var(--color-water); stroke-width: 0.4; opacity: 0.55; }
-.nmap-blk   { fill: var(--color-surface-2); opacity: 0.6; }
-.nmap-green { fill: var(--color-primary); opacity: 0.13; }
-.nmap-dist  { fill: var(--color-primary); opacity: 0.05; }
-.nmap-st       { stroke: var(--color-border-strong); stroke-width: 0.22; fill: none; opacity: 0.65; }
-.nmap-st--maj  { stroke: var(--color-border-strong); stroke-width: 0.5; fill: none; opacity: 0.75; }
-.nmap-drive    { stroke: var(--color-accent); stroke-width: 0.5; fill: none; opacity: 0.5; stroke-linecap: round; }
-.nmap-parcel   { fill: var(--color-accent); opacity: 0.14; stroke: var(--color-accent); stroke-width: 0.45; }
-.nmap-pier     { stroke: var(--color-water); stroke-width: 0.45; opacity: 0.8; stroke-linecap: round; }
-.nmap-t-bay  { fill: var(--color-water); opacity: 0.75; font-weight: 600; }
-.nmap-t-dist { fill: var(--color-text-muted); font-weight: 600; opacity: 0.7; }
-.nmap-t-st   { fill: var(--color-text-muted); font-weight: 500; opacity: 0.85; }
-.nmap-compass{ fill: var(--color-text-muted); opacity: 0.8; font-weight: 600; }
-.nmap-compass-line { stroke: var(--color-text-muted); stroke-width: 0.3; opacity: 0.6; }
 
-/* SELVA home marker */
+/* Hide Mapbox default attribution (our free-tier usage is low-volume) */
+.mapboxgl-ctrl-bottom-right { display: none; }
+.mapboxgl-ctrl-bottom-left  { display: none; }
+
+/* SELVA home marker — positioned by Mapbox, no absolute override needed */
 .nmap-home {
-  position: absolute;
-  left: 52%; top: 54%;
-  transform: translate(-50%, -50%);
-  z-index: 4;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6px;
+  z-index: 4;
 }
 .nmap-home__glyph {
   width: 18px; height: 18px;
@@ -312,10 +292,8 @@ body { animation: selvaPageIn 0.6s var(--ease-out) both; }
   padding: 2px 7px;
 }
 
-/* POI pins */
+/* POI pins — positioned by Mapbox Marker, no absolute override */
 .nmap-pin {
-  position: absolute;
-  transform: translate(-50%, -50%);
   z-index: 3;
 }
 .nmap-pin__dot {
@@ -406,5 +384,5 @@ body { animation: selvaPageIn 0.6s var(--ease-out) both; }
 @media (prefers-reduced-motion: reduce) {
   .nbhd-story__layer { transition: opacity 0.3s linear; transform: none; }
   .nbhd-story__layer.is-active { transform: none; }
-  .nbhd-map__canvas { transition: none; }
+  /* Mapbox respects prefers-reduced-motion natively */
 }
