@@ -58,18 +58,18 @@ export default function NeighborhoodScript() {
     /* ---------- 2. INTERACTIVE MAP ---------- */
     // Pin coordinates match DEFAULT_PINS in NbhdMap.tsx — MapboxMap listens for these events
     const pinCoords: Record<string, [number, number]> = {
-      cafe:     [-80.2418, 25.7295],
-      market:   [-80.2438, 25.7268],
-      bistro:   [-80.2448, 25.7245],
-      design:   [-80.2398, 25.7258],
-      gallery:  [-80.2462, 25.7318],
-      cinema:   [-80.2478, 25.7335],
-      marina:   [-80.2408, 25.7222],
-      coast:    [-80.2435, 25.7308],
-      sailing:  [-80.2430, 25.7198],
-      grocer:   [-80.2388, 25.7268],
-      wellness: [-80.2488, 25.7248],
-      tennis:   [-80.2498, 25.7288],
+      cafe:     [-80.2430, 25.7305],
+      market:   [-80.2448, 25.7278],
+      bistro:   [-80.2460, 25.7252],
+      design:   [-80.2415, 25.7262],
+      gallery:  [-80.2472, 25.7325],
+      cinema:   [-80.2490, 25.7342],
+      marina:   [-80.2462, 25.7225],
+      coast:    [-80.2448, 25.7312],
+      sailing:  [-80.2475, 25.7202],
+      grocer:   [-80.2402, 25.7272],
+      wellness: [-80.2498, 25.7255],
+      tennis:   [-80.2510, 25.7292],
     };
 
     const lists = document.getElementById('nbhdMapLists');
