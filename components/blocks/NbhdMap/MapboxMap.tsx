@@ -15,6 +15,14 @@ const SELVA_HOME: [number, number] = [-80.2453, 25.7270]
 const CENTER: [number, number]     = [-80.2390, 25.7258]
 const DEFAULT_ZOOM = 13.8
 
+function getZoom() {
+  const w = typeof window !== 'undefined' ? window.innerWidth : 1280
+  if (w < 480) return 12.2
+  if (w < 768) return 12.8
+  if (w < 1024) return 13.2
+  return DEFAULT_ZOOM
+}
+
 export default function MapboxMap({ pins }: { pins: MapPin[] }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef       = useRef<mapboxgl.Map | null>(null)
@@ -31,7 +39,7 @@ export default function MapboxMap({ pins }: { pins: MapPin[] }) {
       container: containerRef.current,
       style: 'mapbox://styles/mapbox/light-v11',
       center: CENTER,
-      zoom: DEFAULT_ZOOM,
+      zoom: getZoom(),
       interactive: false,
       attributionControl: false,
     })
@@ -74,16 +82,23 @@ export default function MapboxMap({ pins }: { pins: MapPin[] }) {
       })
     }
     const onReset = () => {
-      map.flyTo({ center: CENTER, zoom: DEFAULT_ZOOM, duration: 700, essential: true })
+      map.flyTo({ center: CENTER, zoom: getZoom(), duration: 700, essential: true })
       document.querySelectorAll<HTMLElement>('.nmap-pin').forEach((el) => el.classList.remove('is-active'))
+    }
+
+    const onResize = () => {
+      map.resize()
+      map.easeTo({ center: CENTER, zoom: getZoom(), duration: 400 })
     }
 
     window.addEventListener('selva:map-focus', onFocus)
     window.addEventListener('selva:map-reset', onReset)
+    window.addEventListener('resize', onResize, { passive: true })
 
     return () => {
       window.removeEventListener('selva:map-focus', onFocus)
       window.removeEventListener('selva:map-reset', onReset)
+      window.removeEventListener('resize', onResize)
       map.remove()
       mapRef.current = null
     }
