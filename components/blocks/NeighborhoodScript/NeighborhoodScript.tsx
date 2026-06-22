@@ -90,7 +90,7 @@ export default function NeighborhoodScript() {
         pois.forEach((p) => p.classList.remove('is-active'));
       };
 
-      const poiHandlers: Array<{ el: HTMLElement; fn: () => void }> = [];
+      const poiHandlers: Array<{ el: HTMLElement; hover: () => void; click: () => void }> = [];
       pois.forEach((poi) => {
         const key = poi.getAttribute('data-key') || '';
         const activate = () => {
@@ -98,9 +98,16 @@ export default function NeighborhoodScript() {
           pois.forEach((p) => p.classList.toggle('is-active', p === poi));
           focusPin(key);
         };
+        const activateAndScroll = () => {
+          const stage = document.getElementById('nbhdMapStage');
+          if (stage) stage.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Delay flyTo so map is in view before animation starts
+          setTimeout(activate, 350);
+        };
         poi.addEventListener('mouseenter', activate);
         poi.addEventListener('focus', activate);
-        poiHandlers.push({ el: poi, fn: activate });
+        poi.addEventListener('click', activateAndScroll);
+        poiHandlers.push({ el: poi, hover: activate, click: activateAndScroll });
       });
 
       const onLeave = () => { resetTimer = setTimeout(resetMap, 250); };
@@ -109,9 +116,10 @@ export default function NeighborhoodScript() {
       lists.addEventListener('mouseenter', onEnter);
 
       cleanups.push(() => {
-        poiHandlers.forEach(({ el, fn }) => {
-          el.removeEventListener('mouseenter', fn);
-          el.removeEventListener('focus', fn);
+        poiHandlers.forEach(({ el, hover, click }) => {
+          el.removeEventListener('mouseenter', hover);
+          el.removeEventListener('focus', hover);
+          el.removeEventListener('click', click);
         });
         lists.removeEventListener('mouseleave', onLeave);
         lists.removeEventListener('mouseenter', onEnter);
