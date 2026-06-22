@@ -48,18 +48,18 @@ const DEFAULT_CATEGORIES: MapCatBlok[] = [
 
 // Real Coconut Grove, Miami coordinates
 const DEFAULT_PINS: MapPin[] = [
-  { key: 'cafe',     label: 'Sidewalk Café',       lng: -80.2385, lat: 25.7298, colorVar: 'var(--color-accent)'     },
-  { key: 'market',   label: 'Open-Air Market',     lng: -80.2405, lat: 25.7272, colorVar: 'var(--color-accent)'     },
-  { key: 'bistro',   label: 'Garden Bistro',        lng: -80.2360, lat: 25.7248, colorVar: 'var(--color-accent)'     },
-  { key: 'design',   label: 'The Design District', lng: -80.2338, lat: 25.7262, colorVar: 'var(--color-primary)'    },
-  { key: 'gallery',  label: 'Gallery Row',          lng: -80.2420, lat: 25.7312, colorVar: 'var(--color-primary)'    },
-  { key: 'cinema',   label: 'Open-Air Cinema',      lng: -80.2438, lat: 25.7328, colorVar: 'var(--color-primary)'    },
-  { key: 'marina',   label: 'Bayfront Marina',      lng: -80.2355, lat: 25.7218, colorVar: 'var(--color-water)'      },
-  { key: 'coast',    label: 'Coastal Park',         lng: -80.2392, lat: 25.7305, colorVar: 'var(--color-water)'      },
-  { key: 'sailing',  label: 'Sailing Club',         lng: -80.2325, lat: 25.7175, colorVar: 'var(--color-water)'      },
-  { key: 'grocer',   label: 'Boutique Grocer',      lng: -80.2332, lat: 25.7255, colorVar: 'var(--color-text-muted)' },
-  { key: 'wellness', label: 'Wellness & Spa',       lng: -80.2468, lat: 25.7242, colorVar: 'var(--color-text-muted)' },
-  { key: 'tennis',   label: 'Tennis & Padel',       lng: -80.2482, lat: 25.7285, colorVar: 'var(--color-text-muted)' },
+  { key: 'cafe',     label: 'Sidewalk Café',       lng: -80.2418, lat: 25.7295, colorVar: 'var(--color-accent)'     },
+  { key: 'market',   label: 'Open-Air Market',     lng: -80.2438, lat: 25.7268, colorVar: 'var(--color-accent)'     },
+  { key: 'bistro',   label: 'Garden Bistro',        lng: -80.2448, lat: 25.7245, colorVar: 'var(--color-accent)'     },
+  { key: 'design',   label: 'The Design District', lng: -80.2398, lat: 25.7258, colorVar: 'var(--color-primary)'    },
+  { key: 'gallery',  label: 'Gallery Row',          lng: -80.2462, lat: 25.7318, colorVar: 'var(--color-primary)'    },
+  { key: 'cinema',   label: 'Open-Air Cinema',      lng: -80.2478, lat: 25.7335, colorVar: 'var(--color-primary)'    },
+  { key: 'marina',   label: 'Bayfront Marina',      lng: -80.2408, lat: 25.7222, colorVar: 'var(--color-water)'      },
+  { key: 'coast',    label: 'Coastal Park',         lng: -80.2435, lat: 25.7308, colorVar: 'var(--color-water)'      },
+  { key: 'sailing',  label: 'Sailing Club',         lng: -80.2430, lat: 25.7198, colorVar: 'var(--color-water)'      },
+  { key: 'grocer',   label: 'Boutique Grocer',      lng: -80.2388, lat: 25.7268, colorVar: 'var(--color-text-muted)' },
+  { key: 'wellness', label: 'Wellness & Spa',       lng: -80.2488, lat: 25.7248, colorVar: 'var(--color-text-muted)' },
+  { key: 'tennis',   label: 'Tennis & Padel',       lng: -80.2498, lat: 25.7288, colorVar: 'var(--color-text-muted)' },
 ]
 
 export default function NbhdMap({ blok }: { blok?: NbhdMapBlok }) {
