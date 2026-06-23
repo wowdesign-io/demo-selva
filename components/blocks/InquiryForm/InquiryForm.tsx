@@ -9,25 +9,31 @@ import { useRef, useState, type FormEvent } from 'react';
    but lives inside `.inquiry`, so it's rendered here too. */
 
 interface Props {
+  salesGalleryLabel?: string
   phone?: string
   email?: string
+  visitLabel?: string
   addressLabel?: string
   address?: string
   locationImage?: string
   locationImageAlt?: string
   locationCaption?: string
+  hoursLabel?: string
   hours?: string
 }
 
 export default function InquiryForm({
-  phone            = '305.555.0100',
-  email            = 'sales@selvaresidences.com',
-  addressLabel     = 'By Appointment',
-  address          = '3000 Hibiscus Lane,\nCoconut Grove, Miami, FL 33133',
-  locationImage    = '/images/neighborhood/bayfront-marina.webp',
-  locationImageAlt = 'The Coconut Grove bayfront near the SELVA sales gallery',
-  locationCaption  = 'Coconut Grove, Miami',
-  hours            = 'Monday–Saturday, 10am–6pm\nSunday by appointment',
+  salesGalleryLabel = 'Sales Gallery',
+  phone             = '305.555.0100',
+  email             = 'sales@selvaresidences.com',
+  visitLabel        = 'Visit',
+  addressLabel      = 'By Appointment',
+  address           = '3000 Hibiscus Lane,\nCoconut Grove, Miami, FL 33133',
+  locationImage     = '/images/neighborhood/bayfront-marina.webp',
+  locationImageAlt  = 'The Coconut Grove bayfront near the SELVA sales gallery',
+  locationCaption   = 'Coconut Grove, Miami',
+  hoursLabel        = 'Hours',
+  hours             = 'Monday–Saturday, 10am–6pm\nSunday by appointment',
 }: Props) {
   const formRef = useRef<HTMLFormElement>(null);
   const [sent, setSent] = useState(false);
@@ -133,12 +139,12 @@ export default function InquiryForm({
       {/* Contact / location aside */}
       <aside className="inquiry__aside">
         <div className="inquiry__block">
-          <p className="inquiry__blockLabel">Sales Gallery</p>
+          <p className="inquiry__blockLabel">{salesGalleryLabel}</p>
           <a className="inquiry__contactItem" href={`tel:${phone.replace(/[^+\d]/g, '')}`}>{phone}</a>
           <a className="inquiry__contactItem" href={`mailto:${email}`}>{email}</a>
         </div>
         <div className="inquiry__block">
-          <p className="inquiry__blockLabel">Visit</p>
+          <p className="inquiry__blockLabel">{visitLabel}</p>
           <p className="inquiry__address">
             <strong>{addressLabel}</strong>
             {address.split('\n').map((line, i) => <span key={i}>{line}{i < address.split('\n').length - 1 ? <br /> : null}</span>)}
@@ -151,7 +157,7 @@ export default function InquiryForm({
           </figure>
         </div>
         <div className="inquiry__block">
-          <p className="inquiry__blockLabel">Hours</p>
+          <p className="inquiry__blockLabel">{hoursLabel}</p>
           <p className="inquiry__address">
             {hours.split('\n').map((line, i) => <span key={i}>{line}{i < hours.split('\n').length - 1 ? <br /> : null}</span>)}
           </p>
