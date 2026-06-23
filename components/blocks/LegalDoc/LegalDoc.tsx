@@ -2,24 +2,20 @@
 
 import { useEffect } from 'react';
 
-export interface LegalSection {
-  id: string;
-  tocLabel: string;
-  title: string;
-  bodyHtml: string;
-}
+interface TocItem { id: string; label: string }
 
 interface Props {
   title: string;
   lead: string;
   intro: string;
   updated?: string;
-  sections: LegalSection[];
+  toc: TocItem[];
+  bodyHtml: string;
 }
 
 /* Doc masthead + two-column legal/privacy document with TOC scrollspy
    (ports selva/legal-doc.js). */
-export default function LegalDoc({ title, lead, intro, updated = 'June 2026', sections }: Props) {
+export default function LegalDoc({ title, lead, intro, updated = 'June 2026', toc, bodyHtml }: Props) {
   useEffect(() => {
     const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.legaldoc__tocLink'));
     if (!links.length) return;
@@ -60,20 +56,15 @@ export default function LegalDoc({ title, lead, intro, updated = 'June 2026', se
         <aside className="legaldoc__toc">
           <p className="legaldoc__tocLabel">Contents</p>
           <nav className="legaldoc__tocList">
-            {sections.map((s) => (
-              <a key={s.id} className="legaldoc__tocLink" href={`#${s.id}`}>{s.tocLabel}</a>
+            {toc.map((item) => (
+              <a key={item.id} className="legaldoc__tocLink" href={`#${item.id}`}>{item.label}</a>
             ))}
           </nav>
         </aside>
 
         <div className="legaldoc__body">
           <p className="legaldoc__intro reveal">{intro}</p>
-          {sections.map((s) => (
-            <article key={s.id} className="legaldoc__section" id={s.id}>
-              <h2 className="legaldoc__sectionTitle">{s.title}</h2>
-              <div dangerouslySetInnerHTML={{ __html: s.bodyHtml }} />
-            </article>
-          ))}
+          <div dangerouslySetInnerHTML={{ __html: bodyHtml }} />
         </div>
       </section>
     </>

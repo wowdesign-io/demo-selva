@@ -5,6 +5,28 @@ export function escHtml(s: string): string {
   return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+function slugify(text: string): string {
+  return text.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function getTextContent(node: Record<string, any>): string {
+  if (node.type === 'text') return node.text ?? '';
+  return (node.content ?? []).map(getTextContent).join('');
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function extractToc(doc: Record<string, any>): Array<{ id: string; label: string }> {
+  return (doc?.content ?? [])
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .filter((n: any) => n.type === 'heading' && (n.attrs?.level ?? 2) === 2)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .map((n: any) => {
+      const label = getTextContent(n);
+      return { id: slugify(label), label };
+    });
+}
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function renderNode(node: Record<string, any>): string {
   if (!node || typeof node !== 'object') return '';
@@ -12,7 +34,11 @@ export function renderNode(node: Record<string, any>): string {
   switch (node.type) {
     case 'doc':        return children();
     case 'paragraph':  return `<p>${children()}</p>`;
-    case 'heading': { const l = node.attrs?.level ?? 2; return `<h${l}>${children()}</h${l}>`; }
+    case 'heading': {
+      const l = node.attrs?.level ?? 2;
+      const id = l === 2 ? ` id="${slugify(getTextContent(node))}"` : '';
+      return `<h${l}${id}>${children()}</h${l}>`;
+    }
     case 'blockquote': return `<blockquote>${children()}</blockquote>`;
     case 'bullet_list':  return `<ul>${children()}</ul>`;
     case 'ordered_list': return `<ol>${children()}</ol>`;
