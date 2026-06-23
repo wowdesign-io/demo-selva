@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 interface TocItem { id: string; label: string }
 
 interface Props {
+  tagline?: string;
   title: string;
   lead: string;
   intro: string;
@@ -15,7 +16,7 @@ interface Props {
 
 /* Doc masthead + two-column legal/privacy document with TOC scrollspy
    (ports selva/legal-doc.js). */
-export default function LegalDoc({ title, lead, intro, updated = 'June 2026', toc, bodyHtml }: Props) {
+export default function LegalDoc({ tagline = 'SELVA Residences · Coconut Grove', title, lead, intro, updated = 'June 2026', toc, bodyHtml }: Props) {
   useEffect(() => {
     const links = Array.from(document.querySelectorAll<HTMLAnchorElement>('.legaldoc__tocLink'));
     if (!links.length) return;
@@ -44,7 +45,7 @@ export default function LegalDoc({ title, lead, intro, updated = 'June 2026', to
     <>
       <header className="doc-head">
         <div className="doc-head__inner">
-          <p className="doc-head__label reveal">SELVA Residences &middot; Coconut Grove</p>
+          <p className="doc-head__label reveal">{tagline}</p>
           <h1 className="doc-head__title reveal" data-delay="80">{title}</h1>
           <div className="doc-head__rule reveal" data-delay="160"></div>
           <p className="doc-head__lead reveal" data-delay="200">{lead}</p>

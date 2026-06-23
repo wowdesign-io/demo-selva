@@ -6,6 +6,7 @@ import { renderNode, extractToc } from '../../../lib/renderRichText';
 export interface LegalPageBlok {
   _uid: string;
   component: 'legal_page';
+  tagline?: string;
   page_title: string;
   lead: string;
   intro: string;
@@ -27,6 +28,7 @@ export default function LegalPage({ blok }: Props) {
   return (
     <div {...storyblokEditable(blok)}>
       <LegalDoc
+        tagline={blok.tagline}
         title={blok.page_title}
         lead={blok.lead}
         intro={blok.intro}
