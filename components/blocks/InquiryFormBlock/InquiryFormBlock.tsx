@@ -5,15 +5,15 @@ import InquiryForm from '../InquiryForm/InquiryForm';
 export interface InquiryFormBlockBlok {
   _uid: string; component: 'inquiry_form_block'
   label_1?: string
-  phone?: string
-  email?: string
+  item_1?: string
+  item_2?: string
   label_2?: string
-  address_label?: string
-  address?: string
-  location_image?: { filename: string; alt?: string }
-  location_caption?: string
+  sub_label?: string
+  body_text?: string
+  image?: { filename: string; alt?: string }
+  caption?: string
   label_3?: string
-  hours?: string
+  note?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [index: string]: any
 }
@@ -25,16 +25,16 @@ export default function InquiryFormBlock({ blok }: { blok?: InquiryFormBlockBlok
     <div {...(blok ? storyblokEditable(blok) : {})}>
       <InquiryForm
         label1={blok?.label_1}
-        phone={blok?.phone}
-        email={blok?.email}
+        item1={blok?.item_1}
+        item2={blok?.item_2}
         label2={blok?.label_2}
-        addressLabel={blok?.address_label}
-        address={blok?.address}
-        locationImage={blok?.location_image?.filename}
-        locationImageAlt={blok?.location_image?.alt}
-        locationCaption={blok?.location_caption}
+        subLabel={blok?.sub_label}
+        bodyText={blok?.body_text}
+        image={blok?.image?.filename}
+        imageAlt={blok?.image?.alt}
+        caption={blok?.caption}
         label3={blok?.label_3}
-        hours={blok?.hours}
+        note={blok?.note}
       />
     </div>
   );

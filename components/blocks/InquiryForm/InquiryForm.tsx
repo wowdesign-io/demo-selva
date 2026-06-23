@@ -10,30 +10,30 @@ import { useRef, useState, type FormEvent } from 'react';
 
 interface Props {
   label1?: string
-  phone?: string
-  email?: string
+  item1?: string
+  item2?: string
   label2?: string
-  addressLabel?: string
-  address?: string
-  locationImage?: string
-  locationImageAlt?: string
-  locationCaption?: string
+  subLabel?: string
+  bodyText?: string
+  image?: string
+  imageAlt?: string
+  caption?: string
   label3?: string
-  hours?: string
+  note?: string
 }
 
 export default function InquiryForm({
-  label1           = 'Sales Gallery',
-  phone            = '305.555.0100',
-  email            = 'sales@selvaresidences.com',
-  label2           = 'Visit',
-  addressLabel     = 'By Appointment',
-  address          = '3000 Hibiscus Lane,\nCoconut Grove, Miami, FL 33133',
-  locationImage    = '',
-  locationImageAlt = '',
-  locationCaption  = 'Coconut Grove, Miami',
-  label3           = 'Hours',
-  hours            = 'Monday–Saturday, 10am–6pm\nSunday by appointment',
+  label1   = 'Sales Gallery',
+  item1    = '305.555.0100',
+  item2    = 'sales@selvaresidences.com',
+  label2   = 'Visit',
+  subLabel = 'By Appointment',
+  bodyText = '3000 Hibiscus Lane,\nCoconut Grove, Miami, FL 33133',
+  image    = '',
+  imageAlt = '',
+  caption  = 'Coconut Grove, Miami',
+  label3   = 'Hours',
+  note     = 'Monday–Saturday, 10am–6pm\nSunday by appointment',
 }: Props) {
   const formRef = useRef<HTMLFormElement>(null);
   const [sent, setSent] = useState(false);
@@ -140,28 +140,28 @@ export default function InquiryForm({
       <aside className="inquiry__aside">
         <div className="inquiry__block">
           <p className="inquiry__blockLabel">{label1}</p>
-          <a className="inquiry__contactItem" href={`tel:${phone.replace(/[^+\d]/g, '')}`}>{phone}</a>
-          <a className="inquiry__contactItem" href={`mailto:${email}`}>{email}</a>
+          <a className="inquiry__contactItem" href={`tel:${item1.replace(/[^+\d]/g, '')}`}>{item1}</a>
+          <a className="inquiry__contactItem" href={`mailto:${item2}`}>{item2}</a>
         </div>
         <div className="inquiry__block">
           <p className="inquiry__blockLabel">{label2}</p>
           <p className="inquiry__address">
-            <strong>{addressLabel}</strong>
-            {address.split('\n').map((line, i) => <span key={i}>{line}{i < address.split('\n').length - 1 ? <br /> : null}</span>)}
+            <strong>{subLabel}</strong>
+            {bodyText.split('\n').map((line, i) => <span key={i}>{line}{i < bodyText.split('\n').length - 1 ? <br /> : null}</span>)}
           </p>
-          {locationImage && (
+          {image && (
             <figure className="inquiry__locFig">
               <div style={{ position: 'relative', height: '220px' }}>
-                <Image fill src={locationImage} alt={locationImageAlt ?? ''} quality={85} sizes="(max-width: 768px) 100vw, 45vw" style={{ objectFit: 'cover', objectPosition: 'center' }} loading="lazy" />
+                <Image fill src={image} alt={imageAlt ?? ''} quality={85} sizes="(max-width: 768px) 100vw, 45vw" style={{ objectFit: 'cover', objectPosition: 'center' }} loading="lazy" />
               </div>
-              {locationCaption && <figcaption className="inquiry__locCaption">{locationCaption}</figcaption>}
+              {caption && <figcaption className="inquiry__locCaption">{caption}</figcaption>}
             </figure>
           )}
         </div>
         <div className="inquiry__block">
           <p className="inquiry__blockLabel">{label3}</p>
           <p className="inquiry__address">
-            {hours.split('\n').map((line, i) => <span key={i}>{line}{i < hours.split('\n').length - 1 ? <br /> : null}</span>)}
+            {note.split('\n').map((line, i) => <span key={i}>{line}{i < note.split('\n').length - 1 ? <br /> : null}</span>)}
           </p>
         </div>
       </aside>
