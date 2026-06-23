@@ -8,7 +8,27 @@ import { useRef, useState, type FormEvent } from 'react';
    demo — no backend, nothing persisted. The contact/location aside is static
    but lives inside `.inquiry`, so it's rendered here too. */
 
-export default function InquiryForm() {
+interface Props {
+  phone?: string
+  email?: string
+  addressLabel?: string
+  address?: string
+  locationImage?: string
+  locationImageAlt?: string
+  locationCaption?: string
+  hours?: string
+}
+
+export default function InquiryForm({
+  phone            = '305.555.0100',
+  email            = 'sales@selvaresidences.com',
+  addressLabel     = 'By Appointment',
+  address          = '3000 Hibiscus Lane,\nCoconut Grove, Miami, FL 33133',
+  locationImage    = '/images/neighborhood/bayfront-marina.webp',
+  locationImageAlt = 'The Coconut Grove bayfront near the SELVA sales gallery',
+  locationCaption  = 'Coconut Grove, Miami',
+  hours            = 'Monday–Saturday, 10am–6pm\nSunday by appointment',
+}: Props) {
   const formRef = useRef<HTMLFormElement>(null);
   const [sent, setSent] = useState(false);
   const [firstName, setFirstName] = useState('');
@@ -114,22 +134,27 @@ export default function InquiryForm() {
       <aside className="inquiry__aside">
         <div className="inquiry__block">
           <p className="inquiry__blockLabel">Sales Gallery</p>
-          <a className="inquiry__contactItem" href="tel:+13055550100">305.555.0100</a>
-          <a className="inquiry__contactItem" href="mailto:sales@selvaresidences.com">sales@selvaresidences.com</a>
+          <a className="inquiry__contactItem" href={`tel:${phone.replace(/[^+\d]/g, '')}`}>{phone}</a>
+          <a className="inquiry__contactItem" href={`mailto:${email}`}>{email}</a>
         </div>
         <div className="inquiry__block">
           <p className="inquiry__blockLabel">Visit</p>
-          <p className="inquiry__address"><strong>By Appointment</strong>3000 Hibiscus Lane,<br />Coconut Grove, Miami, FL 33133</p>
+          <p className="inquiry__address">
+            <strong>{addressLabel}</strong>
+            {address.split('\n').map((line, i) => <span key={i}>{line}{i < address.split('\n').length - 1 ? <br /> : null}</span>)}
+          </p>
           <figure className="inquiry__locFig">
             <div style={{ position: 'relative', height: '220px' }}>
-              <Image fill src="/images/neighborhood/bayfront-marina.webp" alt="The Coconut Grove bayfront near the SELVA sales gallery" quality={85} sizes="(max-width: 768px) 100vw, 45vw" style={{ objectFit: 'cover', objectPosition: 'center' }} loading="lazy" />
+              <Image fill src={locationImage} alt={locationImageAlt ?? ''} quality={85} sizes="(max-width: 768px) 100vw, 45vw" style={{ objectFit: 'cover', objectPosition: 'center' }} loading="lazy" />
             </div>
-            <figcaption className="inquiry__locCaption">Coconut Grove, Miami</figcaption>
+            <figcaption className="inquiry__locCaption">{locationCaption}</figcaption>
           </figure>
         </div>
         <div className="inquiry__block">
           <p className="inquiry__blockLabel">Hours</p>
-          <p className="inquiry__address">Monday&ndash;Saturday, 10am&ndash;6pm<br />Sunday by appointment</p>
+          <p className="inquiry__address">
+            {hours.split('\n').map((line, i) => <span key={i}>{line}{i < hours.split('\n').length - 1 ? <br /> : null}</span>)}
+          </p>
         </div>
       </aside>
 
