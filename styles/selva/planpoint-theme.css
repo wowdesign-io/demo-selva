@@ -394,9 +394,9 @@ body {
   transform: none !important;
 }
 
-/* Card body */
+/* Card body — keep inset from card edges */
 [data-pp-embed] [class*="unitTileBody"] {
-  padding: 12px 0 4px !important;
+  padding: 14px 16px 16px !important;
   background: #fafaf7 !important;
   border-radius: 0 !important;
   pointer-events: none !important;
