@@ -3,10 +3,27 @@
  * 1) Cap tall form hero image
  * 2) Image full-width (close overlays — no fat right gap)
  * 3) Visible close (X) button
+ * 4) Zero border-radius in the request modal
  *
  * Upload: Style & Embed → Custom CSS → Replace
  * Embed URL needs: ?customCss=true
  */
+
+/* ---- Sharp corners in request modal (inputs, chips, panels, image) ---- */
+[data-pp-modal],
+[data-pp-modal] *,
+[data-pp-modal] *::before,
+[data-pp-modal] *::after,
+[data-pp-embed] [class*="formImage"],
+[data-pp-embed] [class*="formImage"] *,
+[data-pp-embed] [class*="popupInput"],
+[data-pp-embed] [class*="popupButton"],
+[data-pp-embed] [class*="takeoverInner"],
+[data-pp-embed] [class*="takeoverHeader"],
+[data-pp-embed] [class*="takeoverClose"],
+[data-pp-embed] [class*="closeButton"] {
+  border-radius: 0 !important;
+}
 
 /* Modal shell: relative so close can overlay the image */
 [data-pp-modal] [class*="takeoverInner"],
