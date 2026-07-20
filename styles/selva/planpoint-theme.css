@@ -223,9 +223,9 @@ body {
   display: none !important;
 }
 
-/* Filter labels — Barlow on green */
+/* Filter labels — dark text inside white dropdown fields */
 [data-pp-filters] [class*="dropdownLabelTitle"] {
-  color: rgba(250, 250, 247, 0.65) !important;
+  color: var(--pp-gray-500) !important;
   font-family: var(--pp-font-label) !important;
   font-size: 10px !important;
   font-weight: 600 !important;
@@ -235,8 +235,18 @@ body {
 
 [data-pp-filters] [class*="dropdownLabel"],
 [data-pp-filters] [class*="rangeLabel"] {
-  color: #fafaf7 !important;
+  color: var(--pp-gray-900) !important;
   font-weight: 500 !important;
+}
+
+/* Ensure toggle text/icons stay visible on white fields */
+[data-pp-filters] [class*="dropdownToggle"],
+[data-pp-filters] [class*="dropdownToggle"] * {
+  color: var(--pp-gray-900) !important;
+}
+
+[data-pp-filters] [class*="dropdownToggle"] [class*="dropdownLabelTitle"] {
+  color: var(--pp-gray-500) !important;
 }
 
 /* Filter dropdowns — white fields on green bar */
@@ -255,9 +265,10 @@ body {
   box-shadow: none !important;
 }
 
-/* Filter icons on green bar */
+/* Filter icons inside white toggles */
 [data-pp-filters] [class*="dropdownIcon"] svg,
-[data-pp-filters] [class*="dropdownIcon"] path {
+[data-pp-filters] [class*="dropdownIcon"] path,
+[data-pp-filters] [class*="dropdownToggle"] svg {
   color: var(--pp-gray-600) !important;
   stroke: var(--pp-gray-600) !important;
   opacity: 1 !important;
