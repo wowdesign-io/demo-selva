@@ -181,13 +181,14 @@
 }
 
 /* ------------------------------------------
-   3. FILTERS — solid forest bar (no gradient chrome)
+   3. FILTERS — quiet cream bar (matches SELVA surfaces)
    ------------------------------------------ */
 [data-pp-filters-wrapper] {
-  background: var(--pp-brand-primary) !important;
+  background: var(--pp-gray-50) !important;
+  border: 1px solid var(--pp-gray-200) !important;
   border-radius: var(--pp-radius-xl) !important;
-  padding: 20px 24px !important;
-  box-shadow: var(--pp-shadow-sm) !important;
+  padding: 14px 16px !important;
+  box-shadow: none !important;
   position: relative !important;
   overflow: visible !important;
   z-index: 10 !important;
@@ -198,7 +199,7 @@
   background: transparent !important;
   padding: 0 !important;
   margin: 0 !important;
-  gap: 12px !important;
+  gap: 10px !important;
 }
 
 [data-pp-filters]::after {
@@ -207,7 +208,7 @@
 
 /* Filter labels — Barlow uppercase (SELVA labels) */
 [data-pp-filters] [class*="dropdownLabelTitle"] {
-  color: rgba(250, 250, 247, 0.7) !important;
+  color: var(--pp-gray-500) !important;
   font-family: var(--pp-font-label) !important;
   font-size: 10px !important;
   font-weight: 600 !important;
@@ -217,31 +218,32 @@
 
 [data-pp-filters] [class*="dropdownLabel"],
 [data-pp-filters] [class*="rangeLabel"] {
-  color: var(--pp-white) !important;
+  color: var(--pp-gray-800) !important;
   font-weight: 500 !important;
 }
 
-/* Filter dropdowns - glass effect */
+/* Filter dropdowns */
 [data-pp-filters] [class*="dropdownToggle"] {
-  background: rgba(255, 255, 255, 0.12) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: var(--pp-white) !important;
+  border: 1px solid var(--pp-gray-200) !important;
   border-radius: var(--pp-radius-md) !important;
-  backdrop-filter: blur(8px) !important;
-  transition: all 0.2s ease !important;
+  backdrop-filter: none !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
 }
 
 [data-pp-filters] [class*="dropdownToggle"]:hover {
-  background: rgba(255, 255, 255, 0.2) !important;
-  border-color: rgba(255, 255, 255, 0.35) !important;
-  transform: translateY(-1px) !important;
+  background: var(--pp-white) !important;
+  border-color: var(--pp-brand-primary) !important;
+  transform: none !important;
+  box-shadow: var(--pp-shadow-xs) !important;
 }
 
-/* Filter icons - white */
+/* Filter icons */
 [data-pp-filters] [class*="dropdownIcon"] svg,
 [data-pp-filters] [class*="dropdownIcon"] path {
-  color: var(--pp-white) !important;
-  stroke: var(--pp-white) !important;
-  opacity: 0.9 !important;
+  color: var(--pp-gray-600) !important;
+  stroke: var(--pp-gray-600) !important;
+  opacity: 1 !important;
 }
 
 /* Dropdown menus - readable with proper styling */
@@ -276,105 +278,99 @@
 /* View toggle buttons */
 [data-pp-filters-wrapper] [class*="viewOption"],
 [data-pp-embed] [class*="viewOption"] {
-  background: rgba(255, 255, 255, 0.15) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: var(--pp-white) !important;
+  border: 1px solid var(--pp-gray-200) !important;
   border-radius: var(--pp-radius-md) !important;
-  transition: all 0.2s ease !important;
+  transition: border-color 0.15s ease, background 0.15s ease !important;
   gap: 6px !important;
 }
 
 [data-pp-filters-wrapper] [class*="viewOption"]:hover,
 [data-pp-embed] [class*="viewOption"]:hover {
-  background: rgba(255, 255, 255, 0.25) !important;
+  background: var(--pp-gray-50) !important;
+  border-color: var(--pp-gray-300) !important;
 }
 
 [data-pp-filters-wrapper] [class*="viewOption"][data-active="true"],
 [data-pp-embed] [class*="viewOption"][data-active="true"] {
-  background: var(--pp-white) !important;
-  border-color: var(--pp-white) !important;
+  background: var(--pp-brand-primary) !important;
+  border-color: var(--pp-brand-primary) !important;
 }
 
 [data-pp-filters-wrapper] [class*="viewOption"] svg {
-  color: var(--pp-white) !important;
+  color: var(--pp-gray-600) !important;
 }
 
 [data-pp-filters-wrapper] [class*="viewOption"][data-active="true"] svg {
-  color: var(--pp-brand-primary) !important;
+  color: var(--pp-white) !important;
 }
 
 /* Slider styles in filters */
 [data-pp-filters] [class*="slider"] {
-  background: rgba(255, 255, 255, 0.12) !important;
-  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  background: var(--pp-white) !important;
+  border: 1px solid var(--pp-gray-200) !important;
   border-radius: var(--pp-radius-md) !important;
 }
 
 [data-pp-filters] [class*="sliderLabels"] {
-  color: rgba(255, 255, 255, 0.9) !important;
+  color: var(--pp-gray-600) !important;
 }
 
 [data-pp-filters] [class*="sliderThumb"] {
   background: var(--pp-white) !important;
   border: 2px solid var(--pp-brand-primary) !important;
-  box-shadow: var(--pp-shadow-md) !important;
+  box-shadow: var(--pp-shadow-xs) !important;
 }
 
 [data-pp-filters] [class*="sliderTrack"]:nth-of-type(2) {
-  background: var(--pp-white) !important;
+  background: var(--pp-brand-primary) !important;
 }
 
 /* ------------------------------------------
-   4. UNIT GRID - Premium Cards
+   4. UNIT GRID — quiet cards
    ------------------------------------------ */
 [data-pp-unit-grid] {
-  padding: 16px !important;
-  gap: 20px !important;
+  padding: 12px !important;
+  gap: 14px !important;
   background: transparent !important;
 }
 
-/* Unit card styling - Premium elegant design */
 [data-pp-embed] [class*="unitTile"] {
-  background: #ffffff !important;
-  border-radius: 16px !important;
-  overflow: visible !important;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease !important;
-  border: 1px solid #e5e7eb !important;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.05),
-    0 4px 12px rgba(0, 0, 0, 0.03) !important;
+  background: var(--pp-white) !important;
+  border-radius: var(--pp-radius-xl) !important;
+  overflow: hidden !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+  border: 1px solid var(--pp-gray-200) !important;
+  box-shadow: none !important;
 }
 
 [data-pp-embed] [class*="unitTile"]:hover {
-  transform: translateY(-3px) !important;
-  box-shadow:
-    0 8px 30px rgba(99, 102, 241, 0.15),
-    0 4px 12px rgba(0, 0, 0, 0.05) !important;
-  border-color: rgba(99, 102, 241, 0.3) !important;
+  transform: none !important;
+  box-shadow: var(--pp-shadow-sm) !important;
+  border-color: var(--pp-gray-300) !important;
 }
 
 /* Card image area */
 [data-pp-embed] [class*="unitTileCover"] {
-  background: #f8fafc !important;
+  background: var(--pp-gray-50) !important;
   position: relative !important;
   overflow: hidden !important;
-  border-radius: 16px 16px 0 0 !important;
+  border-radius: 0 !important;
 }
 
 [data-pp-embed] [class*="unitTileCover"] img {
-  transition: transform 0.4s ease !important;
+  transition: none !important;
 }
 
 [data-pp-embed] [class*="unitTile"]:hover [class*="unitTileCover"] img {
-  transform: scale(1.03) !important;
+  transform: none !important;
 }
 
 /* Card body */
 [data-pp-embed] [class*="unitTileBody"] {
-  padding: 16px 18px 18px !important;
-  background: #ffffff !important;
-  border-radius: 0 0 16px 16px !important;
+  padding: 14px 16px 16px !important;
+  background: var(--pp-white) !important;
+  border-radius: 0 !important;
   pointer-events: none !important;
 }
 
@@ -400,11 +396,11 @@
   pointer-events: none !important;
 }
 
-/* Price — solid forest (no gradient text) */
+/* Price — solid forest */
 [data-pp-embed] [class*="unitTilePrice"] {
   font-family: var(--pp-font-heading) !important;
-  font-size: 20px !important;
-  font-weight: 600 !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
   color: var(--pp-brand-primary) !important;
   background: none !important;
   -webkit-text-fill-color: unset !important;
@@ -662,10 +658,13 @@
 /* Unit name label */
 [data-pp-embed] [class*="unitName"] {
   color: var(--pp-gray-500) !important;
+  font-family: var(--pp-font-label) !important;
   font-weight: 500 !important;
+  font-size: 11px !important;
   margin-bottom: 2px !important;
-  padding-top: 14px !important;
-  letter-spacing: 0.3px !important;
+  padding-top: 4px !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
 }
 
 /* Price label */
@@ -711,17 +710,18 @@
   flex-wrap: wrap !important;
 }
 
-/* ===== AVAILABILITY BADGES - Premium Styling ===== */
+/* ===== AVAILABILITY BADGES — compact ===== */
 [data-pp-embed] [class*="unitCardTop"] [class*="badge"],
 [data-pp-embed] [class*="badge"] {
+  font-family: var(--pp-font-label) !important;
   font-weight: 600 !important;
-  font-size: 12px !important;
-  padding: 6px 14px !important;
-  border-radius: var(--pp-radius-full) !important;
+  font-size: 10px !important;
+  padding: 4px 8px !important;
+  border-radius: var(--pp-radius-md) !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.5px !important;
+  letter-spacing: 0.08em !important;
   border: none !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  box-shadow: none !important;
 }
 
 /* Available badge */
@@ -812,25 +812,27 @@
 
 [data-pp-embed] [class*="unitCardAmenities"] [class*="badge"],
 [data-pp-embed] [class*="unitCardAmenities"] > div {
-  background: var(--pp-brand-primary) !important;
-  color: var(--pp-white) !important;
-  font-weight: 600 !important;
+  background: var(--pp-gray-50) !important;
+  color: var(--pp-gray-700) !important;
+  font-weight: 500 !important;
   font-size: 11px !important;
-  padding: 8px 14px !important;
-  border-radius: var(--pp-radius-full) !important;
-  border: none !important;
-  box-shadow: 0 2px 8px rgba(45, 78, 45, 0.2) !important;
+  padding: 5px 10px !important;
+  border-radius: var(--pp-radius-md) !important;
+  border: 1px solid var(--pp-gray-200) !important;
+  box-shadow: none !important;
   text-transform: none !important;
-  letter-spacing: 0.3px !important;
-  transition: all 0.2s ease !important;
+  letter-spacing: 0 !important;
+  transition: border-color 0.15s ease !important;
   margin: 0 !important;
 }
 
 [data-pp-embed] [class*="unitCardAmenities"] [class*="badge"]:hover,
 [data-pp-embed] [class*="unitCardAmenities"] > div:hover {
-  filter: brightness(1.1) !important;
-  transform: translateY(-1px) !important;
-  box-shadow: 0 4px 12px rgba(45, 78, 45, 0.28) !important;
+  filter: none !important;
+  transform: none !important;
+  border-color: var(--pp-brand-primary) !important;
+  box-shadow: none !important;
+  color: var(--pp-brand-primary) !important;
 }
 
 /* ===== EXTRA FIELDS SECTION ===== */
@@ -899,42 +901,49 @@
   ) !important;
 }
 
-/* ===== ACTION BUTTONS ===== */
+/* ===== ACTION BUTTONS — compact Request / CTAs ===== */
 [data-pp-embed] [class*="unitCardActions"] {
   display: flex !important;
   flex-wrap: wrap !important;
-  gap: 10px !important;
-  margin-top: 20px !important;
+  gap: 8px !important;
+  margin-top: 14px !important;
 }
 
 [data-pp-embed] [class*="unitCardAction"] {
   background: var(--pp-brand-primary) !important;
   color: var(--pp-white) !important;
-  border-radius: var(--pp-radius-lg) !important;
+  border-radius: var(--pp-radius-md) !important;
   font-family: var(--pp-font-body) !important;
   font-weight: 500 !important;
-  font-size: 13px !important;
-  padding-top: 14px !important;
-  padding-left: 14px !important;
-  transition: all 0.2s ease !important;
-  box-shadow: var(--pp-shadow-sm) !important;
+  font-size: 12px !important;
+  line-height: 1.2 !important;
+  padding: 8px 14px !important;
+  min-height: 0 !important;
+  height: auto !important;
+  width: auto !important;
+  flex: 0 0 auto !important;
+  transition: background 0.15s ease !important;
+  box-shadow: none !important;
   border: none !important;
   text-transform: none !important;
-  display: flex !important;
+  display: inline-flex !important;
   align-items: center !important;
-  gap: 8px !important;
+  justify-content: center !important;
+  gap: 6px !important;
 }
 
 [data-pp-embed] [class*="unitCardAction"]:hover {
   background: var(--pp-brand-secondary) !important;
-  transform: translateY(-1px) !important;
-  box-shadow: var(--pp-shadow-md) !important;
+  transform: none !important;
+  box-shadow: none !important;
   filter: none !important;
 }
 
 [data-pp-embed] [class*="unitCardAction"] svg {
   color: var(--pp-white) !important;
   flex-shrink: 0 !important;
+  width: 14px !important;
+  height: 14px !important;
 }
 
 /* ===== SHORTLIST / FAVORITE BUTTON ===== */
@@ -1205,64 +1214,70 @@
 
 [data-pp-modal] [class*="takeoverTitle"],
 [data-pp-embed] [class*="takeoverTitle"] {
-  font-size: 20px !important;
-  font-weight: 700 !important;
+  font-family: var(--pp-font-heading) !important;
+  font-size: 18px !important;
+  font-weight: 500 !important;
   color: var(--pp-gray-900) !important;
 }
 
 [data-pp-modal] [class*="takeoverClose"],
 [data-pp-embed] [class*="takeoverClose"] {
   background: var(--pp-gray-100) !important;
-  border-radius: var(--pp-radius-full) !important;
-  width: 36px !important;
-  height: 36px !important;
+  border-radius: var(--pp-radius-md) !important;
+  width: 32px !important;
+  height: 32px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-  transition: all 0.2s ease !important;
+  transition: background 0.15s ease !important;
   opacity: 1 !important;
 }
 
 [data-pp-modal] [class*="takeoverClose"]:hover,
 [data-pp-embed] [class*="takeoverClose"]:hover {
-  background: var(--pp-danger) !important;
-  transform: rotate(90deg) !important;
+  background: var(--pp-gray-200) !important;
+  transform: none !important;
 }
 
 [data-pp-modal] [class*="takeoverClose"]:hover svg,
 [data-pp-embed] [class*="takeoverClose"]:hover svg {
-  color: var(--pp-white) !important;
+  color: var(--pp-gray-800) !important;
 }
 
 /* Form inputs */
 [data-pp-modal] [class*="popupInput"],
 [data-pp-embed] [class*="popupInput"] {
-  border: 2px solid var(--pp-gray-200) !important;
+  border: 1px solid var(--pp-gray-200) !important;
   border-radius: var(--pp-radius-md) !important;
-  padding: 14px 16px !important;
+  padding: 10px 12px !important;
+  font-family: var(--pp-font-body) !important;
   font-size: 14px !important;
-  transition: all 0.2s ease !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
 }
 
 [data-pp-modal] [class*="popupInput"]:focus,
 [data-pp-embed] [class*="popupInput"]:focus {
   border-color: var(--pp-brand-primary) !important;
-  box-shadow: 0 0 0 3px var(--pp-brand-light) !important;
+  box-shadow: 0 0 0 2px var(--pp-brand-light) !important;
 }
 
 [data-pp-modal] [class*="popupButton"],
 [data-pp-embed] [class*="popupButton"] {
   background: var(--pp-brand-primary) !important;
   border-radius: var(--pp-radius-md) !important;
-  font-weight: 600 !important;
-  padding: 14px 20px !important;
-  transition: all 0.2s ease !important;
+  font-family: var(--pp-font-body) !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  padding: 10px 16px !important;
+  transition: background 0.15s ease !important;
+  box-shadow: none !important;
 }
 
 [data-pp-modal] [class*="popupButton"]:hover,
 [data-pp-embed] [class*="popupButton"]:hover {
-  transform: translateY(-2px) !important;
-  box-shadow: var(--pp-shadow-brand) !important;
+  background: var(--pp-brand-secondary) !important;
+  transform: none !important;
+  box-shadow: none !important;
 }
 
 /* ------------------------------------------
