@@ -166,28 +166,45 @@
 }
 
 /* ------------------------------------------
-   2. LAYOUT CONTAINER
+   2. LAYOUT — flat SELVA bg, no nested panels
    ------------------------------------------ */
+[data-pp-embed],
+[data-pp-container],
 [data-pp-layout] {
-  background: var(--pp-gray-25) !important;
+  background: #fafaf7 !important;
   font-family: var(--pp-font-body) !important;
   color: var(--pp-gray-700) !important;
 }
 
+/* Kill Planpoint’s default cool-grey page fill */
+html,
+body {
+  background: #fafaf7 !important;
+}
+
 [data-pp-scope="project"] [data-pp-layout],
 [data-pp-scope="floor"] [data-pp-layout] {
-  padding: 24px !important;
-  gap: 24px !important;
+  padding: 12px 12px 24px !important;
+  gap: 12px !important;
+  background: #fafaf7 !important;
+}
+
+@media screen and (min-width: 768px) {
+  [data-pp-scope="project"] [data-pp-layout],
+  [data-pp-scope="floor"] [data-pp-layout] {
+    padding: 16px 16px 32px !important;
+    gap: 16px !important;
+  }
 }
 
 /* ------------------------------------------
-   3. FILTERS — quiet cream bar (matches SELVA surfaces)
+   3. FILTERS — flush with page (no nested bar)
    ------------------------------------------ */
 [data-pp-filters-wrapper] {
-  background: var(--pp-gray-50) !important;
-  border: 1px solid var(--pp-gray-200) !important;
-  border-radius: var(--pp-radius-xl) !important;
-  padding: 14px 16px !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 0 8px !important;
   box-shadow: none !important;
   position: relative !important;
   overflow: visible !important;
@@ -327,32 +344,32 @@
 }
 
 /* ------------------------------------------
-   4. UNIT GRID — quiet cards
+   4. UNIT GRID — flat cards on same ground
    ------------------------------------------ */
 [data-pp-unit-grid] {
-  padding: 12px !important;
-  gap: 14px !important;
+  padding: 0 !important;
+  gap: 12px !important;
   background: transparent !important;
 }
 
 [data-pp-embed] [class*="unitTile"] {
-  background: var(--pp-white) !important;
-  border-radius: var(--pp-radius-xl) !important;
+  background: #fafaf7 !important;
+  border-radius: 0 !important;
   overflow: hidden !important;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+  transition: border-color 0.15s ease !important;
   border: 1px solid var(--pp-gray-200) !important;
   box-shadow: none !important;
 }
 
 [data-pp-embed] [class*="unitTile"]:hover {
   transform: none !important;
-  box-shadow: var(--pp-shadow-sm) !important;
-  border-color: var(--pp-gray-300) !important;
+  box-shadow: none !important;
+  border-color: var(--pp-brand-primary) !important;
 }
 
 /* Card image area */
 [data-pp-embed] [class*="unitTileCover"] {
-  background: var(--pp-gray-50) !important;
+  background: #fafaf7 !important;
   position: relative !important;
   overflow: hidden !important;
   border-radius: 0 !important;
@@ -368,8 +385,8 @@
 
 /* Card body */
 [data-pp-embed] [class*="unitTileBody"] {
-  padding: 14px 16px 16px !important;
-  background: var(--pp-white) !important;
+  padding: 12px 0 4px !important;
+  background: #fafaf7 !important;
   border-radius: 0 !important;
   pointer-events: none !important;
 }
@@ -420,14 +437,14 @@
   pointer-events: none !important;
 }
 
-/* Attribute styling - Clean minimal pills */
+/* Attribute styling — flat, no nested grey pill box */
 [data-pp-embed] [class*="unitTileAttr"] {
   display: inline-flex !important;
   align-items: center !important;
   gap: 6px !important;
-  padding: 6px 10px !important;
-  background: var(--pp-gray-50) !important;
-  border-radius: var(--pp-radius-md) !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
   border: none !important;
   flex-shrink: 0 !important;
   pointer-events: none !important;
@@ -1326,12 +1343,12 @@
 
 [data-pp-embed] ::-webkit-scrollbar-track {
   background: var(--pp-gray-100) !important;
-  border-radius: var(--pp-radius-full) !important;
+  border-radius: 0 !important;
 }
 
 [data-pp-embed] ::-webkit-scrollbar-thumb {
   background: var(--pp-gray-300) !important;
-  border-radius: var(--pp-radius-full) !important;
+  border-radius: 0 !important;
   transition: background 0.2s ease !important;
 }
 
@@ -1428,13 +1445,15 @@
 @media screen and (max-width: 1200px) {
   [data-pp-scope="project"] [data-pp-layout],
   [data-pp-scope="floor"] [data-pp-layout] {
-    padding: 16px !important;
-    gap: 16px !important;
+    padding: 12px 12px 24px !important;
+    gap: 12px !important;
   }
 
   [data-pp-filters-wrapper] {
-    border-radius: var(--pp-radius-lg) !important;
-    padding: 16px !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0 0 8px !important;
+    background: transparent !important;
   }
 }
 
