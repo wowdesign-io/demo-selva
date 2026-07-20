@@ -427,25 +427,36 @@ body {
   pointer-events: none !important;
 }
 
-/* Attributes container */
-[data-pp-embed] [class*="unitTileAttrs"] {
+/* Attributes — no panel behind bedroom/bath/sqft row */
+[data-pp-embed] [class*="unitTileAttrs"],
+[data-pp-embed] [class*="unitTileMeta"],
+[data-pp-embed] [class*="unitTileFacts"],
+[data-pp-embed] [class*="unitTileInfo"],
+[data-pp-embed] [class*="attrsWrapper"],
+[data-pp-embed] [class*="tileAttrs"] {
   display: flex !important;
   flex-wrap: wrap !important;
-  gap: 8px !important;
+  gap: 10px 14px !important;
   border: none !important;
-  padding: 0 !important;
+  padding: 8px 0 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
   pointer-events: none !important;
 }
 
-/* Attribute styling — flat, no nested grey pill box */
+/* Attribute styling — flat icons + text, no chips */
 [data-pp-embed] [class*="unitTileAttr"] {
   display: inline-flex !important;
   align-items: center !important;
   gap: 6px !important;
   padding: 0 !important;
+  margin: 0 !important;
   background: transparent !important;
   border-radius: 0 !important;
   border: none !important;
+  box-shadow: none !important;
   flex-shrink: 0 !important;
   pointer-events: none !important;
 }
