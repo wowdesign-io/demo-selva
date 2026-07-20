@@ -1,0 +1,1459 @@
+/**
+ * Planpoint Project Custom CSS Theme
+ * ===========================================================
+ *
+ * A curated starting template for customising the Planpoint Viewer.
+ * Modify the values below — colours, spacing, radii, fonts — and
+ * upload the file back to apply your theme.
+ *
+ * HOW TO USE
+ * ----------
+ * 1. Edit this file in any text editor.
+ * 2. Upload this file in your project's Style & Embed → Style → Custom CSS section,
+ * then add ?customCss=true to your embed URL.
+ *
+ * IMPORTANT — CSS MODULES
+ * -----------------------
+ * The viewer uses CSS Modules, so most class names are hashed at
+ * build time. Plain class selectors like `.unitTile` or `.badge`
+ * WILL NOT WORK. Use one of these patterns instead:
+ *
+ *   ✅ Data-attribute selectors (stable, recommended for containers):
+ *       [data-pp-embed]            Main embed wrapper
+ *       [data-pp-container]        Inner container
+ *       [data-pp-layout]           Layout container
+ *       [data-pp-scope="project"]  Project view
+ *       [data-pp-scope="floor"]    Floor view
+ *       [data-pp-scope="unit"]     Unit detail view
+ *       [data-pp-header]           Portal header bar
+ *       [data-pp-cta-desktop]      Header CTA (desktop)
+ *       [data-pp-cta-mobile]       Header CTA (mobile)
+ *       [data-pp-filters-wrapper]  Filter bar wrapper (background)
+ *       [data-pp-filters]          Filter controls
+ *       [data-pp-glass-filters]    Glass-style filter variant
+ *       [data-pp-unit-grid]        Grid of unit cards
+ *       [data-pp-unit-list]        Table view of units
+ *       [data-pp-unit-view]        Unit view container
+ *       [data-pp-amenity-view]     Amenity view container
+ *       [data-pp-commerce-view]    Commerce view container
+ *       [data-pp-canvas]           Floor plan canvas
+ *       [data-pp-modal]            Modal / takeover container
+ *
+ *   ✅ Class wildcard selectors (for hashed module classes):
+ *       [data-pp-embed] [class*="unitTile"]         Unit cards
+ *       [data-pp-embed] [class*="unitTileBody"]     Card body
+ *       [data-pp-embed] [class*="unitTilePrice"]    Price display
+ *       [data-pp-embed] [class*="unitTileAttrs"]    Attribute row
+ *       [data-pp-embed] [class*="badge"]            Status badges
+ *       [data-pp-embed] [class*="dropdownToggle"]   Filter dropdowns
+ *       [data-pp-embed] [class*="dropdownMenu"]     Dropdown panels
+ *       [data-pp-embed] [class*="dropdownMenuItem"] Dropdown items
+ *       [data-pp-embed] [class*="viewOption"]       View toggle buttons
+ *       [data-pp-embed] [class*="listRow"]          Table rows
+ *       [data-pp-embed] [class*="listHeadCell"]     Table headers
+ *       [data-pp-embed] [class*="unitCard"]         Unit detail card
+ *       [data-pp-embed] [class*="unitCardAction"]   CTA buttons
+ *       [data-pp-embed] [class*="shortlistAction"]  Favourite button
+ *       [data-pp-embed] [class*="embla"]            Image gallery
+ *       [data-pp-embed] [class*="branding"]         Branding badge
+ *
+ *   ✅ Map Points-of-Interest selectors (stable, global — NOT hashed):
+ *       .pp-poi-marker     Map pin wrapper
+ *       .pp-poi-image      Uploaded category icon (rendered as-is, no styling)
+ *       .pp-poi-pin        Default pin (category has no icon)
+ *       .pp-poi-popup      Popup wrapper (Mapbox)
+ *       .pp-poi-card       Popup info card
+ *       .pp-poi-thumb      Card thumbnail image
+ *       .pp-poi-title      Card title
+ *       .pp-poi-category   Card category pill
+ *       .pp-poi-desc       Card description
+ *
+ *   ❌ These DO NOT exist — don't use them:
+ *       .unitTile, .badge, .header  (plain class names)
+ *       [data-pp-button], [data-pp-badge], [data-pp-unit-tile],
+ *       [data-pp-dropdown], [data-pp-list], [data-pp-floor]
+ *
+ * !IMPORTANT
+ * ----------
+ * Default styles have high specificity. Add `!important` to your
+ * declarations or they may not take effect.
+ *
+ * Status badges support a `data-style` attribute, e.g.
+ *   [class*="badge"][data-style="available"]
+ *   [class*="badge"][data-style="sold"]
+ *   [class*="badge"][data-style="leased"]
+ *   [class*="badge"][data-style="reserved"]
+ *   [class*="badge"][data-style="onhold"]
+ *   [class*="badge"][data-style="unavailable"]
+ *
+ * QUICK START
+ * -----------
+ * The fastest way to rebrand is to change the CSS variables in the
+ * "DESIGN SYSTEM VARIABLES" section below. Updating --pp-brand-primary
+ * and --pp-brand-secondary alone will retheme most of the viewer.
+ */
+
+/* ===============================================
+   SELVA Residences — Planpoint Theme
+   ===============================================
+
+   Matches demo.wowdesign.io / styles/tokens.css:
+   forest green · warm amber · cream surfaces ·
+   Cormorant Garamond / DM Sans / Barlow
+
+   Upload in Planpoint → Style & Embed → Custom CSS,
+   then add ?customCss=true to the embed URL.
+
+   ============================================= */
+
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@500;600&family=Cormorant+Garamond:wght@500;600&family=DM+Sans:wght@400;500;600;700&display=swap");
+
+/* ------------------------------------------
+   1. DESIGN SYSTEM VARIABLES (SELVA)
+   ------------------------------------------ */
+[data-pp-embed] {
+  /* Brand — forest green + amber */
+  --pp-brand-primary: #2d4e2d;
+  --pp-brand-secondary: #3d6b3d;
+  --pp-brand-accent: #c9975a;
+  --pp-brand-light: #e8efe2;
+
+  /* Status Colors */
+  --pp-success: #4a8c5c;
+  --pp-success-bg: #e8efe2;
+  --pp-danger: #c0392b;
+  --pp-danger-bg: #fdecea;
+  --pp-warning: #c9975a;
+  --pp-warning-bg: #f5ebe0;
+
+  /* Neutrals — warm cream / olive (SELVA surfaces) */
+  --pp-white: #ffffff;
+  --pp-gray-25: #fafaf7;
+  --pp-gray-50: #f5f3ee;
+  --pp-gray-100: #ede8df;
+  --pp-gray-200: #e0d9ce;
+  --pp-gray-300: #c5bbae;
+  --pp-gray-400: #9aab9a;
+  --pp-gray-500: #5b735b;
+  --pp-gray-600: #4a5e4a;
+  --pp-gray-700: #3a4a3a;
+  --pp-gray-800: #2a352a;
+  --pp-gray-900: #1a2820;
+
+  /* Shadows — green undertone */
+  --pp-shadow-xs: 0 1px 2px rgba(26, 40, 32, 0.04);
+  --pp-shadow-sm: 0 1px 3px rgba(26, 40, 32, 0.06), 0 1px 2px rgba(26, 40, 32, 0.04);
+  --pp-shadow-md:
+    0 4px 8px -2px rgba(26, 40, 32, 0.08), 0 2px 4px -2px rgba(26, 40, 32, 0.04);
+  --pp-shadow-lg:
+    0 12px 24px -4px rgba(26, 40, 32, 0.1), 0 4px 8px -2px rgba(26, 40, 32, 0.05);
+  --pp-shadow-xl:
+    0 24px 48px -8px rgba(26, 40, 32, 0.12), 0 8px 16px -4px rgba(26, 40, 32, 0.06);
+  --pp-shadow-brand: 0 8px 24px -4px rgba(45, 78, 45, 0.22);
+
+  /* Radii — architectural, restrained (SELVA leans sharp) */
+  --pp-radius-sm: 2px;
+  --pp-radius-md: 4px;
+  --pp-radius-lg: 6px;
+  --pp-radius-xl: 8px;
+  --pp-radius-2xl: 10px;
+  --pp-radius-full: 9999px;
+
+  /* Type */
+  --pp-font-heading: "Cormorant Garamond", Georgia, serif;
+  --pp-font-body: "DM Sans", system-ui, sans-serif;
+  --pp-font-label: "Barlow", system-ui, sans-serif;
+}
+
+/* ------------------------------------------
+   2. LAYOUT CONTAINER
+   ------------------------------------------ */
+[data-pp-layout] {
+  background: var(--pp-gray-25) !important;
+  font-family: var(--pp-font-body) !important;
+  color: var(--pp-gray-700) !important;
+}
+
+[data-pp-scope="project"] [data-pp-layout],
+[data-pp-scope="floor"] [data-pp-layout] {
+  padding: 24px !important;
+  gap: 24px !important;
+}
+
+/* ------------------------------------------
+   3. FILTERS — solid forest bar (no gradient chrome)
+   ------------------------------------------ */
+[data-pp-filters-wrapper] {
+  background: var(--pp-brand-primary) !important;
+  border-radius: var(--pp-radius-xl) !important;
+  padding: 20px 24px !important;
+  box-shadow: var(--pp-shadow-sm) !important;
+  position: relative !important;
+  overflow: visible !important;
+  z-index: 10 !important;
+}
+
+/* Filter container base */
+[data-pp-filters] {
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 12px !important;
+}
+
+[data-pp-filters]::after {
+  display: none !important;
+}
+
+/* Filter labels — Barlow uppercase (SELVA labels) */
+[data-pp-filters] [class*="dropdownLabelTitle"] {
+  color: rgba(250, 250, 247, 0.7) !important;
+  font-family: var(--pp-font-label) !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.14em !important;
+}
+
+[data-pp-filters] [class*="dropdownLabel"],
+[data-pp-filters] [class*="rangeLabel"] {
+  color: var(--pp-white) !important;
+  font-weight: 500 !important;
+}
+
+/* Filter dropdowns - glass effect */
+[data-pp-filters] [class*="dropdownToggle"] {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: var(--pp-radius-md) !important;
+  backdrop-filter: blur(8px) !important;
+  transition: all 0.2s ease !important;
+}
+
+[data-pp-filters] [class*="dropdownToggle"]:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Filter icons - white */
+[data-pp-filters] [class*="dropdownIcon"] svg,
+[data-pp-filters] [class*="dropdownIcon"] path {
+  color: var(--pp-white) !important;
+  stroke: var(--pp-white) !important;
+  opacity: 0.9 !important;
+}
+
+/* Dropdown menus - readable with proper styling */
+[data-pp-filters] [class*="dropdownMenu"],
+[data-pp-embed] [class*="dropdownMenu"] {
+  background: var(--pp-white) !important;
+  border-radius: var(--pp-radius-md) !important;
+  padding: 8px !important;
+}
+
+[data-pp-filters] [class*="dropdownMenuItem"],
+[data-pp-embed] [class*="dropdownMenuItem"] {
+  color: var(--pp-gray-700) !important;
+  border-radius: var(--pp-radius-sm) !important;
+  padding: 10px 12px !important;
+  transition: all 0.15s ease !important;
+}
+
+[data-pp-filters] [class*="dropdownMenuItem"]:hover,
+[data-pp-embed] [class*="dropdownMenuItem"]:hover {
+  background: var(--pp-gray-100) !important;
+  color: var(--pp-gray-900) !important;
+}
+
+[data-pp-filters] [class*="dropdownMenuItem"][data-active="true"],
+[data-pp-embed] [class*="dropdownMenuItem"][data-active="true"] {
+  background: var(--pp-brand-light) !important;
+  color: var(--pp-brand-primary) !important;
+  font-weight: 600 !important;
+}
+
+/* View toggle buttons */
+[data-pp-filters-wrapper] [class*="viewOption"],
+[data-pp-embed] [class*="viewOption"] {
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: var(--pp-radius-md) !important;
+  transition: all 0.2s ease !important;
+  gap: 6px !important;
+}
+
+[data-pp-filters-wrapper] [class*="viewOption"]:hover,
+[data-pp-embed] [class*="viewOption"]:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+}
+
+[data-pp-filters-wrapper] [class*="viewOption"][data-active="true"],
+[data-pp-embed] [class*="viewOption"][data-active="true"] {
+  background: var(--pp-white) !important;
+  border-color: var(--pp-white) !important;
+}
+
+[data-pp-filters-wrapper] [class*="viewOption"] svg {
+  color: var(--pp-white) !important;
+}
+
+[data-pp-filters-wrapper] [class*="viewOption"][data-active="true"] svg {
+  color: var(--pp-brand-primary) !important;
+}
+
+/* Slider styles in filters */
+[data-pp-filters] [class*="slider"] {
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: var(--pp-radius-md) !important;
+}
+
+[data-pp-filters] [class*="sliderLabels"] {
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+[data-pp-filters] [class*="sliderThumb"] {
+  background: var(--pp-white) !important;
+  border: 2px solid var(--pp-brand-primary) !important;
+  box-shadow: var(--pp-shadow-md) !important;
+}
+
+[data-pp-filters] [class*="sliderTrack"]:nth-of-type(2) {
+  background: var(--pp-white) !important;
+}
+
+/* ------------------------------------------
+   4. UNIT GRID - Premium Cards
+   ------------------------------------------ */
+[data-pp-unit-grid] {
+  padding: 16px !important;
+  gap: 20px !important;
+  background: transparent !important;
+}
+
+/* Unit card styling - Premium elegant design */
+[data-pp-embed] [class*="unitTile"] {
+  background: #ffffff !important;
+  border-radius: 16px !important;
+  overflow: visible !important;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease !important;
+  border: 1px solid #e5e7eb !important;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    0 4px 12px rgba(0, 0, 0, 0.03) !important;
+}
+
+[data-pp-embed] [class*="unitTile"]:hover {
+  transform: translateY(-3px) !important;
+  box-shadow:
+    0 8px 30px rgba(99, 102, 241, 0.15),
+    0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+}
+
+/* Card image area */
+[data-pp-embed] [class*="unitTileCover"] {
+  background: #f8fafc !important;
+  position: relative !important;
+  overflow: hidden !important;
+  border-radius: 16px 16px 0 0 !important;
+}
+
+[data-pp-embed] [class*="unitTileCover"] img {
+  transition: transform 0.4s ease !important;
+}
+
+[data-pp-embed] [class*="unitTile"]:hover [class*="unitTileCover"] img {
+  transform: scale(1.03) !important;
+}
+
+/* Card body */
+[data-pp-embed] [class*="unitTileBody"] {
+  padding: 16px 18px 18px !important;
+  background: #ffffff !important;
+  border-radius: 0 0 16px 16px !important;
+  pointer-events: none !important;
+}
+
+/* Card header - Unit name and price - remove ALL borders */
+[data-pp-embed] [class*="unitTileHead"],
+[data-pp-embed] [class*="unitTileHead"][data-border="true"] {
+  padding-bottom: 8px !important;
+  margin-bottom: 8px !important;
+  border: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  pointer-events: none !important;
+}
+
+/* Unit name and price spans - remove all borders/outlines */
+[data-pp-embed] [class*="unitTileHead"] span,
+[data-pp-embed] [class*="unitTileHead"] > * {
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  pointer-events: none !important;
+}
+
+/* Price — solid forest (no gradient text) */
+[data-pp-embed] [class*="unitTilePrice"] {
+  font-family: var(--pp-font-heading) !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  color: var(--pp-brand-primary) !important;
+  background: none !important;
+  -webkit-text-fill-color: unset !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
+}
+
+/* Attributes container */
+[data-pp-embed] [class*="unitTileAttrs"] {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  border: none !important;
+  padding: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Attribute styling - Clean minimal pills */
+[data-pp-embed] [class*="unitTileAttr"] {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 6px 10px !important;
+  background: var(--pp-gray-50) !important;
+  border-radius: var(--pp-radius-md) !important;
+  border: none !important;
+  flex-shrink: 0 !important;
+  pointer-events: none !important;
+}
+
+[data-pp-embed] [class*="attrIcon"] {
+  color: var(--pp-brand-primary) !important;
+  opacity: 1 !important;
+  flex-shrink: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  pointer-events: none !important;
+}
+
+[data-pp-embed] [class*="attrIcon"] svg {
+  width: 14px !important;
+  height: 14px !important;
+  pointer-events: none !important;
+}
+
+[data-pp-embed] [class*="attrLabel"] {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #475569 !important;
+  border: none !important;
+  white-space: nowrap !important;
+  pointer-events: none !important;
+}
+
+/* Status badge enhancement - Unit Tiles */
+[data-pp-unit-grid] [class*="statusBadge"],
+[data-pp-unit-grid] [class*="badge"][data-style="available"] {
+  background: var(--pp-success) !important;
+  color: white !important;
+  font-family: var(--pp-font-label) !important;
+  font-weight: 600 !important;
+  font-size: 10px !important;
+  padding: 4px 8px !important;
+  border-radius: var(--pp-radius-md) !important;
+}
+
+[data-pp-unit-grid] [class*="badge"][data-style="sold"],
+[data-pp-unit-grid] [class*="badge"][data-style="leased"] {
+  background: var(--pp-danger) !important;
+  color: white !important;
+  font-family: var(--pp-font-label) !important;
+  font-weight: 600 !important;
+  font-size: 10px !important;
+  padding: 4px 8px !important;
+  border-radius: var(--pp-radius-md) !important;
+  box-shadow: none !important;
+}
+
+[data-pp-unit-grid] [class*="badge"][data-style="reserved"],
+[data-pp-unit-grid] [class*="badge"][data-style="onhold"] {
+  background: var(--pp-gray-600) !important;
+  color: white !important;
+  font-family: var(--pp-font-label) !important;
+  font-weight: 600 !important;
+  font-size: 10px !important;
+  padding: 4px 8px !important;
+  border-radius: var(--pp-radius-md) !important;
+}
+
+/* ------------------------------------------
+   5. UNIT LIST TABLE
+   ------------------------------------------ */
+[data-pp-unit-list] {
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+[data-pp-unit-list] table {
+  border-collapse: separate !important;
+  border-spacing: 0 8px !important;
+}
+
+/* Table header */
+[data-pp-unit-list] [class*="listHead"] {
+  background: transparent !important;
+}
+
+[data-pp-unit-list] [class*="listHeadCell"] {
+  color: var(--pp-gray-500) !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  font-size: 11px !important;
+  letter-spacing: 0.6px !important;
+  padding: 8px 16px !important;
+}
+
+/* Table rows */
+[data-pp-unit-list] [class*="listRow"] {
+  background: var(--pp-white) !important;
+  transition: all 0.25s ease !important;
+  box-shadow: var(--pp-shadow-xs) !important;
+}
+
+[data-pp-unit-list] [class*="listRow"]:hover {
+  background: var(--pp-brand-light) !important;
+  transform: scale(1.005) !important;
+  box-shadow: var(--pp-shadow-md) !important;
+}
+
+[data-pp-unit-list] [class*="listRowCell"] {
+  padding: 14px 16px !important;
+  color: var(--pp-gray-700) !important;
+  font-size: 14px !important;
+}
+
+[data-pp-unit-list] [class*="listRow"]:hover [class*="listRowCell"] {
+  color: var(--pp-brand-primary) !important;
+}
+
+/* Row corner radius */
+[data-pp-unit-list] [class*="listRowCell"]:first-child {
+  border-radius: var(--pp-radius-md) 0 0 var(--pp-radius-md) !important;
+}
+
+[data-pp-unit-list] [class*="listRowCell"]:last-child {
+  border-radius: 0 var(--pp-radius-md) var(--pp-radius-md) 0 !important;
+}
+
+/* ------------------------------------------
+   6. STATUS BADGES
+   ------------------------------------------ */
+[data-pp-embed] [class*="badge"] {
+  border-radius: var(--pp-radius-full) !important;
+  font-weight: 600 !important;
+  font-size: 11px !important;
+  letter-spacing: 0.3px !important;
+  padding: 5px 12px !important;
+  text-transform: capitalize !important;
+  border: none !important;
+}
+
+[data-pp-embed] [class*="badge"][data-style="available"] {
+  background: var(--pp-success-bg) !important;
+  color: var(--pp-success) !important;
+}
+
+[data-pp-embed] [class*="badge"][data-style="sold"],
+[data-pp-embed] [class*="badge"][data-style="leased"] {
+  background: var(--pp-danger-bg) !important;
+  color: var(--pp-danger) !important;
+}
+
+[data-pp-embed] [class*="badge"][data-style="onhold"] {
+  background: var(--pp-warning-bg) !important;
+  color: var(--pp-warning) !important;
+}
+
+/* Status badge container */
+[data-pp-embed] [class*="statusBadgeContainer"] {
+  background: transparent !important;
+  right: 12px !important;
+  bottom: 12px !important;
+}
+
+/* ------------------------------------------
+   7. CANVAS / FLOOR PLAN
+   ------------------------------------------ */
+[data-pp-canvas] {
+  border-radius: var(--pp-radius-xl) !important;
+  overflow: hidden !important;
+  background: var(--pp-gray-50) !important;
+  border: 1px solid var(--pp-gray-200) !important;
+}
+
+[data-pp-canvas] img {
+  border-radius: var(--pp-radius-lg) !important;
+}
+
+/* Navigation buttons - Back/Floor button */
+[data-pp-embed] [class*="coverAction"],
+[data-pp-embed] [class*="overlayCont"] {
+  background: var(--pp-white) !important;
+  border-radius: var(--pp-radius-full) !important;
+  border: none !important;
+  transition: all 0.2s ease !important;
+  padding: 8px !important;
+  gap: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+[data-pp-embed] [class*="coverAction"]:hover,
+[data-pp-embed] [class*="overlayCont"]:hover {
+  background: var(--pp-gray-50) !important;
+  transform: translateY(-1px) !important;
+}
+
+[data-pp-embed] [class*="coverAction"] svg,
+[data-pp-embed] [class*="overlayCont"] svg {
+  color: var(--pp-brand-primary) !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+[data-pp-embed] [class*="coverActionLabel"] {
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  color: var(--pp-gray-700) !important;
+}
+
+/* ------------------------------------------
+   8. UNIT DETAIL VIEW
+   ------------------------------------------ */
+[data-pp-scope="unit"] [data-pp-layout] {
+  background: var(--pp-white) !important;
+}
+
+/* Unit sidebar card */
+[data-pp-embed] [class*="unitCard"] {
+  background: var(--pp-white) !important;
+  border-radius: var(--pp-radius-xl) !important;
+  padding-bottom: 10px !important;
+}
+
+/* Unit card head */
+[data-pp-embed] [class*="unitCardHead"] {
+  padding-bottom: 0 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: flex-start !important;
+}
+
+/* Unit name label */
+[data-pp-embed] [class*="unitName"] {
+  color: var(--pp-gray-500) !important;
+  font-weight: 500 !important;
+  margin-bottom: 2px !important;
+  padding-top: 14px !important;
+  letter-spacing: 0.3px !important;
+}
+
+/* Price label */
+[data-pp-embed] [class*="unitCardPriceLabel"],
+[data-pp-embed] [class*="unitPriceLabel"],
+[data-pp-embed] [class*="labelPrice"],
+[data-pp-scope="unit"] [class*="unitCardPriceLabel"],
+[data-pp-scope="unit"] [class*="unitPriceLabel"],
+[data-pp-embed][data-pp-scope="unit"] [class*="unitCardPriceLabel"],
+[data-pp-embed][data-pp-scope="unit"] [class*="unitPriceLabel"] {
+  font-family: var(--pp-font-label) !important;
+  font-size: 11px !important;
+  color: var(--pp-gray-500) !important;
+  margin-bottom: 4px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.14em !important;
+  font-weight: 600 !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Unit price — Cormorant, solid */
+[data-pp-embed] [class*="unitPrice"] {
+  font-family: var(--pp-font-heading) !important;
+  font-weight: 600 !important;
+  color: var(--pp-gray-900) !important;
+  letter-spacing: -0.02em !important;
+  margin-top: 0 !important;
+  line-height: 1.1 !important;
+  background: none !important;
+  -webkit-text-fill-color: unset !important;
+}
+
+/* Unit card top section with price and badge */
+[data-pp-embed] [class*="unitCardTop"] {
+  margin-bottom: 16px !important;
+  gap: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+}
+
+/* ===== AVAILABILITY BADGES - Premium Styling ===== */
+[data-pp-embed] [class*="unitCardTop"] [class*="badge"],
+[data-pp-embed] [class*="badge"] {
+  font-weight: 600 !important;
+  font-size: 12px !important;
+  padding: 6px 14px !important;
+  border-radius: var(--pp-radius-full) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* Available badge */
+[data-pp-embed] [class*="badge"][data-style="available"] {
+  background: var(--pp-success) !important;
+  color: var(--pp-white) !important;
+  box-shadow: none !important;
+}
+
+/* Sold badge */
+[data-pp-embed] [class*="badge"][data-style="sold"] {
+  background: var(--pp-danger) !important;
+  color: var(--pp-white) !important;
+  box-shadow: none !important;
+}
+
+/* Leased badge */
+[data-pp-embed] [class*="badge"][data-style="leased"] {
+  background: var(--pp-brand-accent) !important;
+  color: var(--pp-white) !important;
+  box-shadow: none !important;
+}
+
+/* Reserved / On Hold badge */
+[data-pp-embed] [class*="badge"][data-style="reserved"],
+[data-pp-embed] [class*="badge"][data-style="onhold"] {
+  background: var(--pp-gray-600) !important;
+  color: var(--pp-white) !important;
+  box-shadow: none !important;
+}
+
+/* Unavailable badge */
+[data-pp-embed] [class*="badge"][data-style="unavailable"] {
+  background: var(--pp-gray-400) !important;
+  color: var(--pp-white) !important;
+}
+
+/* ===== UNIT FACTS - Icon row styling ===== */
+[data-pp-embed] [class*="unitCardFacts"] {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  margin: 16px 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  border: none !important;
+}
+
+[data-pp-embed] [class*="unitCardFact"] {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 0 !important;
+}
+
+[data-pp-embed] [class*="unitCardFact"] svg {
+  color: var(--pp-brand-primary) !important;
+  opacity: 0.9 !important;
+}
+
+[data-pp-embed] [class*="unitCardFactLabel"] {
+  color: var(--pp-gray-700) !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+}
+
+[data-pp-embed] [class*="unitCardFactLabel"] span[style*="bold"] {
+  color: var(--pp-gray-900) !important;
+  font-weight: 700 !important;
+}
+
+/* ===== AMENITIES / INCLUSIONS - Tag Cloud ===== */
+[data-pp-embed] [class*="unitCardAmenities"] {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  padding: 16px 0 !important;
+  margin: 8px 0 !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border: none !important;
+}
+
+[data-pp-embed] [class*="unitCardAmenities"] [class*="badge"],
+[data-pp-embed] [class*="unitCardAmenities"] > div {
+  background: var(--pp-brand-primary) !important;
+  color: var(--pp-white) !important;
+  font-weight: 600 !important;
+  font-size: 11px !important;
+  padding: 8px 14px !important;
+  border-radius: var(--pp-radius-full) !important;
+  border: none !important;
+  box-shadow: 0 2px 8px rgba(45, 78, 45, 0.2) !important;
+  text-transform: none !important;
+  letter-spacing: 0.3px !important;
+  transition: all 0.2s ease !important;
+  margin: 0 !important;
+}
+
+[data-pp-embed] [class*="unitCardAmenities"] [class*="badge"]:hover,
+[data-pp-embed] [class*="unitCardAmenities"] > div:hover {
+  filter: brightness(1.1) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(45, 78, 45, 0.28) !important;
+}
+
+/* ===== EXTRA FIELDS SECTION ===== */
+[data-pp-embed] [class*="unitCardExtraFieldsWrapper"] {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)) !important;
+  gap: 12px !important;
+  margin: 16px 0 !important;
+  padding: 16px !important;
+  background: var(--pp-gray-50) !important;
+  border-radius: var(--pp-radius-lg) !important;
+}
+
+[data-pp-embed] [class*="extraFieldItem"] {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 4px !important;
+  padding: 12px !important;
+  background: var(--pp-white) !important;
+  border-radius: var(--pp-radius-md) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+}
+
+[data-pp-embed] [class*="extraFieldLabel"] {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: var(--pp-gray-500) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+[data-pp-embed] [class*="extraFieldValue"] {
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: var(--pp-gray-900) !important;
+}
+
+/* ===== DESCRIPTION SECTION ===== */
+[data-pp-embed] [class*="unitCardDescription"] {
+  margin: 16px 0 !important;
+  opacity: 1 !important;
+}
+
+[data-pp-embed] [class*="unitCardText"] {
+  color: var(--pp-gray-600) !important;
+  font-size: 14px !important;
+  line-height: 1.7 !important;
+  padding: 16px !important;
+  background: var(--pp-gray-50) !important;
+  border-radius: var(--pp-radius-lg) !important;
+  border-left: 3px solid var(--pp-brand-primary) !important;
+  margin: 0 !important;
+  border-bottom: none !important;
+}
+
+/* ===== SEPARATOR ===== */
+[data-pp-embed] [class*="seperator"] {
+  margin: 16px 0 !important;
+  border: none !important;
+  height: 1px !important;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--pp-gray-200) 50%,
+    transparent 100%
+  ) !important;
+}
+
+/* ===== ACTION BUTTONS ===== */
+[data-pp-embed] [class*="unitCardActions"] {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 10px !important;
+  margin-top: 20px !important;
+}
+
+[data-pp-embed] [class*="unitCardAction"] {
+  background: var(--pp-brand-primary) !important;
+  color: var(--pp-white) !important;
+  border-radius: var(--pp-radius-lg) !important;
+  font-family: var(--pp-font-body) !important;
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  padding-top: 14px !important;
+  padding-left: 14px !important;
+  transition: all 0.2s ease !important;
+  box-shadow: var(--pp-shadow-sm) !important;
+  border: none !important;
+  text-transform: none !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+[data-pp-embed] [class*="unitCardAction"]:hover {
+  background: var(--pp-brand-secondary) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: var(--pp-shadow-md) !important;
+  filter: none !important;
+}
+
+[data-pp-embed] [class*="unitCardAction"] svg {
+  color: var(--pp-white) !important;
+  flex-shrink: 0 !important;
+}
+
+/* ===== SHORTLIST / FAVORITE BUTTON ===== */
+[data-pp-embed] [class*="shortlistMenu"] {
+  position: relative !important;
+  top: 0px !important;
+}
+
+[data-pp-embed] [class*="shortlistAction"] {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  background: var(--pp-white) !important;
+  border-radius: var(--pp-radius-lg) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+[data-pp-embed] [class*="shortlistAction"]:hover {
+  background: var(--pp-brand-light) !important;
+}
+
+[data-pp-embed] [class*="shortlistAction"] svg {
+  color: var(--pp-gray-400) !important;
+  box-shadow: none !important;
+  transition: all 0.2s ease !important;
+}
+
+[data-pp-embed]
+  [class*="shortlistMenu"][data-shortlisted="true"]
+  [class*="shortlistAction"]
+  svg {
+  color: #ef4444 !important;
+  fill: #ef4444 !important;
+  box-shadow: none !important;
+}
+
+[data-pp-embed] [class*="shortlistActionLabel"] {
+  font-weight: 500 !important;
+  font-size: 13px !important;
+  box-shadow: none !important;
+  color: var(--pp-gray-700) !important;
+}
+
+/* Shortlist popup */
+[data-pp-embed] [class*="shortlistPopup"],
+[data-pp-scope="unit"] [class*="shortlistPopup"] {
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  border: none !important;
+  overflow: hidden !important;
+  min-width: 180px !important;
+}
+
+[data-pp-embed] [class*="shortlistPopupRow"],
+[data-pp-scope="unit"] [class*="shortlistPopupRow"] {
+  padding: 12px 16px !important;
+  transition: all 0.15s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  cursor: pointer !important;
+  background: transparent !important;
+}
+
+[data-pp-embed] [class*="shortlistPopupRow"]:hover,
+[data-pp-scope="unit"] [class*="shortlistPopupRow"]:hover {
+  background: rgba(45, 78, 45, 0.08) !important;
+}
+
+[data-pp-embed] [class*="shortlistPopupRow"] svg,
+[data-pp-scope="unit"] [class*="shortlistPopupRow"] svg {
+  color: #6b7280 !important;
+  width: 16px !important;
+  height: 16px !important;
+  flex-shrink: 0 !important;
+}
+
+[data-pp-embed] [class*="shortlistPopupRow"]:hover svg,
+[data-pp-scope="unit"] [class*="shortlistPopupRow"]:hover svg {
+  color: #5b4cdb !important;
+}
+
+[data-pp-embed] [class*="shortlistPopupRow"] span,
+[data-pp-scope="unit"] [class*="shortlistPopupRow"] span {
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #374151 !important;
+  background: transparent !important;
+}
+
+[data-pp-embed] [class*="shortlistPopupRow"]:hover span,
+[data-pp-scope="unit"] [class*="shortlistPopupRow"]:hover span {
+  color: #5b4cdb !important;
+}
+
+/* shortlistPopupRowBG variant */
+[data-pp-embed] [class*="shortlistPopupRowBG"],
+[data-pp-scope="unit"] [class*="shortlistPopupRowBG"] {
+  background: transparent !important;
+}
+
+[data-pp-embed] [class*="shortlistPopupRowBG"] span,
+[data-pp-scope="unit"] [class*="shortlistPopupRowBG"] span {
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+/* ===== SPONSORS SECTION ===== */
+[data-pp-embed] [class*="sponsorsTitle"] {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: var(--pp-gray-500) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 12px !important;
+}
+
+[data-pp-embed] [class*="sponsors-container"] {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 16px !important;
+  align-items: center !important;
+}
+
+[data-pp-embed] [class*="sponsor-img"] {
+  max-height: 40px !important;
+  width: auto !important;
+  opacity: 0.7 !important;
+  filter: grayscale(30%) !important;
+  transition: all 0.2s ease !important;
+}
+
+[data-pp-embed] [class*="sponsor-img"]:hover {
+  opacity: 1 !important;
+  filter: grayscale(0%) !important;
+}
+
+/* ===== COVER CONTAINER ===== */
+[data-pp-embed] [class*="cover"] {
+  border-radius: var(--pp-radius-xl) !important;
+  overflow: hidden !important;
+  background: var(--pp-gray-100) !important;
+}
+
+[data-pp-embed] [class*="coverContainer"],
+[data-pp-embed] [class*="coverLayoutContainer"] {
+  background: var(--pp-white) !important;
+  border-radius: var(--pp-radius-xl) !important;
+}
+
+[data-pp-embed] [class*="coverPlaceholder"] {
+  background: linear-gradient(
+    135deg,
+    var(--pp-gray-100) 0%,
+    var(--pp-gray-200) 100%
+  ) !important;
+  border-radius: var(--pp-radius-xl) !important;
+}
+
+/* ------------------------------------------
+   9. IMAGE GALLERY
+   ------------------------------------------ */
+[data-pp-embed] [class*="embla"] {
+  border-radius: var(--pp-radius-xl) !important;
+  overflow: hidden !important;
+}
+
+[data-pp-embed] [class*="embla__slide"] {
+  border-radius: var(--pp-radius-lg) !important;
+  overflow: hidden !important;
+}
+
+[data-pp-embed] [class*="embla__slide"] img {
+  transition: transform 0.3s ease !important;
+}
+
+[data-pp-embed] [class*="embla__slide"]:hover img {
+  transform: scale(1.02) !important;
+}
+
+[data-pp-embed] [class*="prevButton"],
+[data-pp-embed] [class*="nextButton"] {
+  background: var(--pp-white) !important;
+  box-shadow: var(--pp-shadow-lg) !important;
+  border: none !important;
+  width: 44px !important;
+  height: 44px !important;
+  border-radius: var(--pp-radius-full) !important;
+  transition: all 0.2s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+[data-pp-embed] [class*="prevButton"]:hover,
+[data-pp-embed] [class*="nextButton"]:hover {
+  background: var(--pp-brand-light) !important;
+  box-shadow: var(--pp-shadow-xl) !important;
+}
+
+[data-pp-embed] [class*="prevButton"] svg,
+[data-pp-embed] [class*="nextButton"] svg {
+  color: var(--pp-gray-600) !important;
+}
+
+[data-pp-embed] [class*="prevButton"]:hover svg,
+[data-pp-embed] [class*="nextButton"]:hover svg {
+  color: var(--pp-brand-primary) !important;
+}
+
+[data-pp-embed] [class*="maxButton"] {
+  background: var(--pp-white) !important;
+  box-shadow: var(--pp-shadow-lg) !important;
+  border: none !important;
+  border-radius: var(--pp-radius-full) !important;
+  transition: all 0.2s ease !important;
+}
+
+[data-pp-embed] [class*="maxButton"]:hover {
+  background: var(--pp-brand-light) !important;
+  transform: scale(1.1) !important;
+}
+
+[data-pp-embed] [class*="dotsLayout"] {
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(8px) !important;
+  border-radius: var(--pp-radius-full) !important;
+  padding: 8px 12px !important;
+}
+
+[data-pp-embed] [class*="dotButton"] {
+  width: 8px !important;
+  height: 8px !important;
+  background: rgba(255, 255, 255, 0.4) !important;
+  transition: all 0.2s ease !important;
+}
+
+[data-pp-embed] [class*="dotButton"][data-selected="true"] {
+  background: var(--pp-white) !important;
+  transform: scale(1.2) !important;
+}
+
+/* ------------------------------------------
+   10. MODALS
+   ------------------------------------------ */
+[data-pp-modal] {
+  backdrop-filter: blur(12px) !important;
+  background: rgba(17, 24, 39, 0.7) !important;
+}
+
+[data-pp-modal] > div,
+[data-pp-embed] [class*="takeoverInner"] {
+  border-radius: var(--pp-radius-2xl) !important;
+  box-shadow: var(--pp-shadow-xl) !important;
+  border: 1px solid var(--pp-gray-200) !important;
+  background: var(--pp-white) !important;
+}
+
+[data-pp-modal] [class*="takeoverHeader"],
+[data-pp-embed] [class*="takeoverHeader"] {
+  border-bottom: 1px solid var(--pp-gray-100) !important;
+  padding: 20px 24px !important;
+}
+
+[data-pp-modal] [class*="takeoverTitle"],
+[data-pp-embed] [class*="takeoverTitle"] {
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  color: var(--pp-gray-900) !important;
+}
+
+[data-pp-modal] [class*="takeoverClose"],
+[data-pp-embed] [class*="takeoverClose"] {
+  background: var(--pp-gray-100) !important;
+  border-radius: var(--pp-radius-full) !important;
+  width: 36px !important;
+  height: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+  opacity: 1 !important;
+}
+
+[data-pp-modal] [class*="takeoverClose"]:hover,
+[data-pp-embed] [class*="takeoverClose"]:hover {
+  background: var(--pp-danger) !important;
+  transform: rotate(90deg) !important;
+}
+
+[data-pp-modal] [class*="takeoverClose"]:hover svg,
+[data-pp-embed] [class*="takeoverClose"]:hover svg {
+  color: var(--pp-white) !important;
+}
+
+/* Form inputs */
+[data-pp-modal] [class*="popupInput"],
+[data-pp-embed] [class*="popupInput"] {
+  border: 2px solid var(--pp-gray-200) !important;
+  border-radius: var(--pp-radius-md) !important;
+  padding: 14px 16px !important;
+  font-size: 14px !important;
+  transition: all 0.2s ease !important;
+}
+
+[data-pp-modal] [class*="popupInput"]:focus,
+[data-pp-embed] [class*="popupInput"]:focus {
+  border-color: var(--pp-brand-primary) !important;
+  box-shadow: 0 0 0 3px var(--pp-brand-light) !important;
+}
+
+[data-pp-modal] [class*="popupButton"],
+[data-pp-embed] [class*="popupButton"] {
+  background: var(--pp-brand-primary) !important;
+  border-radius: var(--pp-radius-md) !important;
+  font-weight: 600 !important;
+  padding: 14px 20px !important;
+  transition: all 0.2s ease !important;
+}
+
+[data-pp-modal] [class*="popupButton"]:hover,
+[data-pp-embed] [class*="popupButton"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--pp-shadow-brand) !important;
+}
+
+/* ------------------------------------------
+   11. MAP POPUPS
+   ------------------------------------------ */
+[data-pp-embed] [class*="mapPopup"] {
+  border-radius: var(--pp-radius-xl) !important;
+  box-shadow: var(--pp-shadow-xl) !important;
+  overflow: hidden !important;
+}
+
+[data-pp-embed] [class*="mapPopupContent"] {
+  padding: 16px 20px !important;
+  background: var(--pp-white) !important;
+}
+
+/* ------------------------------------------
+   12. SCROLLBARS
+   ------------------------------------------ */
+[data-pp-embed] ::-webkit-scrollbar {
+  width: 6px !important;
+  height: 6px !important;
+}
+
+[data-pp-embed] ::-webkit-scrollbar-track {
+  background: var(--pp-gray-100) !important;
+  border-radius: var(--pp-radius-full) !important;
+}
+
+[data-pp-embed] ::-webkit-scrollbar-thumb {
+  background: var(--pp-gray-300) !important;
+  border-radius: var(--pp-radius-full) !important;
+  transition: background 0.2s ease !important;
+}
+
+[data-pp-embed] ::-webkit-scrollbar-thumb:hover {
+  background: var(--pp-gray-400) !important;
+}
+
+/* ------------------------------------------
+   13. SHORTLIST / FAVORITES
+   (See Unit Detail View section for comprehensive styling)
+   ------------------------------------------ */
+
+/* ------------------------------------------
+   14. PORTAL HEADER
+   ------------------------------------------ */
+[data-pp-header] {
+  background: var(--pp-gray-900) !important;
+  backdrop-filter: blur(10px) !important;
+}
+
+/* ------------------------------------------
+   15. LOADING STATES
+   ------------------------------------------ */
+[data-pp-embed] [class*="canvasPlaceholderBox"] {
+  background: linear-gradient(
+    135deg,
+    var(--pp-gray-100) 0%,
+    var(--pp-gray-200) 100%
+  ) !important;
+  border-radius: var(--pp-radius-xl) !important;
+}
+
+/* ------------------------------------------
+   16b. REQUEST-FORM HERO IMAGE (Style2B formImage)
+   ------------------------------------------
+   Portrait unit renders were forcing a huge min-height and
+   pushing the request form below the fold. Cap height by
+   breakpoint. Use [class*="formImage"] — hashed modules
+   like .Style2B_formImage__3cMK1 will change on rebuild.
+   ------------------------------------------ */
+
+/* Mobile — keep form reachable */
+[data-pp-embed] [class*="formImage"],
+[data-pp-modal] [class*="formImage"] {
+  min-height: 150px !important;
+  max-height: 180px !important;
+  height: 150px !important;
+  overflow: hidden !important;
+}
+
+[data-pp-embed] [class*="formImage"] img,
+[data-pp-modal] [class*="formImage"] img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center !important;
+  display: block !important;
+}
+
+/* Tablet */
+@media screen and (min-width: 768px) {
+  [data-pp-embed] [class*="formImage"],
+  [data-pp-modal] [class*="formImage"] {
+    min-height: 220px !important;
+    max-height: 260px !important;
+    height: 240px !important;
+  }
+}
+
+/* Desktop */
+@media screen and (min-width: 1024px) {
+  [data-pp-embed] [class*="formImage"],
+  [data-pp-modal] [class*="formImage"] {
+    min-height: 280px !important;
+    max-height: 340px !important;
+    height: 300px !important;
+  }
+}
+
+/* ------------------------------------------
+   16. BRANDING
+   ------------------------------------------ */
+[data-pp-embed] [class*="branding"] {
+  border-radius: var(--pp-radius-md) !important;
+  box-shadow: var(--pp-shadow-md) !important;
+  border: none !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+/* ------------------------------------------
+   17. RESPONSIVE DESIGN
+   ------------------------------------------ */
+@media screen and (max-width: 1200px) {
+  [data-pp-scope="project"] [data-pp-layout],
+  [data-pp-scope="floor"] [data-pp-layout] {
+    padding: 16px !important;
+    gap: 16px !important;
+  }
+
+  [data-pp-filters-wrapper] {
+    border-radius: var(--pp-radius-lg) !important;
+    padding: 16px !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  [data-pp-unit-grid] > div:hover,
+  [data-pp-embed] [class*="unitTile"]:hover {
+    transform: none !important;
+  }
+}
+
+/* ------------------------------------------
+   18. ENTRANCE ANIMATIONS (disabled for reliability)
+   ------------------------------------------ */
+/* Cards are visible immediately - no animation delays that could cause empty list */
+[data-pp-unit-grid] > div {
+  opacity: 1 !important;
+}
+
+/* ------------------------------------------
+   19. MAP POINTS OF INTEREST (POIs)
+   ------------------------------------------
+   POIs are the pins + popup cards shown next to your projects on the
+   enterprise map (enabled with ?pois=true). Their class names are
+   stable and global (NOT hashed), so you can target them directly.
+   Always add !important — the default styles are injected inline.
+
+   Available selectors:
+     .pp-poi-marker     Map pin wrapper
+     .pp-poi-image      Uploaded category icon (rendered as-is, no styling)
+     .pp-poi-pin        Default pin (shown when a category has no icon)
+     .pp-poi-popup      Popup wrapper (Mapbox)
+     .pp-poi-card       Popup info card
+     .pp-poi-thumb      Card thumbnail image
+     .pp-poi-title      Card title
+     .pp-poi-category   Card category pill
+     .pp-poi-desc       Card description
+   ------------------------------------------ */
+
+/* Pin — match the brand colour (default pin only; uploaded icons are shown as-is) */
+.pp-poi-marker .pp-poi-pin {
+  background: var(--pp-brand-primary) !important;
+  box-shadow: var(--pp-shadow-md) !important;
+}
+
+/* Popup card */
+.pp-poi-popup .mapboxgl-popup-content {
+  border-radius: var(--pp-radius-md) !important;
+  box-shadow: var(--pp-shadow-lg) !important;
+}
+.pp-poi-card .pp-poi-title {
+  color: var(--pp-gray-900) !important;
+}
+.pp-poi-card .pp-poi-category {
+  background: var(--pp-brand-light) !important;
+  color: var(--pp-brand-primary) !important;
+}
+.pp-poi-card .pp-poi-desc {
+  color: var(--pp-gray-500) !important;
+}

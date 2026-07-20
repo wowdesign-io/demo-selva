@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { storyblokEditable } from '@storyblok/react';
 
-const PROJECT_URL = 'https://app.planpoint.io/miami-wowdesign/laurent?lang=English';
+const PROJECT_URL = 'https://app.planpoint.io/miami-wowdesign/laurent?lang=English&customCss=true';
 
 export interface PlanpointEmbedBlok {
   _uid: string; component: 'planpoint_embed'
