@@ -1,18 +1,23 @@
 /**
- * SELVA / Planpoint — minimal fix only
- * Caps the tall portrait image above the unit request form.
+ * SELVA / Planpoint — minimal request-form fixes
+ * 1) Cap tall form hero image
+ * 2) Even spacing around that image
+ * 3) Visible close (X) button
  *
  * Upload: Style & Embed → Custom CSS → Replace
  * Embed URL needs: ?customCss=true
  */
 
-/* Mobile */
+/* ---- Request form image height ---- */
 [data-pp-embed] [class*="formImage"],
 [data-pp-modal] [class*="formImage"] {
   min-height: 150px !important;
   max-height: 180px !important;
   height: 150px !important;
   overflow: hidden !important;
+  margin: 16px 0 !important; /* even space above + below */
+  padding: 0 !important;
+  box-sizing: border-box !important;
 }
 
 [data-pp-embed] [class*="formImage"] img,
@@ -24,22 +29,65 @@
   display: block !important;
 }
 
-/* Tablet */
 @media screen and (min-width: 768px) {
   [data-pp-embed] [class*="formImage"],
   [data-pp-modal] [class*="formImage"] {
     min-height: 220px !important;
     max-height: 260px !important;
     height: 240px !important;
+    margin: 20px 0 !important;
   }
 }
 
-/* Desktop */
 @media screen and (min-width: 1024px) {
   [data-pp-embed] [class*="formImage"],
   [data-pp-modal] [class*="formImage"] {
     min-height: 280px !important;
     max-height: 340px !important;
     height: 300px !important;
+    margin: 24px 0 !important;
   }
+}
+
+/* ---- Close button — visible contrast ---- */
+[data-pp-modal] [class*="takeoverClose"],
+[data-pp-embed] [class*="takeoverClose"],
+[data-pp-modal] [class*="close"],
+[data-pp-embed] [class*="closeButton"],
+[data-pp-embed] [class*="CloseButton"] {
+  background: #1a2820 !important;
+  color: #fafaf7 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  opacity: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+}
+
+[data-pp-modal] [class*="takeoverClose"] svg,
+[data-pp-embed] [class*="takeoverClose"] svg,
+[data-pp-modal] [class*="close"] svg,
+[data-pp-embed] [class*="closeButton"] svg,
+[data-pp-embed] [class*="CloseButton"] svg,
+[data-pp-modal] [class*="takeoverClose"] path,
+[data-pp-embed] [class*="takeoverClose"] path {
+  color: #fafaf7 !important;
+  stroke: #fafaf7 !important;
+  fill: #fafaf7 !important;
+  opacity: 1 !important;
+}
+
+[data-pp-modal] [class*="takeoverClose"]:hover,
+[data-pp-embed] [class*="takeoverClose"]:hover,
+[data-pp-modal] [class*="close"]:hover,
+[data-pp-embed] [class*="closeButton"]:hover {
+  background: #2d4e2d !important;
+  opacity: 1 !important;
 }
