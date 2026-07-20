@@ -151,12 +151,12 @@
     0 24px 48px -8px rgba(26, 40, 32, 0.12), 0 8px 16px -4px rgba(26, 40, 32, 0.06);
   --pp-shadow-brand: 0 8px 24px -4px rgba(45, 78, 45, 0.22);
 
-  /* Radii — architectural, restrained (SELVA leans sharp) */
-  --pp-radius-sm: 2px;
-  --pp-radius-md: 4px;
-  --pp-radius-lg: 6px;
-  --pp-radius-xl: 8px;
-  --pp-radius-2xl: 10px;
+  /* Radii — SELVA is sharp (0). Keep full only for true circles (dots). */
+  --pp-radius-sm: 0;
+  --pp-radius-md: 0;
+  --pp-radius-lg: 0;
+  --pp-radius-xl: 0;
+  --pp-radius-2xl: 0;
   --pp-radius-full: 9999px;
 
   /* Type */
@@ -555,7 +555,7 @@
    6. STATUS BADGES
    ------------------------------------------ */
 [data-pp-embed] [class*="badge"] {
-  border-radius: var(--pp-radius-full) !important;
+  border-radius: 0 !important;
   font-weight: 600 !important;
   font-size: 11px !important;
   letter-spacing: 0.3px !important;
@@ -605,7 +605,7 @@
 [data-pp-embed] [class*="coverAction"],
 [data-pp-embed] [class*="overlayCont"] {
   background: var(--pp-white) !important;
-  border-radius: var(--pp-radius-full) !important;
+  border-radius: 0 !important;
   border: none !important;
   transition: all 0.2s ease !important;
   padding: 8px !important;
@@ -724,10 +724,10 @@
   box-shadow: none !important;
 }
 
-/* Available badge */
+/* Available badge — soft sage, not solid loud green */
 [data-pp-embed] [class*="badge"][data-style="available"] {
-  background: var(--pp-success) !important;
-  color: var(--pp-white) !important;
+  background: var(--pp-success-bg) !important;
+  color: var(--pp-success) !important;
   box-shadow: none !important;
 }
 
@@ -946,6 +946,27 @@
   height: 14px !important;
 }
 
+/* Header / portal Request CTAs — keep compact */
+[data-pp-cta-desktop],
+[data-pp-cta-mobile],
+[data-pp-header] [class*="cta"],
+[data-pp-header] [class*="Cta"],
+[data-pp-embed] [class*="headerCta"],
+[data-pp-embed] [class*="requestButton"],
+[data-pp-embed] [class*="RequestButton"] {
+  background: var(--pp-brand-primary) !important;
+  color: var(--pp-white) !important;
+  border-radius: var(--pp-radius-md) !important;
+  font-family: var(--pp-font-body) !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  padding: 8px 14px !important;
+  min-height: 0 !important;
+  height: auto !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
 /* ===== SHORTLIST / FAVORITE BUTTON ===== */
 [data-pp-embed] [class*="shortlistMenu"] {
   position: relative !important;
@@ -994,8 +1015,8 @@
 [data-pp-embed] [class*="shortlistPopup"],
 [data-pp-scope="unit"] [class*="shortlistPopup"] {
   background: #ffffff !important;
-  border-radius: 12px !important;
-  border: none !important;
+  border-radius: 0 !important;
+  border: 1px solid var(--pp-gray-200) !important;
   overflow: hidden !important;
   min-width: 180px !important;
 }
@@ -1121,22 +1142,22 @@
 }
 
 [data-pp-embed] [class*="embla__slide"] img {
-  transition: transform 0.3s ease !important;
+  transition: none !important;
 }
 
 [data-pp-embed] [class*="embla__slide"]:hover img {
-  transform: scale(1.02) !important;
+  transform: none !important;
 }
 
 [data-pp-embed] [class*="prevButton"],
 [data-pp-embed] [class*="nextButton"] {
   background: var(--pp-white) !important;
-  box-shadow: var(--pp-shadow-lg) !important;
-  border: none !important;
-  width: 44px !important;
-  height: 44px !important;
-  border-radius: var(--pp-radius-full) !important;
-  transition: all 0.2s ease !important;
+  box-shadow: var(--pp-shadow-sm) !important;
+  border: 1px solid var(--pp-gray-200) !important;
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 0 !important;
+  transition: background 0.15s ease !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -1160,34 +1181,35 @@
 
 [data-pp-embed] [class*="maxButton"] {
   background: var(--pp-white) !important;
-  box-shadow: var(--pp-shadow-lg) !important;
-  border: none !important;
-  border-radius: var(--pp-radius-full) !important;
-  transition: all 0.2s ease !important;
+  box-shadow: var(--pp-shadow-sm) !important;
+  border: 1px solid var(--pp-gray-200) !important;
+  border-radius: 0 !important;
+  transition: background 0.15s ease !important;
 }
 
 [data-pp-embed] [class*="maxButton"]:hover {
   background: var(--pp-brand-light) !important;
-  transform: scale(1.1) !important;
+  transform: none !important;
 }
 
 [data-pp-embed] [class*="dotsLayout"] {
-  background: rgba(0, 0, 0, 0.6) !important;
-  backdrop-filter: blur(8px) !important;
-  border-radius: var(--pp-radius-full) !important;
-  padding: 8px 12px !important;
+  background: rgba(26, 40, 32, 0.7) !important;
+  backdrop-filter: none !important;
+  border-radius: 0 !important;
+  padding: 6px 10px !important;
 }
 
 [data-pp-embed] [class*="dotButton"] {
-  width: 8px !important;
-  height: 8px !important;
+  width: 6px !important;
+  height: 6px !important;
+  border-radius: 0 !important;
   background: rgba(255, 255, 255, 0.4) !important;
-  transition: all 0.2s ease !important;
+  transition: background 0.15s ease !important;
 }
 
 [data-pp-embed] [class*="dotButton"][data-selected="true"] {
   background: var(--pp-white) !important;
-  transform: scale(1.2) !important;
+  transform: none !important;
 }
 
 /* ------------------------------------------
