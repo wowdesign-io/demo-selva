@@ -679,19 +679,22 @@ body {
   background: var(--pp-white) !important;
 }
 
-/* Unit sidebar card */
+/* Unit sidebar card — inset content from edges */
 [data-pp-embed] [class*="unitCard"] {
   background: var(--pp-white) !important;
-  border-radius: var(--pp-radius-xl) !important;
-  padding-bottom: 10px !important;
+  border-radius: 0 !important;
+  padding: 16px !important;
+  box-sizing: border-box !important;
 }
 
 /* Unit card head */
 [data-pp-embed] [class*="unitCardHead"] {
-  padding-bottom: 0 !important;
+  padding: 0 0 8px !important;
+  margin: 0 !important;
   display: flex !important;
   justify-content: space-between !important;
   align-items: flex-start !important;
+  gap: 12px !important;
 }
 
 /* Unit name label */
