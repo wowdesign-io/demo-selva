@@ -3,25 +3,39 @@
  * 1) Cap tall form hero image
  * 2) Image full-width (close overlays — no fat right gap)
  * 3) Visible close (X) button
- * 4) Zero border-radius in the request modal
+ * 4) Zero border-radius everywhere in the viewer
  *
  * Upload: Style & Embed → Custom CSS → Replace
  * Embed URL needs: ?customCss=true
  */
 
-/* ---- Sharp corners in request modal (inputs, chips, panels, image) ---- */
+/* ---- Sharp corners — entire Planpoint viewer ---- */
+[data-pp-embed],
+[data-pp-embed] *,
+[data-pp-embed] *::before,
+[data-pp-embed] *::after,
 [data-pp-modal],
 [data-pp-modal] *,
 [data-pp-modal] *::before,
 [data-pp-modal] *::after,
-[data-pp-embed] [class*="formImage"],
-[data-pp-embed] [class*="formImage"] *,
-[data-pp-embed] [class*="popupInput"],
-[data-pp-embed] [class*="popupButton"],
-[data-pp-embed] [class*="takeoverInner"],
-[data-pp-embed] [class*="takeoverHeader"],
-[data-pp-embed] [class*="takeoverClose"],
-[data-pp-embed] [class*="closeButton"] {
+[data-pp-container],
+[data-pp-container] *,
+[data-pp-layout],
+[data-pp-layout] *,
+[data-pp-filters-wrapper],
+[data-pp-filters-wrapper] *,
+[data-pp-filters],
+[data-pp-filters] *,
+[data-pp-unit-grid],
+[data-pp-unit-grid] *,
+[data-pp-unit-list],
+[data-pp-unit-list] *,
+[data-pp-unit-view],
+[data-pp-unit-view] *,
+[data-pp-canvas],
+[data-pp-canvas] *,
+[data-pp-header],
+[data-pp-header] * {
   border-radius: 0 !important;
 }
 
