@@ -198,13 +198,13 @@ body {
 }
 
 /* ------------------------------------------
-   3. FILTERS — flush with page (no nested bar)
+   3. FILTERS — solid forest bar (SELVA primary)
    ------------------------------------------ */
 [data-pp-filters-wrapper] {
-  background: transparent !important;
+  background: var(--pp-brand-primary) !important;
   border: none !important;
   border-radius: 0 !important;
-  padding: 0 0 8px !important;
+  padding: 14px 16px !important;
   box-shadow: none !important;
   position: relative !important;
   overflow: visible !important;
@@ -223,9 +223,9 @@ body {
   display: none !important;
 }
 
-/* Filter labels — Barlow uppercase (SELVA labels) */
+/* Filter labels — Barlow on green */
 [data-pp-filters] [class*="dropdownLabelTitle"] {
-  color: var(--pp-gray-500) !important;
+  color: rgba(250, 250, 247, 0.65) !important;
   font-family: var(--pp-font-label) !important;
   font-size: 10px !important;
   font-weight: 600 !important;
@@ -235,27 +235,27 @@ body {
 
 [data-pp-filters] [class*="dropdownLabel"],
 [data-pp-filters] [class*="rangeLabel"] {
-  color: var(--pp-gray-800) !important;
+  color: #fafaf7 !important;
   font-weight: 500 !important;
 }
 
-/* Filter dropdowns */
+/* Filter dropdowns — white fields on green bar */
 [data-pp-filters] [class*="dropdownToggle"] {
-  background: var(--pp-white) !important;
-  border: 1px solid var(--pp-gray-200) !important;
-  border-radius: var(--pp-radius-md) !important;
+  background: #fafaf7 !important;
+  border: 1px solid transparent !important;
+  border-radius: 0 !important;
   backdrop-filter: none !important;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+  transition: border-color 0.15s ease !important;
 }
 
 [data-pp-filters] [class*="dropdownToggle"]:hover {
-  background: var(--pp-white) !important;
-  border-color: var(--pp-brand-primary) !important;
+  background: #ffffff !important;
+  border-color: var(--pp-brand-accent) !important;
   transform: none !important;
-  box-shadow: var(--pp-shadow-xs) !important;
+  box-shadow: none !important;
 }
 
-/* Filter icons */
+/* Filter icons on green bar */
 [data-pp-filters] [class*="dropdownIcon"] svg,
 [data-pp-filters] [class*="dropdownIcon"] path {
   color: var(--pp-gray-600) !important;
