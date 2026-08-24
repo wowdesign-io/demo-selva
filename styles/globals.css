@@ -22,7 +22,12 @@ html {
 /* wowdesign.io SELVA iframe embed — scroll cue (standalone visits keep default cursors) */
 html.is-embedded,
 html.is-embedded body {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%231A2820' stroke='%23FAFAF7' stroke-width='2'/%3E%3Cpath fill='%23FAFAF7' d='M32 11l5.5 6.5h-3.5v5h-4v-5H26.5zM32 53l-5.5-6.5h3.5v-5h4v5h3.5z'/%3E%3Ctext x='32' y='36.5' text-anchor='middle' font-family='system-ui%2Csans-serif' font-size='9' font-weight='700' fill='%23FAFAF7' letter-spacing='0.8'%3ESCROLL%3C/text%3E%3C/svg%3E") 32 32, ns-resize;
+  cursor: url('/cursors/embed-scroll.png') 32 32, ns-resize;
+}
+
+html.is-embedded.menu-open,
+html.is-embedded.menu-open body {
+  cursor: auto;
 }
 
 /* Interactive controls keep pointer (must beat inherited embed cursor) */

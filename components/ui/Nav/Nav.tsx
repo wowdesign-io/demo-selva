@@ -22,7 +22,11 @@ export default function Nav() {
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    document.documentElement.classList.toggle('menu-open', menuOpen);
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.classList.remove('menu-open');
+    };
   }, [menuOpen]);
 
   function closeMenu() {
