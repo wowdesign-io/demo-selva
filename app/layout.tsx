@@ -57,7 +57,7 @@ export default function RootLayout({
             loader curtain immediately so it never flashes before hydration. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{if(sessionStorage.getItem('selvaLoaded'))document.documentElement.classList.add('selva-loaded')}catch(e){}`,
+            __html: `try{if(sessionStorage.getItem('selvaLoaded'))document.documentElement.classList.add('selva-loaded');if(window.self!==window.top)document.documentElement.classList.add('is-embedded')}catch(e){}`,
           }}
         />
         <Loader />

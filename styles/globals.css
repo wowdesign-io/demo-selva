@@ -18,3 +18,25 @@ html {
 ::-webkit-scrollbar {
   display: none;
 }
+
+/* wowdesign.io SELVA iframe embed — scroll cue (standalone visits keep default cursors) */
+html.is-embedded,
+html.is-embedded body {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%231A2820' stroke='%23FAFAF7' stroke-width='1.5' d='M16 3l7 9h-4v8h4l-7 9-7-9h4v-8H9z'/%3E%3C/svg%3E") 16 16, ns-resize;
+}
+
+html.is-embedded a,
+html.is-embedded button,
+html.is-embedded [role='button'],
+html.is-embedded input,
+html.is-embedded select,
+html.is-embedded textarea,
+html.is-embedded label,
+html.is-embedded summary,
+html.is-embedded .res-inline-slider__track {
+  cursor: pointer;
+}
+
+html.is-embedded .res-inline-slider__track:active {
+  cursor: grabbing;
+}
