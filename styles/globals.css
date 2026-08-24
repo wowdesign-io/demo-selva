@@ -22,21 +22,30 @@ html {
 /* wowdesign.io SELVA iframe embed — scroll cue (standalone visits keep default cursors) */
 html.is-embedded,
 html.is-embedded body {
-  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Cpath fill='%231A2820' stroke='%23FAFAF7' stroke-width='1.5' d='M16 3l7 9h-4v8h4l-7 9-7-9h4v-8H9z'/%3E%3C/svg%3E") 16 16, ns-resize;
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='29' fill='%231A2820' stroke='%23FAFAF7' stroke-width='2'/%3E%3Cpath fill='%23FAFAF7' d='M32 11l5.5 6.5h-3.5v5h-4v-5H26.5zM32 53l-5.5-6.5h3.5v-5h4v5h3.5z'/%3E%3Ctext x='32' y='36.5' text-anchor='middle' font-family='system-ui%2Csans-serif' font-size='9' font-weight='700' fill='%23FAFAF7' letter-spacing='0.8'%3ESCROLL%3C/text%3E%3C/svg%3E") 32 32, ns-resize;
 }
 
-html.is-embedded a,
-html.is-embedded button,
-html.is-embedded [role='button'],
-html.is-embedded input,
-html.is-embedded select,
-html.is-embedded textarea,
-html.is-embedded label,
-html.is-embedded summary,
-html.is-embedded .res-inline-slider__track {
-  cursor: pointer;
+/* Interactive controls keep pointer (must beat inherited embed cursor) */
+html.is-embedded :is(
+  a,
+  button,
+  [role='button'],
+  [role='link'],
+  [role='tab'],
+  [role='menuitem'],
+  input,
+  select,
+  textarea,
+  label,
+  summary,
+  .res-inline-slider__track,
+  .scroller__indicator,
+  .res-cursor
+) {
+  cursor: pointer !important;
 }
 
-html.is-embedded .res-inline-slider__track:active {
-  cursor: grabbing;
+html.is-embedded .res-inline-slider__track:active,
+html.is-embedded .scroller__indicator:active {
+  cursor: grabbing !important;
 }
