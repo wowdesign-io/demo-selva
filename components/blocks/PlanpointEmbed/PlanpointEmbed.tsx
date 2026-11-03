@@ -1,9 +1,14 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { storyblokEditable } from '@storyblok/react';
+import '@/styles/selva/residences.css';
+import UnitSharePill, { type ActiveUnit, type UnitSharePlacement } from './UnitSharePill';
 
 const PROJECT_URL = 'https://app.planpoint.io/miami-wowdesign/laurent?lang=English&customCss=true';
+
+/** Flip to 'viewport' if the pill fights twin chrome. */
+const SHARE_PLACEMENT: UnitSharePlacement = 'container';
 
 export interface PlanpointEmbedBlok {
   _uid: string; component: 'planpoint_embed'
@@ -14,18 +19,31 @@ export interface PlanpointEmbedBlok {
 
 /* Planpoint embed controller.
    Keeps: size handshake (get_size -> embed reports height -> match iframe),
-   UTM passing, and fullscreen. Drops the handoff's parent->iframe scroll/click
-   forwarding (the official postMessage API documents no incoming messages).
+   UTM passing, fullscreen, and unit-share pill (parent-page deep links).
+   Drops the handoff's parent->iframe scroll/click forwarding (the official
+   postMessage API documents no incoming scroll/click messages).
    NOTE: a "floor hover highlights wrong floor / flickers" symptom is almost
    always Brave Shields blocking the cross-origin iframe (test in Chrome or with
    Shields off) — NOT this controller. See references/sops/planpoint-embed.md. */
 export default function PlanpointEmbed({ blok }: { blok?: PlanpointEmbedBlok }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLIFrameElement>(null);
+  const [activeUnit, setActiveUnit] = useState<ActiveUnit | null>(null);
 
   const overline = blok?.overline ?? 'Digital Twin · Select & Reserve';
   const title    = blok?.title    ?? 'Explore Every Residence';
   const hint     = blok?.hint     ?? 'Hover a floor to preview available units. Select any residence to view its floorplan, imagery, and delivery date — then request directly.';
+
+  /* Seed from URL deep-link so the pill shows before (or without) PostMessage. */
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const u = params.get('u');
+    if (!u) return;
+    setActiveUnit({
+      unitName: u,
+      floorName: params.get('f') || undefined,
+    });
+  }, []);
 
   useEffect(() => {
     const iframe = frameRef.current;
@@ -134,6 +152,25 @@ export default function PlanpointEmbed({ blok }: { blok?: PlanpointEmbedBlok }) 
 
     function onMessage(event: MessageEvent) {
       const data = event.data;
+
+      /* Planpoint analytics PostMessage → unit share pill */
+      if (data && data.type === 'planpoint-event') {
+        const eventName = data.event as string | undefined;
+        const payload = (data.data || {}) as {
+          unitName?: string;
+          floorName?: string;
+        };
+        if (eventName === 'unit-viewed' && payload.unitName) {
+          setActiveUnit({
+            unitName: String(payload.unitName),
+            floorName: payload.floorName ? String(payload.floorName) : undefined,
+          });
+        } else if (eventName === 'floor-viewed' || eventName === 'project-viewed') {
+          setActiveUnit(null);
+        }
+        return;
+      }
+
       if (data && data.type === 'fullscreen') {
         if (data.active) {
           savedScrollY = window.scrollY || document.documentElement.scrollTop;
@@ -185,16 +222,19 @@ export default function PlanpointEmbed({ blok }: { blok?: PlanpointEmbedBlok }) 
         <div
           ref={containerRef}
           id="digital-twin-container"
-          style={{ position: 'relative', overflow: 'hidden', width: '100%', height: '100vh', transition: 'all 0.2s ease' }}
+          className="res-planpoint__frameWrap"
         >
           <iframe
             ref={frameRef}
             id="digital-twin-frame"
             frameBorder="0"
             allowFullScreen
-            style={{ position: 'relative', top: 0, left: 0, bottom: 0, right: 0, width: '100%', minHeight: '100vh' }}
+            className="res-planpoint__frame"
             title="SELVA Residences — Digital Twin"
           />
+          {activeUnit ? (
+            <UnitSharePill unit={activeUnit} placement={SHARE_PLACEMENT} />
+          ) : null}
         </div>
       </div>
     </section>
