@@ -63,7 +63,6 @@ function smsHref(body: string): string {
 }
 
 export default function UnitSharePill({ unit, placement = 'container' }: Props) {
-  const [expanded, setExpanded] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const link = useMemo(
@@ -73,7 +72,6 @@ export default function UnitSharePill({ unit, placement = 'container' }: Props) 
   const message = useMemo(() => shareMessage(unit.unitName, link), [unit.unitName, link]);
 
   useEffect(() => {
-    setExpanded(false);
     setCopied(false);
   }, [unit.unitName, unit.floorName]);
 
@@ -109,37 +107,36 @@ export default function UnitSharePill({ unit, placement = 'container' }: Props) 
           text: `Have a look at Unit ${unit.unitName} at SELVA Residences.`,
           url: link,
         });
-        return;
       } catch {
-        /* user cancelled or share failed — fall through to expand */
+        /* cancelled */
       }
+      return;
     }
-    setExpanded((v) => !v);
-  }, [link, unit.unitName]);
+    await copyLink();
+  }, [copyLink, link, unit.unitName]);
 
   const placementClass =
     placement === 'viewport' ? 'unit-share-pill--viewport' : 'unit-share-pill--container';
 
   return (
     <div
-      className={`unit-share-pill ${placementClass}${expanded ? ' is-expanded' : ''}`}
+      className={`unit-share-pill ${placementClass}`}
       role="region"
       aria-label={`Share Unit ${unit.unitName}`}
     >
-      <button
-        type="button"
-        className="unit-share-pill__primary"
-        onClick={nativeShare}
-        aria-expanded={expanded}
-      >
-        <IconShare />
-        <span className="unit-share-pill__label">Share Unit {unit.unitName}</span>
-      </button>
-
-      <div className="unit-share-pill__channels" aria-hidden={!expanded}>
+      <div className="unit-share-pill__bar">
         <button
           type="button"
-          className="unit-share-pill__channel"
+          className="unit-share-pill__item unit-share-pill__item--share"
+          onClick={nativeShare}
+        >
+          <IconShare />
+          <span>Share Unit {unit.unitName}</span>
+        </button>
+        <span className="unit-share-pill__divider" aria-hidden="true" />
+        <button
+          type="button"
+          className="unit-share-pill__item"
           onClick={copyLink}
           aria-label={copied ? 'Link copied' : 'Copy link'}
         >
@@ -147,7 +144,7 @@ export default function UnitSharePill({ unit, placement = 'container' }: Props) 
           <span>{copied ? 'Copied' : 'Copy'}</span>
         </button>
         <a
-          className="unit-share-pill__channel"
+          className="unit-share-pill__item"
           href={`https://wa.me/?text=${encodeURIComponent(message)}`}
           target="_blank"
           rel="noopener noreferrer"
@@ -157,7 +154,7 @@ export default function UnitSharePill({ unit, placement = 'container' }: Props) 
           <span>WhatsApp</span>
         </a>
         <a
-          className="unit-share-pill__channel"
+          className="unit-share-pill__item"
           href={smsHref(message)}
           aria-label="Share via SMS"
         >
@@ -165,7 +162,7 @@ export default function UnitSharePill({ unit, placement = 'container' }: Props) 
           <span>SMS</span>
         </a>
         <a
-          className="unit-share-pill__channel"
+          className="unit-share-pill__item"
           href={`mailto:?subject=${encodeURIComponent(`SELVA Residences — Unit ${unit.unitName}`)}&body=${encodeURIComponent(message)}`}
           aria-label="Share via email"
         >
