@@ -4,8 +4,7 @@ import '@/styles/selva/residences.css'
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { storyblokEditable } from '@storyblok/react';
-
-const PROJECT_URL = 'https://app.planpoint.io/miami-wowdesign/laurent?lang=English';
+import { openPlanpointUnit } from '../PlanpointEmbed/openPlanpointUnit';
 
 interface SbAsset { filename: string; alt?: string }
 interface SbLink { linktype?: string; url?: string; cached_url?: string; target?: string }
@@ -61,18 +60,7 @@ const DEFAULT_CARDS: ResCardBlok[] = [
 ]
 
 function goToUnit(unitId: string, floorId: string) {
-  const iframe = document.getElementById('digital-twin-frame') as HTMLIFrameElement | null;
-  const section = document.getElementById('digital-twin');
-  if (iframe) {
-    let src = PROJECT_URL;
-    if (floorId) src += '&f=' + encodeURIComponent(floorId);
-    if (unitId) src += '&u=' + encodeURIComponent(unitId);
-    iframe.src = src;
-  }
-  if (section) {
-    const top = section.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: Math.max(0, top - 80), behavior: 'smooth' });
-  }
+  openPlanpointUnit(unitId, floorId);
 }
 
 export default function ResModelsSlider({ blok }: { blok?: ResModelsSliderBlok }) {

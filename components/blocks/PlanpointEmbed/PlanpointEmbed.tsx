@@ -4,8 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { storyblokEditable } from '@storyblok/react';
 import '@/styles/selva/residences.css';
 import UnitSharePill, { type ActiveUnit, type UnitSharePlacement } from './UnitSharePill';
-
-const PROJECT_URL = 'https://app.planpoint.io/miami-wowdesign/laurent?lang=English&customCss=true';
+import { PROJECT_URL, SELVA_OPEN_UNIT, type SelvaOpenUnitDetail } from './openPlanpointUnit';
 
 /** Flip to 'viewport' if the pill fights twin chrome. */
 const SHARE_PLACEMENT: UnitSharePlacement = 'container';
@@ -29,20 +28,41 @@ export default function PlanpointEmbed({ blok }: { blok?: PlanpointEmbedBlok }) 
   const containerRef = useRef<HTMLDivElement>(null);
   const frameRef = useRef<HTMLIFrameElement>(null);
   const [activeUnit, setActiveUnit] = useState<ActiveUnit | null>(null);
+  /* Deep-link / slider boots often fire floor-viewed before unit-viewed — don't wipe the pill. */
+  const ignoreHideUntilRef = useRef(0);
 
   const overline = blok?.overline ?? 'Digital Twin · Select & Reserve';
   const title    = blok?.title    ?? 'Explore Every Residence';
   const hint     = blok?.hint     ?? 'Hover a floor to preview available units. Select any residence to view its floorplan, imagery, and delivery date — then request directly.';
 
-  /* Seed from URL deep-link so the pill shows before (or without) PostMessage. */
+  function showUnit(unit: ActiveUnit, opts?: { pinMs?: number }) {
+    setActiveUnit(unit);
+    ignoreHideUntilRef.current = Date.now() + (opts?.pinMs ?? 2500);
+  }
+
+  /* Seed from URL deep-link + slider goToUnit events (iframe-only deep links skip PostMessage). */
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const u = params.get('u');
-    if (!u) return;
-    setActiveUnit({
-      unitName: u,
-      floorName: params.get('f') || undefined,
-    });
+    if (u) {
+      showUnit({
+        unitName: u,
+        floorName: params.get('f') || undefined,
+      }, { pinMs: 4000 });
+    }
+
+    function onOpenUnit(e: Event) {
+      const detail = (e as CustomEvent<SelvaOpenUnitDetail>).detail;
+      if (!detail?.unitName) return;
+      showUnit({
+        unitName: detail.unitName,
+        floorName: detail.floorName,
+      }, { pinMs: 4000 });
+    }
+
+    window.addEventListener(SELVA_OPEN_UNIT, onOpenUnit);
+    return () => window.removeEventListener(SELVA_OPEN_UNIT, onOpenUnit);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- mount-only seed + listener
   }, []);
 
   useEffect(() => {
@@ -161,11 +181,13 @@ export default function PlanpointEmbed({ blok }: { blok?: PlanpointEmbedBlok }) 
           floorName?: string;
         };
         if (eventName === 'unit-viewed' && payload.unitName) {
+          ignoreHideUntilRef.current = 0;
           setActiveUnit({
             unitName: String(payload.unitName),
             floorName: payload.floorName ? String(payload.floorName) : undefined,
           });
         } else if (eventName === 'floor-viewed' || eventName === 'project-viewed') {
+          if (Date.now() < ignoreHideUntilRef.current) return;
           setActiveUnit(null);
         }
         return;
