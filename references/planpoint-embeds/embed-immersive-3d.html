@@ -1,0 +1,24 @@
+﻿<!-- Source: Laurent Desprez email 2026-11-06 — embed-immersive-3d.html -->
+<!-- Project: https://app.planpoint.io/demo/planpoint3d?lang=English -->
+<!-- Note: Immersive can black-screen under Brave Shields / file:// — use Chrome + HTTPS. -->
+<div id='planpoint-planpoint3d-demo3d-container' style="position: relative; overflow: hidden; width: 100%; height: 100vh; transition: all 0.2s ease">
+   <iframe id='planpoint-planpoint3d-demo3d' frameBorder='0' allowFullScreen loading='lazy' title='Interactive building viewer' style="position: relative; top: 0; left: 0; bottom: 0; right: 0; width: 100%; min-height: 100vh;"></iframe>
+</div>
+<script>
+((() => {
+  if (typeof window === 'undefined' || document === 'undefined') return;
+  const projectUrl = 'https://app.planpoint.io/demo/planpoint3d?lang=English';
+  const boot = () => {
+    const iframe = document.getElementById('planpoint-planpoint3d-demo3d');
+    if (!iframe || iframe.dataset.loaded) return;
+    iframe.dataset.loaded = 'true';
+    iframe.src = projectUrl;
+    setInterval(() => { iframe.contentWindow && iframe.contentWindow.postMessage('get_size', '*'); }, 1000);
+  };
+  const el = document.getElementById('planpoint-planpoint3d-demo3d-container');
+  if ('IntersectionObserver' in window && el) {
+    const o = new IntersectionObserver((entries) => { if (entries.some(e => e.isIntersecting)) { o.disconnect(); boot(); } }, { rootMargin: '0px' });
+    o.observe(el);
+  } else boot();
+})());
+</script>

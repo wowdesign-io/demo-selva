@@ -12,6 +12,8 @@ const SHARE_PLACEMENT: UnitSharePlacement = 'container';
 export interface PlanpointEmbedBlok {
   _uid: string; component: 'planpoint_embed'
   overline?: string; title?: string; hint?: string
+  /** Optional override; defaults to SELVA PROJECT_URL. Showcase tiers use ShowcaseEmbed. */
+  project_url?: string
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [index: string]: any
 }
@@ -34,6 +36,7 @@ export default function PlanpointEmbed({ blok }: { blok?: PlanpointEmbedBlok }) 
   const overline = blok?.overline ?? 'Digital Twin · Select & Reserve';
   const title    = blok?.title    ?? 'Explore Every Residence';
   const hint     = blok?.hint     ?? 'Hover a floor to preview available units. Select any residence to view its floorplan, imagery, and delivery date — then request directly.';
+  const projectUrl = (blok?.project_url?.trim() || PROJECT_URL);
 
   function showUnit(unit: ActiveUnit, opts?: { pinMs?: number }) {
     setActiveUnit(unit);
@@ -84,9 +87,10 @@ export default function PlanpointEmbed({ blok }: { blok?: PlanpointEmbedBlok }) 
       token: urlParams.get('token'),
     };
 
+    const join = projectUrl.includes('?') ? '&' : '?';
     const iframeSrc =
-      PROJECT_URL +
-      (p.f ? '&f=' + encodeURIComponent(p.f) : '') +
+      projectUrl +
+      (p.f ? `${join}f=` + encodeURIComponent(p.f) : '') +
       (p.u ? '&u=' + encodeURIComponent(p.u) : '') +
       (p.utm_source ? '&utm_source=' + encodeURIComponent(p.utm_source) : '') +
       (p.utm_medium ? '&utm_medium=' + encodeURIComponent(p.utm_medium) : '') +
@@ -229,7 +233,7 @@ export default function PlanpointEmbed({ blok }: { blok?: PlanpointEmbedBlok }) 
       document.removeEventListener('mozfullscreenchange', fullscreenHandler);
       document.removeEventListener('MSFullscreenChange', fullscreenHandler);
     };
-  }, []);
+  }, [projectUrl]);
 
   return (
     <section id="digital-twin" className="res-planpoint" data-screen-label="Digital Twin" {...(blok ? storyblokEditable(blok) : {})}>
